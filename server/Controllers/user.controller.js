@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
     
 
     //generating the jwt token
-    const token = user.generateJWTToken();
+    const token = await user.generateJWTToken();
     user.password = undefined
     res.cookie('token', token, cookieOptions);
 
@@ -44,12 +44,42 @@ const register = async (req, res, next) => {
         message : 'User successfully registered'
     })
   } catch (error) {
-    return next(new AppError("Internal Server Error", 400));
+    return next(new AppError("Internal Server Error", 500));
   }
 };
 
-const login = (req, res) => {
-  res.send("Welcome to the login page!");
+const login = async (req, res, next) => {
+
+   try {
+    const {  email, password } = req.body;
+
+    if ( !email || !password) {
+      return next(new AppError("All fields are required 🙄", 400));
+    }
+
+    const user = await User.findOne({ email }).select('+password');
+    if (!user) {
+        return next(new AppError("Invalid Credential 🫥", 404)); // 404 for Not Found
+      }
+    if (!( await user.comparePassword(password))) {
+      return next(new AppError("Invalid Credential 🫥", 401));
+    }
+    //generate token
+    const token = await user.generateJWTToken()
+    user.password = undefined
+    res.cookie('token', token, cookieOptions);
+
+    res.status(200).json({
+        success: true,
+        message : 'User successfully logged in',
+        user
+    })
+    
+
+   } catch (error) {
+    return next(new AppError("Internal Server Error", 500));
+   }
+
 };
 
 export { register, login };
