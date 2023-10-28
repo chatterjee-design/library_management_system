@@ -82,4 +82,23 @@ const login = async (req, res, next) => {
 
 };
 
-export { register, login };
+const logout = async (req, res, next) => {
+    try {
+        const cookieOption = {
+            expires: new Date(), // current expiry date
+            httpOnly: true, //  not able to modify  the cookie in client side
+          };
+      
+          // return response with cookie without token
+          res.cookie("token", null, cookieOption);
+
+          res.status(200).json({
+            success: true,
+            message : 'User successfully logged out',
+        })
+
+    } catch (error) {
+        return next(new AppError("Internal Server Error", 500));
+    }
+}
+export { register, login,  logout };

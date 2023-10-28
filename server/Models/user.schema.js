@@ -43,7 +43,7 @@ userSchema.methods = {
     //generate a jwt token for payload
     generateJWTToken: async function(){
         return await jwt.sign(
-            {id : this.id, secret : this.secret, roles : this.roles},
+            {id : this.id, secret : this.secret, roles : this.roles, email : this.email},
             process.env.SECRET_KEY,{
                 expiresIn: "7d"
             }
