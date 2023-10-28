@@ -101,4 +101,25 @@ const logout = async (req, res, next) => {
         return next(new AppError("Internal Server Error", 500));
     }
 }
-export { register, login,  logout };
+
+const getUser = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return next(new AppError("User not found 😒", 400));
+        }
+
+        res.status(200).json({
+            success: true,
+            message : 'User data retrieved successfully 😊',
+            data : user
+        })
+
+    } catch (error) {
+        return next(new AppError("Internal Server Error", 500));
+    }
+}
+export { register, login,  logout , getUser};

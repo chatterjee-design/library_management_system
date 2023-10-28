@@ -1,4 +1,5 @@
 import  Jwt  from "jsonwebtoken";
+import AppError from "../Utills/appError.js";
 
 const jwtAuth = async (req, res, next) => {
 try {
@@ -13,7 +14,9 @@ try {
     next()
 
 } catch (error) {
+    console.log(error.message);
     return next(new AppError("Authentication Problem 🫥", 500));
+    
 }
 };
 
