@@ -14,7 +14,7 @@ try {
     next()
 
 } catch (error) {
-    console.log(error.message);
+  
     return next(new AppError("Authentication Problem 🫥", 500));
     
 }
