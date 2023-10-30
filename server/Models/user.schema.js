@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+import crypto from "crypto";
 
 const userSchema = new Schema({
   fullname: {
@@ -20,10 +21,24 @@ const userSchema = new Schema({
     required: true,
     select : false,
   },
+  avatar: {
+    public_id: {
+      type: String,
+    },
+    secure_url: {
+      type: String,
+    },
+  },
   role:{
     type: String,
-    enum: ['USER', 'ADMIN']
-  }
+    enum: ['USER', 'ADMIN'],
+    default: 'USER',
+  },
+  forgotPasswordToken: String,
+  forgotPasswordExpiry: Date,
+},
+{
+  timestamps: true,
 });
 
 //hashing the password
@@ -48,7 +63,20 @@ userSchema.methods = {
                 expiresIn: "7d"
             }
         )
-    }
+    },
+    generateResetToken: async function(){
+      // creating a random token using node's built-in crypto module
+      const resetToken = crypto.randomBytes(16).toString("hex");
+
+      //hash the generated resetToken with sha256 algorithm and store it into db
+      this.forgotPasswordToken = crypto // or we can just save the resetToken
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+
+      // Adding forgot password expiry to 10 minutes
+      this.forgotPasswordExpiry = Date.now() + 10 * 60 * 1000;
+    },
 }
 
 const User = model('User', userSchema);
