@@ -137,17 +137,14 @@ const forgotPassword = async (req, res, next) => {
 
     //generating the rest password url
     const resetPassowordUrl = await `${req.protocol}://${req.hostname}/api/forgot-password/${resetToken}` //req.protocol = 'http or https' 
-    console.log(resetPassowordUrl);
+
 
     //send the url to the mail 
     const subject = 'reset password'
     const message = `You can reset your password by clicking here: <a href="${resetPassowordUrl}" target="_blank">Reset your password</a>`
     
    await sendEmail(subject, message, email)
-    
 
-   console.log(user.email)
-    console.log('email sent')
     res.status(200).json({
       success: true,
       message: "succesfull send the mail 😊",
