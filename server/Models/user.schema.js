@@ -67,15 +67,19 @@ userSchema.methods = {
     generateResetToken: async function(){
       // creating a random token using node's built-in crypto module
       const resetToken = crypto.randomBytes(16).toString("hex");
-
+    
       //hash the generated resetToken with sha256 algorithm and store it into db
       this.forgotPasswordToken = crypto // or we can just save the resetToken
       .createHash('sha256')
       .update(resetToken)
       .digest('hex');
-
+ 
       // Adding forgot password expiry to 10 minutes
-      this.forgotPasswordExpiry = Date.now() + 10 * 60 * 1000;
+      this.forgotPasswordExpiry = Date.now() + 17 * 60 * 1000;
+      
+     await this.save();
+     return resetToken;
+     
     },
 }
 

@@ -54,7 +54,7 @@ const login = async (req, res, next) => {
     if (!email || !password) {
       return next(new AppError("All fields are required 🙄", 400));
     }
-
+    
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return next(new AppError("Invalid Credential 🫥", 404)); // 404 for Not Found
@@ -125,13 +125,14 @@ const forgotPassword = async (req, res, next) => {
     }
 
     const user = await User.findOne({email})
+    
     if (!user) {
       return next(new AppError("User does not exists 🙄", 400));
     }
 
     //generating the reset token
     const resetToken = await user.generateResetToken();
-    
+    console.log(`resetToken from controller${resetToken}`);
     await user.save()
 
     //generating the rest password url
@@ -141,13 +142,12 @@ const forgotPassword = async (req, res, next) => {
     //send the url to the mail 
     const subject = 'reset password'
     const message = `You can reset your password by clicking here: <a href="${resetPassowordUrl}" target="_blank">Reset your password</a>`
+    
+   await sendEmail(subject, message, email)
+    
 
-    const sendMail = await sendEmail(subject, message, email)
-
-    if (!sendMail) {
-      return next(new AppError("Can not send the url, please try again", 400));
-    }
-
+   console.log(user.email)
+    console.log('email sent')
     res.status(200).json({
       success: true,
       message: "succesfull send the mail 😊",
@@ -155,7 +155,7 @@ const forgotPassword = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
