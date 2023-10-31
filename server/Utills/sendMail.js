@@ -7,14 +7,14 @@ const sendEmail = async function ( subject, message, email ) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
   auth: {
-    user: 'mousumichatterjee6379@gmail.com', 
-    pass: 'pjjp boea ywhw iqyb',    
+    user: process.env.SMTP_USERNAME, 
+    pass: process.env.SMTP_PASSWORD    
   }
   });
 
   // send mail with defined transport object
   await transporter.sendMail({
-    from: 'mousumichatterjee6379@gmail.com', // sender address
+    from: process.env.SMTP_FROM_EMAIL, // sender address
     to: email, // user email
     subject: subject, // Subject line
     html: message, // html body
