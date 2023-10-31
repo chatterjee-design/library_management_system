@@ -134,7 +134,7 @@ const forgotPassword = async (req, res, next) => {
 
     //generating the reset token
     const resetToken = await user.generateResetToken();
-    console.log(`resetToken from controller${resetToken}`);
+
     await user.save()
 
     //generating the rest password url
@@ -154,7 +154,7 @@ const forgotPassword = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log(error.message);
+
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -165,7 +165,7 @@ const forgotPassword = async (req, res, next) => {
   
   const { resetToken } = req.params;
   const { password } = req.body;
-  console.log(resetToken)
+
 
   if (!password) {
     return next(new AppError("All fields are required 🙄", 400));
@@ -197,7 +197,7 @@ const forgotPassword = async (req, res, next) => {
   });
 
  } catch (error) {
-  console.log(error.message);
+
   return next(new AppError("Internal Server Error", 500));
  }
 
