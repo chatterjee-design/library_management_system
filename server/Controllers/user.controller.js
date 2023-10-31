@@ -193,14 +193,50 @@ const forgotPassword = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "password has been changed 😊",
-   data: user.password
+
   });
 
  } catch (error) {
 
   return next(new AppError("Internal Server Error", 500));
  }
-
  }
 
-export { register, login, logout, getUser, forgotPassword, resetPassword};
+ //change password
+ const changePassword = async (req, res, next) => {
+    try {
+      const {oldPassword, newPassword} = req.body;
+    
+    if(!oldPassword || !newPassword) {
+      return next(new AppError("All fields are required 🙄", 400));
+    }
+
+    const userId = req.user.id;
+    const user = await User.findById(userId).select('+password');
+
+    if (!user) {
+      return next(new AppError("User does not exists 🙄", 400));
+    }
+
+    //check if the old pasword matches
+    const isPassMatch = await user.comparePassword(oldPassword);
+    if (!isPassMatch) {
+      return next(new AppError("Old-password does not matching 🙄", 400));
+    }
+
+    user.password = newPassword
+    
+    await user.save()
+
+    res.status(200).json({
+      success: true,
+      message: "password has been changed 😊",
+      data : user
+    });
+  
+    } catch (error) {
+      console.log(error.message)
+      return next(new AppError("Internal Server Error", 500));
+    }
+ }
+export { register, login, logout, getUser, forgotPassword, resetPassword,changePassword};
