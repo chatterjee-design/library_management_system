@@ -1,6 +1,8 @@
 import User from "../Models/user.schema.js";
 import AppError from "../Utills/appError.js";
 import sendEmail from "../Utills/sendMail.js";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
@@ -136,7 +138,7 @@ const forgotPassword = async (req, res, next) => {
     await user.save()
 
     //generating the rest password url
-    const resetPassowordUrl = await `${req.protocol}://${req.hostname}/api/forgot-password/${resetToken}` //req.protocol = 'http or https' 
+    const resetPassowordUrl = await `${req.protocol}://${req.hostname}/api/reset-password/${resetToken}` //req.protocol = 'http or https' 
 
 
     //send the url to the mail 
@@ -157,4 +159,48 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-export { register, login, logout, getUser, forgotPassword };
+// reset password
+ const resetPassword = async (req, res, next) => {
+ try {
+  
+  const { resetToken } = req.params;
+  const { password } = req.body;
+  console.log(resetToken)
+
+  if (!password) {
+    return next(new AppError("All fields are required 🙄", 400));
+  }
+
+  const forgotPasswordToken = crypto
+  .createHash('sha256')
+  .update(resetToken)
+  .digest('hex');
+
+  const user = await User.findOne({
+    forgotPasswordToken, 
+    forgotPasswordExpiry: {$gt : Date.now()}
+  })
+  if (!user) {
+    return next(new AppError("Token is invalid or expired", 400));
+  }
+
+  user.password = await bcrypt.hash(password, 10);
+  user.forgotPasswordExpiry = undefined;
+  user.forgotPasswordToken = undefined;
+   
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "User data retrieved successfully 😊",
+   data: user.password
+  });
+
+ } catch (error) {
+  console.log(error.message);
+  return next(new AppError("Internal Server Error", 500));
+ }
+
+ }
+
+export { register, login, logout, getUser, forgotPassword, resetPassword};
