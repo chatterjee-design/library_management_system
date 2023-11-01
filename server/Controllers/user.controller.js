@@ -44,24 +44,28 @@ const register = async (req, res, next) => {
   
     // run only if user send a file
     if(req.file && req.file.avatar){
+     try {
       console.log(req.file )
      
-        const {avatar} = req.file
+      const {avatar} = req.file
 
-        console.log(avatar)
-        const file = await cloudinary.v2.uploader.upload(req.file.path,{
-          folder : 'server',
-          width : 200,
-          height : 200,
-          gravity : 'faces',
-          crop : 'fill'
-        })
+      console.log(avatar)
+      const file = await cloudinary.v2.uploader.upload(req.file.path,{
+        folder : 'server',
+        width : 200,
+        height : 200,
+        gravity : 'faces',
+        crop : 'fill'
+      })
 
-        if (file) {
-          user.avatar.public_id = file.public_id;
-          user.avatar.secure_url = file.secure_url;
-        }
-       await user.save()
+      if (file) {
+        user.avatar.public_id = file.public_id;
+        user.avatar.secure_url = file.secure_url;
+      }
+     await user.save()
+     } catch (error) {
+      return next(new AppError("something went wrong", 400));
+     }
       
       
     }
