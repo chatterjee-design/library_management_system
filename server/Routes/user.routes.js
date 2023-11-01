@@ -1,10 +1,11 @@
 import  {Router } from "express";
 import { changePassword, forgotPassword, getUser, login, logout, register, resetPassword } from "../Controllers/user.controller.js";
 import jwtAuth from "../Middlewares/auth.middleware.js";
+import upload from "../Middlewares/multer.middleware.js";
 
 const router = Router();
  
-router.post('/register', register)
+router.post('/register',upload.single('avatar'), register)
 router.post('/login', login)
 router.get ('/logout',jwtAuth, logout)
 router.get ('/user', jwtAuth, getUser)
