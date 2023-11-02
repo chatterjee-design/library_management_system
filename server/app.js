@@ -33,4 +33,4 @@ app.all('*', (req, res) => {
 //error handling
 app.use(errorMiddleware)
 
-export default app
+export default app;
