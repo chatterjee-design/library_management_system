@@ -47,10 +47,6 @@ const register = async (req, res, next) => {
     if(req.file){
      try {
       
-      console.log(req.file )
-      const {avatar} = req.file
-
-      console.log(avatar)
       const file = await cloudinary.v2.uploader.upload(req.file.path,{
         folder : 'server',
         width : 200,
@@ -64,12 +60,12 @@ const register = async (req, res, next) => {
         user.avatar.secure_url = file.secure_url;
       }
      await user.save()
+
      fs.rm(`../uploads/${req.file.filename}`)
+
      } catch (error) {
       return next(new AppError("something went wrong", 400));
      }
-      
-      
     }
 
     //generating the jwt token
