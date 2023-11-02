@@ -41,12 +41,13 @@ const register = async (req, res, next) => {
         new AppError("User registration failed, please try again 🫥", 400)
       );
     }
+   
   
     // run only if user send a file
-    if(req.file && req.file.avatar){
+    if(req.file){
      try {
+      
       console.log(req.file )
-     
       const {avatar} = req.file
 
       console.log(avatar)
@@ -63,6 +64,7 @@ const register = async (req, res, next) => {
         user.avatar.secure_url = file.secure_url;
       }
      await user.save()
+     fs.rm(`../uploads/${req.file.filename}`)
      } catch (error) {
       return next(new AppError("something went wrong", 400));
      }
