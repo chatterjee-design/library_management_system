@@ -266,32 +266,58 @@ const changePassword = async (req, res, next) => {
   }
 };
 
-// //update user 
-// const updateUser = async (req, res, next) => {
-//   try {
+ //update user 
+const updateUser = async (req, res, next) => {
+  try {
     
-//     const {fullname} = req.body;
-//     if (!fullname) {
-//       return next(new AppError("All fields are required 🙄", 400));
-//     }
+    const {fullname} = req.body;
+    if (!fullname) {
+      return next(new AppError("All fields are required 🙄", 400));
+    }
     
-//     const {id} = req.params
+    const userId = req.user.id;
+    const user = await User.findById(userId)
+    if (!user) {
+      return next(new AppError("User does not exists 🙄", 400));
+    }
 
-//     const user = await User.findById(id);
-//     if (!user) {
-//       return next(new AppError("User does not exists 🙄", 400));
-//     }
+    user.fullname = fullname;
 
-//     user.fullname = fullname;
+    if (req.file){
+      try {
+      // delete the old img from the cloudinary
+        await cloudinary.v2.uploader.destroy(user.avatar.public_id)
 
-//     if (req.file){
-
-//     }
-
-//   } catch (error) {
-//     return next(new AppError("Internal Server Error", 500));
-//   }
-// }
+        const file = await cloudinary.v2.uploader.upload(req.file.path,{
+          folder : 'server',
+          width : 200,
+          height : 200,
+          gravity : 'faces',
+          crop : 'fill'
+        })
+  
+        if (file) {
+          user.avatar.public_id = file.public_id;
+          user.avatar.secure_url = file.secure_url;
+        }
+       await user.save()
+  
+       fs.rm(`../uploads/${req.file.filename}`)
+  
+       } catch (error) {
+        return next(new AppError("something went wrong", 400));
+       }
+    }
+    res.status(200).json({
+      success: true,
+      message: "Profile has been Updated😊",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error.message)
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
 
 export {
   register,
@@ -301,4 +327,5 @@ export {
   forgotPassword,
   resetPassword,
   changePassword,
+  updateUser
 };
