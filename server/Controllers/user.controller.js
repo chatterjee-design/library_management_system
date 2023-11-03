@@ -6,6 +6,7 @@ import crypto from "crypto";
 import cloudinary from "cloudinary"
 import fs from "fs/promises"
 
+
 //set cookieOptions for jwt token
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
@@ -196,7 +197,7 @@ const forgotPassword = async (req, res, next) => {
 
     //generating the rest password url
     const resetPassowordUrl =
-      await `${req.protocol}://${req.hostname}/api/reset-password/${resetToken}`; //req.protocol = 'http or https'
+      await `${req.protocol}://${req.hostname}:4000/api/user/reset-password/${resetToken}`; //req.protocol = 'http or https'
 
     //defining the subject and message fields for the mail
     const subject = "reset password";
@@ -339,7 +340,8 @@ const updateUser = async (req, res, next) => {
           user.avatar.secure_url = file.secure_url;
         }
        await user.save()
-  
+        
+       //delete the old img from the uplodes
        fs.rm(`../uploads/${req.file.filename}`)
   
        } catch (error) {
@@ -351,6 +353,7 @@ const updateUser = async (req, res, next) => {
       message: "Profile has been Updated😊",
       data: user,
     });
+
   } catch (error) {
     console.log(error.message)
     return next(new AppError("Internal Server Error", 500));

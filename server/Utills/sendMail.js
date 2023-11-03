@@ -16,7 +16,7 @@ const sendEmail = async function ( subject, message, email ) {
   await transporter.sendMail({
     from: process.env.SMTP_FROM_EMAIL, // sender address
     to: email, // user email
-    subject: subject, // Subject line
+    subject: subject, // Subject 
     html: message, // html body
   });
 };

@@ -43,9 +43,12 @@ const userSchema = new Schema({
 
 //hashing the password
 userSchema.pre('save',  async function(next){
+
+  //if the password is not modified
     if(!this.isModified('password')){
         return next()
     }
+
     this.password = await bcrypt.hash(this.password, 10)
 })
 
@@ -78,6 +81,8 @@ userSchema.methods = {
       this.forgotPasswordExpiry = Date.now() + 17 * 60 * 1000;
       
      await this.save();
+
+     //return the generated resetToken
      return resetToken;
      
     },
