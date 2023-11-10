@@ -4,6 +4,7 @@ import errorMiddleware from "./Middlewares/error.middleware.js";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from 'cloudinary';
 import userRouter from "./Routes/user.routes.js";
+import libraryRoute from "./Routes/library.routes.js";
 
 //config doten file
 config()
@@ -24,11 +25,12 @@ cloudinary.config({
 });
 
 app.get('/', (req, res) => {
-res.render('hii')
+res.send('hii')
 })
 
 //router setup
 app.use('/api/user', userRouter);
+app.use('/api/library', libraryRoute)
 
 //if page not found
 app.all('*', (req, res) => {
