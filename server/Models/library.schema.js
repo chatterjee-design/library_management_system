@@ -7,7 +7,7 @@ const librarySchema = new Schema({
         minlength : [4, "Name must be at least 4 characters"],
         maxlength : [25, "Name cant not exceed 25 characters"],
         trim : true,
-        unique : [true, "Book Name must be unique"]
+        unique: true,
     },
     description: {
         type : String,
@@ -22,7 +22,7 @@ const librarySchema = new Schema({
         trim : true
     },
     numberOfBooks : {
-        type : String,
+        type : Number,
         required : [true, "writer of the book is required"],
         trim : true
     },

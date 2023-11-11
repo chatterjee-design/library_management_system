@@ -1,5 +1,6 @@
 import Library from "../Models/library.schema.js";
 import AppError from "../Utills/appError.js";
+import cloudinary from "cloudinary"
 
 // create a new bookdetails
 const createBookDetails = async (req, res, next) => {
@@ -11,6 +12,12 @@ const createBookDetails = async (req, res, next) => {
       return next(new AppError("Every fields are required", 400));
     }
 
+    //if the book is already exist
+    const bookAlreadyExists = await Library.findOne({ bookName });
+    if (bookAlreadyExists) {
+      return next(new AppError("Book is already exist", 400));
+    }
+
     //create a new bookdetails
     const bookDetails = await Library.create({
       bookName,
@@ -18,13 +25,12 @@ const createBookDetails = async (req, res, next) => {
       writer,
       numberOfBooks,
       category,
+      thumbnail: {
+        public_id : bookName,
+        secure_url : "https://img.freepik.com/free-photo/front-view-stacked-books-diploma-earth-globe-with-copy-space-education-day_23-2149241048.jpg?w=360&t=st=1699683504~exp=1699684104~hmac=50e478cca7eb7964e58211cb71a49247a02d95a80cb2089138bc27ac9bd1af5d"
+      }
     });
 
-    //if the book is already exist
-    const bookAlreadyExists = await Library.findOne({ bookName });
-    if (bookAlreadyExists) {
-      return next(new AppError("Book is already exist", 400));
-    }
 
     //if any prblm while creating a new user
     if (!bookDetails) {
@@ -32,6 +38,30 @@ const createBookDetails = async (req, res, next) => {
     }
 
     // run only if user send a file
+    if (req.file) {
+        try {
+            const file = await cloudinary.v2.uploader.upload(req.file.path,{
+                folder : 'server',
+                width : 1000,
+                height : 1500,
+                gravity : 'faces',
+                crop : 'fill'
+              })
+           
+        if (file) {
+            // Initialize the thumbnail property if it doesn't exist
+            bookDetails.thumbnail = bookDetails.thumbnail || {};
+            // Set the properties
+            bookDetails.thumbnail.public_id = file.public_id;
+            bookDetails.thumbnail.secure_url = file.secure_url;
+        }
+
+        await bookDetails.save()
+        } catch (error) {
+            console.log(error.message)
+            return next(new AppError("something went wrong", 400));
+        }
+    }
 
     //if everything is fine
     res.status(200).json({
@@ -45,7 +75,7 @@ const createBookDetails = async (req, res, next) => {
   }
 };
 
-//get book details
+//get all book details
 const getAllBookDetails = async (req, res, next) => {
   try {
     //get all book details
