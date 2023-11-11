@@ -32,7 +32,13 @@ const librarySchema = new Schema({
           secure_url: {
             type: String,
           },
+    },
+    category : {
+        type : String,
+        required : [true, "Category of the book is required"],
     }
+},{
+    timestamps : true
 })
 
 const library = model('library', librarySchema)
