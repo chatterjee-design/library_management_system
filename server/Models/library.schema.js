@@ -1,12 +1,13 @@
 import {model, Schema } from "mongoose";
 
 const librarySchema = new Schema({
-    booksName: {
+    bookName: {
         type : String,
         required : [true, "Name of the book is required"],
         minlength : [4, "Name must be at least 4 characters"],
         maxlength : [25, "Name cant not exceed 25 characters"],
         trim : true,
+        unique : [true, "Book Name must be unique"]
     },
     description: {
         type : String,
@@ -41,6 +42,6 @@ const librarySchema = new Schema({
     timestamps : true
 })
 
-const library = model('library', librarySchema)
+const Library = model('library', librarySchema)
 
-export default library;
+export default Library;

@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { createBookDetails } from "../Controllers/library.controller.js";
 
 const libraryRoute = Router()
 
-libraryRoute.route('/').get( function(req, res){
-    res.send("hii from library")
-})
+libraryRoute
+.route('/')
+.post(createBookDetails)
 
 export default libraryRoute;
