@@ -1,6 +1,7 @@
 import Library from "../Models/library.schema.js";
 import AppError from "../Utills/appError.js";
 import cloudinary from "cloudinary";
+import fs from "fs/promises"
 
 // create a new bookdetails
 const createBookDetails = async (req, res, next) => {
@@ -57,6 +58,8 @@ const createBookDetails = async (req, res, next) => {
         }
 
         await bookDetails.save();
+
+        fs.rm(`../uploads/${req.file.filename}`)
       } catch (error) {
         return next(new AppError("something went wrong", 400));
       }
@@ -104,7 +107,7 @@ const getBookDetails = async (req, res, next) => {
     if (!book) {
       return next(new AppError("failed to fetch the book details", 404));
     }
-    
+
     //if everything is fine
     res.status(200).json({
       success: true,
