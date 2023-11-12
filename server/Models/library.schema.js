@@ -37,8 +37,14 @@ const librarySchema = new Schema({
     category : {
         type : String,
         required : [true, "Category of the book is required"],
+    },
+    publisher : {
+        type : String,
+        required : [true, "Category of the book is required"],
+        trim : true
     }
-},{
+},
+{
     timestamps : true
 })
 
