@@ -90,7 +90,6 @@ const getAllBookDetails = async (req, res, next) => {
       books,
     });
   } catch (error) {
-
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -129,14 +128,14 @@ const updateBookDetails = async (req, res, next) => {
     const bookDetails = await Library.findByIdAndUpdate(id);
 
     // if book is already exists
-    const bookAlreadyExists = await Library.findOne({ bookName })
+    const bookAlreadyExists = await Library.findOne({ bookName });
 
     //if book is not found in the db
     if (!bookDetails) {
       return next(new AppError("failed to fetch the book details", 404));
     }
 
-    //update book details 
+    //update book details
     if (bookName) {
       if (bookAlreadyExists) {
         return next(new AppError("Name of the book is already exists", 404));
@@ -185,12 +184,11 @@ const updateBookDetails = async (req, res, next) => {
 
         //delete uploads file after save completes in cloudinary
         fs.rm(`../uploads/${req.file.filename}`);
-
       } catch (error) {
         return next(new AppError("something went wrong", 400));
       }
     }
-    
+
     res.status(200).json({
       success: true,
       message: "Book Details has been Updated😊",
@@ -214,22 +212,20 @@ const deleteBookDetails = async (req, res, next) => {
       return next(new AppError("failed to fetch the book details", 404));
     }
 
-     //if everything is fine
-     res.status(200).json({
+    //if everything is fine
+    res.status(200).json({
       success: true,
       message: "Bookdetails deleted successfully ",
-      book,
     });
-
   } catch (error) {
     return next(new AppError("Internal Server Error", 500));
   }
-}
+};
 
 export {
   createBookDetails,
   getAllBookDetails,
   getBookDetails,
   updateBookDetails,
-  deleteBookDetails
+  deleteBookDetails,
 };
