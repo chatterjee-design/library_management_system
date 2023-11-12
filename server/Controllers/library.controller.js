@@ -122,7 +122,7 @@ const getBookDetails = async (req, res, next) => {
 //update a single book details
 const updateBookDetails = async (req, res, next) => {
   try {
-    const { bookName, description, writer, numberOfBooks, category } = req.body;
+    const { bookName, description, writer, numberOfBooks, category, publisher } = req.body;
 
     //get book id from the params
     const id = req.params._id;
@@ -154,6 +154,9 @@ const updateBookDetails = async (req, res, next) => {
     }
     if (writer) {
       bookDetails.writer = writer;
+    }
+    if (publisher) {
+      bookDetails.publisher = publisher;
     }
 
     await bookDetails.save();
