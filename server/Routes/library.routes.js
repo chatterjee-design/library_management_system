@@ -13,13 +13,13 @@ const libraryRoute = Router();
 
 libraryRoute
   .route("/")
-  .post(upload.single("thumbnail"), createBookDetails)
-  .get(getAllBookDetails);
+  .post(isLoggedIn, upload.single("thumbnail"), createBookDetails)
+  .get(isLoggedIn, getAllBookDetails);
 
 libraryRoute
   .route("/:_id")
-  .get( getBookDetails)
-  .put( upload.single("thumbnail"),updateBookDetails)
-  .delete(deleteBookDetails)
+  .get(isLoggedIn, getBookDetails)
+  .put(isLoggedIn, upload.single("thumbnail"),updateBookDetails)
+  .delete(isLoggedIn, deleteBookDetails)
 
 export default libraryRoute;
