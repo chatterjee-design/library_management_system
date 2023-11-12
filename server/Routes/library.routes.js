@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createBookDetails,
+  deleteBookDetails,
   getAllBookDetails,
   getBookDetails,
   updateBookDetails,
@@ -18,6 +19,7 @@ libraryRoute
 libraryRoute
   .route("/:_id")
   .get( getBookDetails)
-  .put(upload.single("thumbnail"),updateBookDetails);
+  .put( upload.single("thumbnail"),updateBookDetails)
+  .delete(deleteBookDetails)
 
 export default libraryRoute;

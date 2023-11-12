@@ -201,9 +201,35 @@ const updateBookDetails = async (req, res, next) => {
   }
 };
 
+//delete book details
+const deleteBookDetails = async (req, res, next) => {
+  try {
+    const id = req.params._id;
+
+    //get book details from the params
+    const book = await Library.findByIdAndDelete(id);
+
+    //if book is not found
+    if (!book) {
+      return next(new AppError("failed to fetch the book details", 404));
+    }
+
+     //if everything is fine
+     res.status(200).json({
+      success: true,
+      message: "Bookdetails deleted successfully ",
+      book,
+    });
+
+  } catch (error) {
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
+
 export {
   createBookDetails,
   getAllBookDetails,
   getBookDetails,
   updateBookDetails,
+  deleteBookDetails
 };
