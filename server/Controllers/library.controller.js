@@ -6,10 +6,10 @@ import fs from "fs/promises";
 // create a new bookdetails
 const createBookDetails = async (req, res, next) => {
   try {
-    const { bookName, description, writer, numberOfBooks, category } = req.body;
+    const { bookName, description, writer, numberOfBooks, category, publisher } = req.body;
 
     //if any fields are empty
-    if (!bookName || !description || !writer || !numberOfBooks || !category) {
+    if (!bookName || !description || !writer || !numberOfBooks || !category || !publisher) {
       return next(new AppError("Every fields are required", 400));
     }
 
@@ -26,6 +26,7 @@ const createBookDetails = async (req, res, next) => {
       writer,
       numberOfBooks,
       category,
+      publisher,
       thumbnail: {
         public_id: bookName,
         secure_url:
