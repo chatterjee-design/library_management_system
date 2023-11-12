@@ -1,7 +1,7 @@
 import Library from "../Models/library.schema.js";
 import AppError from "../Utills/appError.js";
 import cloudinary from "cloudinary";
-import fs from "fs/promises"
+import fs from "fs/promises";
 
 // create a new bookdetails
 const createBookDetails = async (req, res, next) => {
@@ -59,7 +59,8 @@ const createBookDetails = async (req, res, next) => {
 
         await bookDetails.save();
 
-        fs.rm(`../uploads/${req.file.filename}`)
+        //delete uploads file after save completes in cloudinary
+        fs.rm(`../uploads/${req.file.filename}`);
       } catch (error) {
         return next(new AppError("something went wrong", 400));
       }
@@ -72,7 +73,6 @@ const createBookDetails = async (req, res, next) => {
       data: bookDetails,
     });
   } catch (error) {
-    console.log("error" + error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -90,7 +90,7 @@ const getAllBookDetails = async (req, res, next) => {
       books,
     });
   } catch (error) {
-    console.log("error" + error.message);
+
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -102,7 +102,7 @@ const getBookDetails = async (req, res, next) => {
 
     //get book details from the params
     const book = await Library.findById(id);
-   
+
     //if book is not found
     if (!book) {
       return next(new AppError("failed to fetch the book details", 404));
@@ -115,9 +115,95 @@ const getBookDetails = async (req, res, next) => {
       book,
     });
   } catch (error) {
-    console.log("error" + error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
 
-export { createBookDetails, getAllBookDetails, getBookDetails };
+//update a single book details
+const updateBookDetails = async (req, res, next) => {
+  try {
+    const { bookName, description, writer, numberOfBooks, category } = req.body;
+
+    //get book id from the params
+    const id = req.params._id;
+    const bookDetails = await Library.findByIdAndUpdate(id);
+
+    // if book is already exists
+    const bookAlreadyExists = await Library.findOne({ bookName })
+
+    //if book is not found in the db
+    if (!bookDetails) {
+      return next(new AppError("failed to fetch the book details", 404));
+    }
+
+    //update book details 
+    if (bookName) {
+      if (bookAlreadyExists) {
+        return next(new AppError("Name of the book is already exists", 404));
+      }
+      bookDetails.bookName = bookName;
+    }
+    if (description) {
+      bookDetails.description = description;
+    }
+    if (numberOfBooks) {
+      bookDetails.numberOfBooks = numberOfBooks;
+    }
+    if (category) {
+      bookDetails.category = category;
+    }
+    if (writer) {
+      bookDetails.writer = writer;
+    }
+
+    await bookDetails.save();
+
+    //update book cover
+    if (req.file) {
+      try {
+        // delete the old img from the cloudinary
+        await cloudinary.v2.uploader.destroy(bookDetails.thumbnail.public_id);
+
+        //upload the new image to the cloudinary
+        const file = await cloudinary.v2.uploader.upload(req.file.path, {
+          folder: "server",
+          width: 1000,
+          height: 1500,
+          gravity: "faces",
+          crop: "fill",
+        });
+
+        if (file) {
+          // Initialize the thumbnail property if it doesn't exist
+          bookDetails.thumbnail = bookDetails.thumbnail || {};
+          // Set the properties
+          bookDetails.thumbnail.public_id = file.public_id;
+          bookDetails.thumbnail.secure_url = file.secure_url;
+        }
+
+        await bookDetails.save();
+
+        //delete uploads file after save completes in cloudinary
+        fs.rm(`../uploads/${req.file.filename}`);
+
+      } catch (error) {
+        return next(new AppError("something went wrong", 400));
+      }
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: "Book Details has been Updated😊",
+      data: bookDetails,
+    });
+  } catch (error) {
+    return next(new AppError("Internal Server Error", 500));
+  }
+};
+
+export {
+  createBookDetails,
+  getAllBookDetails,
+  getBookDetails,
+  updateBookDetails,
+};

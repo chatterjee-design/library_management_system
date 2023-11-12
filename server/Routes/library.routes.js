@@ -3,6 +3,7 @@ import {
   createBookDetails,
   getAllBookDetails,
   getBookDetails,
+  updateBookDetails,
 } from "../Controllers/library.controller.js";
 import upload from "../Middlewares/multer.middleware.js";
 import isLoggedIn from "../Middlewares/auth.middleware.js";
@@ -15,7 +16,8 @@ libraryRoute
   .get(getAllBookDetails);
 
 libraryRoute
-.route("/:_id")
-.get(isLoggedIn, getBookDetails);
+  .route("/:_id")
+  .get( getBookDetails)
+  .put(upload.single("thumbnail"),updateBookDetails);
 
 export default libraryRoute;
