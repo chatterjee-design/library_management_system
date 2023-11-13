@@ -199,7 +199,6 @@ const updateBookDetails = async (req, res, next) => {
       data: bookDetails,
     });
   } catch (error) {
-    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -223,7 +222,6 @@ const deleteBookDetails = async (req, res, next) => {
       message: "Bookdetails deleted successfully ",
     });
   } catch (error) {
-    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };

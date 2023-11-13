@@ -23,7 +23,7 @@ const librarySchema = new Schema({
     },
     numberOfBooks : {
         type : Number,
-        required : [true, "writer of the book is required"],
+        required : [true, "writer of the book is required."],
         trim : true
     },
     thumbnail : {
@@ -36,11 +36,10 @@ const librarySchema = new Schema({
     },
     category : {
         type : String,
-        required : [true, "Category of the book is required"],
+        required : [true, "Category of the book is required."],
     },
     publisher : {
         type : String,
-        required : [true, "publisher of the book is required"],
         trim : true
     }
 },
