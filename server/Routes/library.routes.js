@@ -16,6 +16,7 @@ libraryRoute
   .post(isLoggedIn, upload.single("thumbnail"), createBookDetails)
   .get(isLoggedIn, getAllBookDetails);
 
+  
 libraryRoute
   .route("/:_id")
   .get(isLoggedIn, getBookDetails)
