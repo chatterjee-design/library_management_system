@@ -310,7 +310,7 @@ const updateUser = async (req, res, next) => {
     
     //id from jwtAuth middleware
     const userId = req.user.id;
-    const user = await User.findById(userId)
+    const user = await User.findByIdAndUpdate(userId)
     if (!user) {
       return next(new AppError("User does not exists 🙄", 400));
     }
@@ -323,7 +323,7 @@ const updateUser = async (req, res, next) => {
       user.role = role;
     }
    
-
+    await user.save()
     //if req.file to update delete current file then rest is same as in register
     if (req.file){
       try {
