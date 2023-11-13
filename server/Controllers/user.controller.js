@@ -306,11 +306,7 @@ const changePassword = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     
-    const {fullname } = req.body;
-    //if any fields are empty
-    if (!fullname) {
-      return next(new AppError("All fields are required 🙄", 400));
-    }
+    const {fullname, role} = req.body
     
     //id from jwtAuth middleware
     const userId = req.user.id;
@@ -319,8 +315,14 @@ const updateUser = async (req, res, next) => {
       return next(new AppError("User does not exists 🙄", 400));
     }
 
-    //set the new name
-    user.fullname = fullname;
+    if (fullname) {
+      //set the new name
+      user.fullname = fullname;
+    }
+    if (role) {
+      user.role = role;
+    }
+   
 
     //if req.file to update delete current file then rest is same as in register
     if (req.file){
