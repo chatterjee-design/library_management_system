@@ -15,7 +15,7 @@ const cookieOptions = {
 
 const register = async (req, res, next) => {
   try {
-    const { fullname, email, password } = req.body;
+    const { fullname, email, password, role } = req.body;
 
     //if any fields are empty
     if (!fullname || !email || !password) {
@@ -33,6 +33,7 @@ const register = async (req, res, next) => {
       fullname,
       email,
       password,
+      role,
       avatar: {
         public_id : email,
         secure_url : "https://www.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_36332651.htm#query=user&position=6&from_view=search&track=sph"
@@ -305,7 +306,7 @@ const changePassword = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     
-    const {fullname} = req.body;
+    const {fullname } = req.body;
     //if any fields are empty
     if (!fullname) {
       return next(new AppError("All fields are required 🙄", 400));
