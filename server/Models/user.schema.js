@@ -71,7 +71,7 @@ userSchema.methods = {
       {
         id: this.id,
         secret: this.secret,
-        roles: this.roles,
+        role: this.role,
         email: this.email,
       },
       process.env.SECRET_KEY,

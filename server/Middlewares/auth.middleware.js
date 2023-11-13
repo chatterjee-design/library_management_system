@@ -14,9 +14,11 @@ const isLoggedIn = async (req, res, next) => {
     //verify token against secret token
     const payload = await Jwt.verify(token, process.env.SECRET_KEY);
 
-    //set the id and email from user data
-    req.user = { id: payload.id, email: payload.email };
+    //set the id and email and role from user data
+    req.user = payload;
+
     next();
+
   } catch (error) {
     return next(new AppError("Authentication Problem 🫥", 500));
   }
@@ -32,13 +34,13 @@ const isAdmin = (requiredRoles) => {
       //if the user is authorized or admin
       if (userRole === requiredRoles || userRole === "ADMIN") {
         next();
+      }else{
+        //if the user is not authorized or not an admin
+        return next(new AppError("Not Authorised, You are not an Admin!", 400));
       }
 
-      //if the user is not authorized or not an admin
-      return next(new AppError("Not Authorised, You are not an Admin!", 400));
-
     } catch (error) {
-      return next(new AppError("Something went wrong!", 400));
+      return next(new AppError("Authentication Problem 🫥", 500));
     }
   };
 };

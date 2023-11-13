@@ -40,7 +40,7 @@ const librarySchema = new Schema({
     },
     publisher : {
         type : String,
-        required : [true, "Category of the book is required"],
+        required : [true, "publisher of the book is required"],
         trim : true
     }
 },
