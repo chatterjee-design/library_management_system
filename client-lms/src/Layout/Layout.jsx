@@ -4,11 +4,12 @@ import Footer from "../Components/Footer";
 
 const Layout = ({children}) => {
   return (
-    <>
-      {children}
+    <div className="relative ">
+      
       <Navbar/>
+      {children}
       <Footer/>
-    </>
+    </div>
   );
 };
 
