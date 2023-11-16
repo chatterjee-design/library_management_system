@@ -1,5 +1,5 @@
 import './App.css'
-import Layout from './Layout/Layout';
+import ErrorPage from './Pages/ErrorPage';
 import HomePage from './Pages/HomePage';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
     
-       <HomePage/>
+      <ErrorPage/>
     </>
   )
 }
