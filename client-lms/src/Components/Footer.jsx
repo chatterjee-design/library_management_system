@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="footer items-center p-4 bg-base-200 absolute bottom-0 left-0 text-neutral-content h-[10vh]">
+      <footer className="footer items-center p-4 bg-base-200 text-neutral-content min-h-fit md:h-[10vh]">
         <aside className="items-center grid-flow-col">
           <FaSlackHash className=" font-bold text-4xl text-neutral " />
           <p className=" font-light text-neutral ">

@@ -5,7 +5,7 @@ import { IoMenu } from "react-icons/io5";
 const Navbar = () => {
   return (
     <>
-      <header className="navbar absolute top-0 left-0 bg-base-100 h-[22vh] my-1 flex flex-col w-[100vw]">
+      <header className="navbar top-0 min-h-fit left-0 bg-base-100 sm:h-[22vh] py-1 flex flex-col w-[100vw] ">
         <nav className="w-[100%]">
           <div className="navbar-start">
             <div className="dropdown sm:hidden">
