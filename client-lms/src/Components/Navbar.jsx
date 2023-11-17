@@ -32,9 +32,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="navbar-center text-center">
-            <a className=" font-normal tracking-[.35em] sm:text-xl font-mono text-[#26569d]">
+            <a className=" font-normal tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
               READSPHERE <br />
-              <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-black">
+              <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-[#5c269d]">
                 Journey Through Endless Books
               </span>{" "}
             </a>
@@ -62,7 +62,7 @@ const Navbar = () => {
                   <span class="font-bold text-lg">0 Items</span>
                   <span class="text-info">Subtotal: $0</span>
                   <div class="card-actions">
-                    <button class="btn bg-[#0F2C59] text-white hover:text-black btn-block">
+                    <button class="btn bg-[#5c269d] text-white hover:text-black btn-block">
                       View cart
                     </button>
                   </div>
@@ -72,20 +72,20 @@ const Navbar = () => {
           </div>
         </nav>
         <section className="hidden sm:flex items-center justify-center mt-7  ">
-          <ul className="flex gap-8 tracking-[.25em] font-serif ">
-            <li className="cursor-pointer">
+          <ul className="flex gap-8 tracking-[.25em] font-serif  ">
+            <li className="cursor-pointer hover:text-[#5c269d]">
               <a>Homepage</a>
             </li>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer hover:text-[#5c269d]">
               <a>Contact</a>
             </li>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer hover:text-[#5c269d]">
               <a>Contact</a>
             </li>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer hover:text-[#5c269d]">
               <a>Profile</a>
             </li>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer hover:text-[#5c269d]">
               <a> Books</a>
             </li>
           </ul>

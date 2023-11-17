@@ -5,7 +5,7 @@ const HeroSection = () => {
     <>
       <div className="flex flex-col  h-[78vh] bg-books bg-no-repeat bg-center bg-cover">
        <div className="flex h-full w-full items-center justify-center flex-col  md:w-[60%] backdrop-brightness-[50%] ">
-        <h1 className=" text-[#f6e1c9] text-center font-mono uppercase text-2xl sm:text-3xl">
+        <h1 className=" text-[#f2efec] text-center font-mono uppercase text-2xl sm:text-3xl">
           Your Gateway to
           <span className=" text-white"> Infinite Books</span>
         </h1>

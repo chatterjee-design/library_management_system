@@ -16,7 +16,7 @@ const Carousel = ({img, category}) => {
             <div className="card-body">
               <h2 className="card-title tracking-[.24em] font-light  font-serif">{category}</h2>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View More</button>
+                <button className="btn bg-[#5c269d] text-white tracking-[0.4em] btn-primary">View More</button>
               </div>
             </div>
           </div>
