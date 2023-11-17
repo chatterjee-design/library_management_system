@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoMenu } from "react-icons/io5";
 
@@ -74,13 +75,13 @@ const Navbar = () => {
         <section className="hidden sm:flex items-center justify-center mt-7  ">
           <ul className="flex gap-8 tracking-[.25em] font-serif  ">
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <a>Homepage</a>
+              <Link to='/'>Homepage</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <a>Contact</a>
+              <Link to='/signUp'>Sign Up</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <a>Contact</a>
+              <Link to='/logIn'>Login</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
               <a>Profile</a>
