@@ -18,7 +18,6 @@ const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
             {
             loading: "Please Wait! creating your account",
             success: (data) => {
-                console.log(data?.data?.message)
                 return data?.data?.message;
             },
             error: "Failed to create account"
@@ -28,6 +27,7 @@ const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
         toast.error(error?.response?.data?.message)
     }
 })
+
 const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
     try {
 
@@ -37,22 +37,40 @@ const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
             {
             loading: "Please Wait!",
             success: (data) => {
-                console.log(data?.data?.message)
                 return data?.data?.message;
             },
             error: "Failed the Login process..."
         });
-        console.log(response.data)
         return  response.data
     } catch (error) {
         toast.error(error?.response?.data?.message)
     }
 })
 
+
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers : (builder) =>{
+        builder.addCase(logInAccount.fulfilled, (state, action) => {
+            localStorage.setItem('data', JSON.stringify(action?.payload?.user))
+            localStorage.setItem('isLoggedIn', true)
+            localStorage.setItem('role', (action?.payload?.user?.role))
+            state.isLoggedIn = true
+            state.data = action?.payload?.user
+            state.role = action?.payload?.user?.role
+        })
+        builder.addCase(createAccount.fulfilled, (state, action) => {
+            localStorage.setItem('data', JSON.stringify(action?.payload?.user))
+            localStorage.setItem('isLoggedIn', true)
+            localStorage.setItem('role', (action?.payload?.user?.role))
+            state.isLoggedIn = true
+            state.data = action?.payload?.user
+            state.role = action?.payload?.user?.role
+        })
+    }
 })
 
 export default authSlice.reducer
