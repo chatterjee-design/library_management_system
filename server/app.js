@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from 'cloudinary';
 import userRouter from "./Routes/user.routes.js";
 import libraryRoute from "./Routes/library.routes.js";
+import cors from "cors";
 
 //config doten file
 config()
@@ -23,6 +24,13 @@ cloudinary.config({
   api_key: process.env.API_KEY, 
   api_secret: process.env.API_SECRET 
 });
+
+//define cors 
+app.use(cors({ 
+  origin: "http://localhost:5173", 
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
 
 app.get('/', (req, res) => {
 res.send('hii')
