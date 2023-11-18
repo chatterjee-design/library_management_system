@@ -28,6 +28,26 @@ const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
         toast.error(error?.response?.data?.message)
     }
 })
+const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
+    try {
+
+        const response = await axiosInstance.post('/user/login', data)
+        toast.promise(
+            Promise.resolve(response),
+            {
+            loading: "Please Wait!",
+            success: (data) => {
+                console.log(data?.data?.message)
+                return data?.data?.message;
+            },
+            error: "Failed the Login process..."
+        });
+        console.log(response.data)
+        return  response.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message)
+    }
+})
 
 const authSlice = createSlice({
     name: 'auth',
@@ -37,5 +57,6 @@ const authSlice = createSlice({
 
 export default authSlice.reducer
 export {
-    createAccount
+    createAccount,
+    logInAccount
 }
