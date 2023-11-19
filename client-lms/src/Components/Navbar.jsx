@@ -48,22 +48,22 @@ const Navbar = () => {
                 className="input h-8 input-bordered w-24 md:w-auto"
               />
             </div>
-            <div class="dropdown dropdown-end">
-              <label tabindex="0" class="btn btn-ghost btn-circle">
-                <div class="indicator">
-                  <AiOutlineShoppingCart class="h-5 w-5" />
-                  <span class="badge badge-sm indicator-item">8</span>
+            <div className="dropdown dropdown-end">
+              <label tabIndex="0" className="btn btn-ghost btn-circle">
+                <div className="indicator">
+                  <AiOutlineShoppingCart className="h-5 w-5" />
+                  <span className="badge badge-sm indicator-item">8</span>
                 </div>
               </label>
               <div
-                tabindex="0"
-                class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+                tabIndex="0"
+                className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
-                <div class="card-body">
-                  <span class="font-bold text-lg">0 Items</span>
-                  <span class="text-info">Subtotal: $0</span>
-                  <div class="card-actions">
-                    <button class="btn bg-[#5c269d] text-white hover:text-black btn-block">
+                <div className="card-body">
+                  <span className="font-bold text-lg">0 Items</span>
+                  <span className="text-info">Subtotal: $0</span>
+                  <div className="card-actions">
+                    <button className="btn bg-[#5c269d] text-white hover:text-black btn-block">
                       View cart
                     </button>
                   </div>
@@ -87,7 +87,7 @@ const Navbar = () => {
               <a>Profile</a>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <a> Books</a>
+              <Link to='/library/books'> Books</Link>
             </li>
           </ul>
         </section>
