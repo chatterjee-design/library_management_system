@@ -47,6 +47,22 @@ const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
     }
 })
 
+const logOutAccount = createAsyncThunk("/auth/logOut", async () => {
+    try {
+        const response = await axiosInstance ('/user/logout')
+    toast.promise (
+        Promise.resolve(response),
+        {
+            loading : "Please Wait! logging out...",
+            success : "Logged out successfully",
+            error : "Something Went Wrong"
+        }
+    )
+    return response.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
 
 
 const authSlice = createSlice({
@@ -54,7 +70,8 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers : (builder) =>{
-        builder.addCase(logInAccount.fulfilled, (state, action) => {
+        builder
+        .addCase(logInAccount.fulfilled, (state, action) => {
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
@@ -62,13 +79,19 @@ const authSlice = createSlice({
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
         })
-        builder.addCase(createAccount.fulfilled, (state, action) => {
+        .addCase(createAccount.fulfilled, (state, action) => {
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
             state.isLoggedIn = true
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
+        })
+        .addCase(logOutAccount.fulfilled, (state) => {
+            localStorage.clear();
+            state.data = {};
+            state.isLoggedIn = false;
+            state.role = "";
         })
     }
 })
@@ -76,5 +99,6 @@ const authSlice = createSlice({
 export default authSlice.reducer
 export {
     createAccount,
-    logInAccount
+    logInAccount,
+    logOutAccount
 }

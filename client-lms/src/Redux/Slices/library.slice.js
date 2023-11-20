@@ -39,7 +39,7 @@ try {
             success :  (data) => {
                 return data?.data?.message;
             },
-            error : "Error while fetching the books"
+            error : "Something went wrong creating the book"
         }
     )
     console.log(response.data)
@@ -57,7 +57,8 @@ const librarySlice = createSlice ({
     initialState,
     reducers :{},
     extraReducers: (builder) => {
-        builder.addCase(getAllBooks.fulfilled, (state, action) => {
+        builder
+        .addCase(getAllBooks.fulfilled, (state, action) => {
             if(action.payload) {
                 state.libraryData = [...action.payload.books];
             }

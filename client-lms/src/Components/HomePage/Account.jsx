@@ -1,8 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logOutAccount } from "../../Redux/Slices/authSlice";
 
 
 const Account = () => {
+
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+  const logOut = async (e) => {
+    e.preventDefault();
+
+    const response = await dispatch(logOutAccount())
+    if(response?.payload?.success){
+      navigate("/signup")
+    }
+
+  }
   return (
     <>
       <div className="card card-compact w-[80%] bg-base-100 shadow-lg my-16 flex items-center justify-center mx-auto h-96">
@@ -17,6 +32,9 @@ const Account = () => {
             <p>OR</p>
             <Link to='/logIn' className="btn border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary">
               Log In 
+            </Link>
+            <Link onClick={logOut} className="btn border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary">
+              Log out
             </Link>
           </div>
         </div>
