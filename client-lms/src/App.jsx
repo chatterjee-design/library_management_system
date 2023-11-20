@@ -8,6 +8,8 @@ import CreateBookDetails from './Pages/Admin Page/CreateBookDetails';
 import NotFoundPage from './Pages/NotFoundPage';
 import DeniedPage from './Pages/DeniedPage';
 
+import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
+
 function App() {
 
   return (
@@ -16,8 +18,14 @@ function App() {
       <Route path='/' element={<HomePage/>} />
       <Route path='/signUp' element={<SignUp/>} />
       <Route path='/logIn' element={<Login/>} />
-      <Route path='/library/books' element={<GetAllBooks/>} />
-      <Route path='/library/' element={<CreateBookDetails/>} />
+      <Route
+          path="/library/books"
+          element={<IsLoggedInAuth>{<GetAllBooks/>}</IsLoggedInAuth>}
+        />
+        <Route
+          path="/library/"
+          element={<IsLoggedInAuth>{<CreateBookDetails/>}</IsLoggedInAuth>}
+        />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
      

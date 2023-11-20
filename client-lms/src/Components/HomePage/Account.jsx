@@ -11,7 +11,6 @@ const Account = () => {
 
   const logOut = async (e) => {
     e.preventDefault();
-
     const response = await dispatch(logOutAccount())
     if(response?.payload?.success){
       navigate("/signup")
