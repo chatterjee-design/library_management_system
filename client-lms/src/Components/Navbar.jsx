@@ -84,7 +84,7 @@ const Navbar = () => {
               <Link to='/logIn'>Login</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <a>Profile</a>
+              <Link to='/library/'>Profile</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to='/library/books'> Books</Link>

@@ -99,13 +99,13 @@ const Login = () => {
               </button>
             </form>
             <p>
-              Don't have an account?{" "}
+              Don't have an account?
               <Link
                 to="/signUp"
                 className=" text-[#5c269d] pt-4 cursor-pointer hover:text-[#796b87] underline font-sans"
               >
                 Sign Up
-              </Link>{" "}
+              </Link>
             </p>
           </div>
         </div>

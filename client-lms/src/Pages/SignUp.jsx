@@ -128,13 +128,13 @@ const SignUp = () => {
               </button>
             </form>
             <p>
-              Already have an account?{" "}
+              Already have an account?
               <Link
                 to="/logIn"
                 className=" text-[#5c269d] pt-4 cursor-pointer hover:text-[#796b87] underline font-sans"
               >
                 Login
-              </Link>{" "}
+              </Link>
             </p>
           </div>
         </div>

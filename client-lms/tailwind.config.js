@@ -8,7 +8,8 @@ export default {
     extend: {
       backgroundImage:{
         'books': 'url("./src/assets/book.jpg")',
-        'login' : 'url("./src/assets/loginAnim.jpg")'
+        'login' : 'url("./src/assets/loginAnim.jpg")',
+
       }
     },
   },
