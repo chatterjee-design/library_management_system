@@ -87,7 +87,7 @@ const CreateBookDetails = () => {
 
   return (
     <>
-      <div className="flex sitems-center h-screen w-screen justify-center bg-black bg-cover bg-no-repeat ">
+      <div className="flex sitems-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat ">
         <div className=" backdrop-blur-sm h-screen w-screen flex items-center justify-center">
           <div className="flex flex-col items-center justify-between py-5 min-h-fit h-[75%] bg-white w-[80%] md:w-[75%]">
             <h1 className="uppercase font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">
