@@ -46,7 +46,7 @@ const createBookDetails = async (req, res, next) => {
           folder: "server",
           width: 1000,
           height: 1500,
-          gravity: "faces",
+          gravity: "center",
           crop: "fill",
         });
 
@@ -172,7 +172,7 @@ const updateBookDetails = async (req, res, next) => {
           folder: "server",
           width: 1000,
           height: 1500,
-          gravity: "faces",
+          gravity: "center",
           crop: "fill",
         });
 
