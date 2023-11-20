@@ -246,7 +246,7 @@ const resetPassword = async (req, res, next) => {
     }
 
     //hashing the password again
-    user.password = await bcrypt.hash(password, 10);
+    user.password = password;
     user.forgotPasswordExpiry = undefined;
     user.forgotPasswordToken = undefined;
 
@@ -255,6 +255,7 @@ const resetPassword = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "password has been changed 😊",
+      data : user,
     });
   } catch (error) {
     return next(new AppError("Internal Server Error", 500));
