@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
       role,
       avatar: {
         public_id : email,
-        secure_url : "https://www.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_36332651.htm#query=user&position=6&from_view=search&track=sph"
+        secure_url : "https://res.cloudinary.com/daselfwjg/image/upload/v1700576291/server/vvwkpqwaza5iagelgo2p.png"
       }
     });
 
