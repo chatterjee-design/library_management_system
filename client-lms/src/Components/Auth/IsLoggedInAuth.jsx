@@ -7,7 +7,7 @@ const IsLoggedInAuth = ({children}) =>{
     if (!isLoggedIn) {
         // Show a toast to notify the user
 
-        toast('Please Login First', {
+        toast('Please! Login First', {
             icon: '😊',
           });
 

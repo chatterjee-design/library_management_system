@@ -6,8 +6,8 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn')  || false,
     role : localStorage.getItem('role') || '',
-    data: localStorage.getItem('data') != undefined ? JSON.parse(localStorage.getItem('data')) : {}
-}
+    data: localStorage.getItem('data') || {},
+};
 
 const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
     try {
@@ -22,6 +22,7 @@ const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
             },
             error: "Failed to create account"
         });
+        // console.log(response.data)
         return  response.data
     } catch (error) {
         toast.error(error?.response?.data?.message)
@@ -64,6 +65,23 @@ const logOutAccount = createAsyncThunk("/auth/logOut", async () => {
     }
 })
 
+const getProfile = createAsyncThunk("/auth/getProfile", async () =>{
+    try {
+        const response = await axiosInstance ('/user/user')
+        toast.promise(
+            Promise.resolve(response),
+            {
+            loading: "Please Wait! creating your account",
+            success: (data) => {
+                return data?.data?.message;
+            },
+            error: "Failed to create account"
+        });
+        return  response.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
 
 const authSlice = createSlice({
     name: 'auth',
@@ -93,6 +111,13 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.role = "";
         })
+        .addCase(getProfile.fulfilled, (state, action) => {
+            if(action?.payload){
+                state.isLoggedIn = true
+                state.data = action?.payload?.data;
+                state.role = action?.payload?.data?.role
+            }
+          })
     }
 })
 
@@ -100,5 +125,6 @@ export default authSlice.reducer
 export {
     createAccount,
     logInAccount,
-    logOutAccount
+    logOutAccount,
+    getProfile
 }

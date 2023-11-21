@@ -6,9 +6,8 @@ import SignUp from './Pages/SignUp';
 import GetAllBooks from './Pages/GetAllBooks';
 import CreateBookDetails from './Pages/Admin Page/CreateBookDetails';
 import NotFoundPage from './Pages/NotFoundPage';
-import DeniedPage from './Pages/DeniedPage';
-
 import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
+import Profile from './Pages/Profile';
 
 function App() {
 
@@ -21,11 +20,15 @@ function App() {
       <Route
           path="/library/books"
           element={<IsLoggedInAuth>{<GetAllBooks/>}</IsLoggedInAuth>}
-        />
-        <Route
+      />
+      <Route
           path="/library/"
           element={<IsLoggedInAuth>{<CreateBookDetails/>}</IsLoggedInAuth>}
-        />
+      />
+      <Route
+          path="/profile"
+          element={<IsLoggedInAuth>{<Profile/>}</IsLoggedInAuth>}
+      />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
      

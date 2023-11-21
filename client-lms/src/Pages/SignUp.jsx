@@ -74,7 +74,7 @@ const SignUp = () => {
                   Name:
                 </label>
                 <input
-                  className="border-b"
+                  className="input-bordered input h-10 shadow-sm hover:shadow-none cursor-pointer"
                   type="text"
                   placeholder="Enter Your Fullname"
                   id="fullname"
@@ -91,7 +91,7 @@ const SignUp = () => {
                 </label>
                 <input
                   placeholder="Enter Your email"
-                  className="border-b"
+                  className="input-bordered input h-10 shadow-sm hover:shadow-none cursor-pointer"
                   type="email"
                   id="email"
                   name="email"
@@ -110,7 +110,7 @@ const SignUp = () => {
                 </label>
                 <input
                   placeholder="Enter Your Password"
-                  className="border-b"
+                  className="input-bordered input h-10 shadow-sm hover:shadow-none cursor-pointer"
                   type="password"
                   id="password"
                   name="password"

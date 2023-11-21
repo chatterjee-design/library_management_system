@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import Layout from '../Layout/Layout'
 import Card from '../Components/Library/Card'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllBooks } from '../Redux/Slices/library.slice'
+import LayoutOther from '../Layout/LayoutOther'
 
 const GetAllBooks = () => {
     const dispatch = useDispatch()
@@ -20,7 +20,8 @@ const GetAllBooks = () => {
     },[])
 
   return (
-    <Layout>
+    <LayoutOther>
+   
       <section className='flex flex-col my-10 items-center justify-center gap-10'>
       <label className=" text-4xl text-[#269d8b] uppercase font-bold font-serif tracking-[0.2em]">books</label>
         <div className='flex flex-wrap gap-12 items-center justify-center'>
@@ -32,7 +33,7 @@ const GetAllBooks = () => {
         })}
         </div>
         </section>
-    </Layout>
+    </LayoutOther>
   )
 }
 

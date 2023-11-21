@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegUser } from "react-icons/fa";
+import { CiUser } from "react-icons/ci";
 import { IoMenu } from "react-icons/io5";
 
 const Navbar = () => {
@@ -33,20 +35,43 @@ const Navbar = () => {
             </div>
           </div>
           <div className="navbar-center text-center">
-            <a className=" font-normal tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
+            <a className=" font-normal uppercase tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
               READSPHERE <br />
               <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-[#5c269d]">
                 Journey Through Endless Books
               </span>{" "}
             </a>
           </div>
-          <div className="navbar-end gap-2 flex items-center">
+          <div className="navbar-end  flex items-center">
             <div className="form-control hidden sm:inline-flex">
               <input
                 type="text"
                 placeholder="Search"
                 className="input h-8 input-bordered w-24 md:w-auto"
               />
+            </div>
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle ">
+                <div className="w-10 rounded-full justify-center flex items-center">
+                  <FaRegUser className="h-5 w-5" />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link to='/profile' className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
             </div>
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
@@ -75,19 +100,19 @@ const Navbar = () => {
         <section className="hidden sm:flex items-center justify-center mt-7  ">
           <ul className="flex gap-8 tracking-[.25em] font-serif  ">
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to='/'>Homepage</Link>
+              <Link to="/">Homepage</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to='/signUp'>Sign Up</Link>
+              <Link to="/signUp">Sign Up</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to='/logIn'>Login</Link>
+              <Link to="/logIn">Login</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to='/library/'>Profile</Link>
+              <Link to="/library/">Admin</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to='/library/books'> Books</Link>
+              <Link to="/library/books"> Books</Link>
             </li>
           </ul>
         </section>
