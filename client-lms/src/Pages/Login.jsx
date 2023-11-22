@@ -46,7 +46,7 @@ const Login = () => {
   };
   return (
     <>
-      <div className="flex items-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat ">
+      <div className="flex items-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat opacity-0 animate-fade-in-left">
         <div className=" backdrop-blur-sm h-screen w-screen flex items-center justify-center">
           <div className="flex flex-col items-center justify-between py-5 min-h-fit h-[65%] bg-white w-[80%] md:w-2/5">
             <h1 className="uppercase font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">

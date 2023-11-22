@@ -9,11 +9,32 @@ export default {
       backgroundImage:{
         'books': 'url("./src/assets/book.jpg")',
         'login' : 'url("./src/assets/loginAnim.jpg")',
-
       },
       boxShadow: {
         'sd' : "rgba(0, 0, 0, 0.1) 0px 4px 12px",
-      }
+      },
+      keyframes: {
+        'fade-in-left': {
+          to: {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+        'slide-in-left': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(-20px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+      },
+      animation: {
+        'fade-in-left': 'fade-in-left 2s ease-out forwards',
+        'slide-in-left': 'slide-in-left 3s ease-out forwards',
+      },
     },
   },
   plugins:  [

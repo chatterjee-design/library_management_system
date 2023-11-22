@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 import { IoMenu } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../Redux/Slices/authSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch()
+  const {data , isLoggedIn} = useSelector((state)=> state.auth)
+
+  const getUserData = async() =>{
+    await dispatch(getProfile())
+  }
+  useEffect(()=>{
+    getUserData()
+  },[])
+
+
   return (
     <>
       <header className="navbar top-0 min-h-fit left-0 bg-base-100 sm:h-[22vh] py-1 flex flex-col ">
@@ -39,7 +52,7 @@ const Navbar = () => {
               READSPHERE <br />
               <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-[#5c269d]">
                 Journey Through Endless Books
-              </span>{" "}
+              </span>
             </a>
           </div>
           <div className="navbar-end  flex items-center">
@@ -53,7 +66,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
-                  <FaRegUser className="h-5 w-5" />
+                  {isLoggedIn? <img src={data?.avatar?.secure_url} alt="user" className=" rounded-full h-8 w-8"/>: <FaRegUser className="h-5 w-5" />}
                 </div>
               </label>
               <ul
@@ -76,7 +89,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
-                  <AiOutlineShoppingCart className="h-5 w-5" />
+                  <AiOutlineShoppingCart className="h-6 w-6" />
                   <span className="badge badge-sm indicator-item">8</span>
                 </div>
               </label>

@@ -6,7 +6,7 @@ const Carousel = ({img, category}) => {
   return (
     <>
        <div className="carousel-item cursor-pointer">
-          <div className="card card-compact w-80 bg-base-100 shadow-xl">
+          <div className="card card-compact w-80 bg-base-100 shadow-xl opacity-0 animate-fade-in-left">
             <figure>
               <img
                 src={img}

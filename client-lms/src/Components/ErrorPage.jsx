@@ -4,7 +4,7 @@ import cat from '../assets/cat.jpg'
 
 const ErrorPage = ({statusCode, errorMessage}) => {
   return (
-    <div className='flex items-center justify-center h-screen w-screen'>
+    <div className='flex items-center justify-center h-screen w-screen opacity-0 animate-fade-in-left'>
         <div className='flex items-center justify-between w-[90%] h-screen'>
             <div className='w2/3 flex flex-col justify-center items-center'>
       <h1 className=' text-4xl  text-center font-mono tracking-[.24em]'>OOPS! <span className='text-5xl font-serif text-base-300'>{statusCode} </span></h1>

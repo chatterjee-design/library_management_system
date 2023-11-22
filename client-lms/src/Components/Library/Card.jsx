@@ -4,7 +4,7 @@ const Card = ({data}) => {
   return (
     <>
 
-          <div className="card card-compact w-80 bg-base-100 shadow-xl">
+          <div className="card card-compact cursor-pointer w-80 bg-base-100 shadow-xl opacity-0 animate-slide-in-left">
             <figure>
               <img
                 src={data?.thumbnail?.secure_url}

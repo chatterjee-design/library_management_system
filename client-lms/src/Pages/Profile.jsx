@@ -21,7 +21,7 @@ const Profile = () => {
  
   return (
     <LayoutOther userData={data}>
-      <div className=" w-[100%] flex bg-login bg-cover bg-no-repeat flex-col h-[78.8vh] justify-center items-center ">
+      <div className=" w-[100%] flex bg-login bg-cover bg-no-repeat flex-col h-[78.8vh] justify-center items-center opacity-0 animate-fade-in-left ">
         <div className="flex w-[100%] backdrop-blur-sm backdrop-brightness-50 flex-col h-[78.8vh] justify-center items-center">
         <div className="flex gap-10  w-[70%] h-[50%] shadow-sd bg-white items-center relative justify-center">
         <figure className="w-[20%] relative bottom-24">
