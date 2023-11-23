@@ -13,7 +13,6 @@ const librarySchema = new Schema({
         type : String,
         required : [true, "Description of the book is required"],
         minlength : [8, "Description must be at least 4 characters"],
-        maxlength : [55, "Description cant not exceed 25 characters"],
         trim : true,
     },
     writer : {

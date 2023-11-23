@@ -44,8 +44,6 @@ const createBookDetails = async (req, res, next) => {
       try {
         const file = await cloudinary.v2.uploader.upload(req.file.path, {
           folder: "server",
-          width: 1000,
-          height: 1500,
           gravity: "center",
           crop: "fill",
         });
@@ -63,6 +61,7 @@ const createBookDetails = async (req, res, next) => {
         //delete uploads file after save completes in cloudinary
         fs.rm(`../uploads/${req.file.filename}`);
       } catch (error) {
+        console.log(error.message);
         return next(new AppError("something went wrong", 400));
       }
     }
@@ -74,6 +73,7 @@ const createBookDetails = async (req, res, next) => {
       data: bookDetails,
     });
   } catch (error) {
+    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -115,6 +115,7 @@ const getBookDetails = async (req, res, next) => {
       book,
     });
   } catch (error) {
+    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -170,8 +171,6 @@ const updateBookDetails = async (req, res, next) => {
         //upload the new image to the cloudinary
         const file = await cloudinary.v2.uploader.upload(req.file.path, {
           folder: "server",
-          width: 1000,
-          height: 1500,
           gravity: "center",
           crop: "fill",
         });
