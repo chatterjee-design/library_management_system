@@ -3,12 +3,12 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "../../Helpers/AxiosInstance";
 
 const initialState ={
-    libraryData : []
+    libraryData : [],
+    bookDetails : {}
 }
 
 const getAllBooks = createAsyncThunk ("/library/books", async() => {
    try {
-    
     const response = await axiosInstance ('/library/')
     toast.promise (
         Promise.resolve(response),
@@ -24,7 +24,18 @@ const getAllBooks = createAsyncThunk ("/library/books", async() => {
    }
 })
 
-const createBookDetails = createAsyncThunk ("//library/books/create", async(data) => {
+const getBookDetails = createAsyncThunk ('/library/books/details', async (_id)=> {
+    try {
+        const response = await axiosInstance(`/library/${_id}`, {
+            method: 'GET' 
+          })
+        return response.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
+
+const createBookDetails = createAsyncThunk ("/library/books/create", async(data) => {
 try {
     
     const response = await axiosInstance ('/library/', {
@@ -42,12 +53,10 @@ try {
             error : "Something went wrong creating the book"
         }
     )
-    console.log(response.data)
     return response.data
 
 } catch (error) {
     toast.error(error?.response?.data?.message);
-    console.log(error?.response?.data?.message)
 }
 })
 
@@ -63,11 +72,18 @@ const librarySlice = createSlice ({
                 state.libraryData = [...action.payload.books];
             }
         })
+        .addCase(getBookDetails.fulfilled, (state, action) => {
+            if(action.payload) {
+                state.bookDetails = action?.payload?.book
+                console.log(state.bookDetails)
+            }
+        })
     }
 })
 
 export default librarySlice.reducer
 export {
     getAllBooks,
-    createBookDetails
+    createBookDetails,
+    getBookDetails
 }
