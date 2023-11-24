@@ -21,7 +21,7 @@ const CartPage = () => {
             })}
 
           <div className=" self-end mr-8 text-lg font-sans tracking-widest">
-            <h3>Subtotal : $55</h3>
+            <h3>Subtotal({cartItem.length} items) : $55</h3>
           </div>
         </div>
         <div className="shadow-sd2 md:w-[22%] py-5 items-center flex justify-center flex-col self-start mt-5">
@@ -34,7 +34,7 @@ const CartPage = () => {
             </p>
           </div>
           <div>
-            <h2 className="text-xl pt-4 font-serif tracking-wider">Subtotal (2 items): $55</h2>
+            <h2 className="text-xl pt-4 font-serif tracking-wider">Subtotal ({cartItem.length} items): $55</h2>
           </div>
 
           <button className="mt-5 btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary  ">Borrow</button>

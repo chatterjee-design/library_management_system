@@ -7,9 +7,9 @@ import GetAllBooks from './Pages/Library/GetAllBooks';
 import CreateBookDetails from './Pages/Admin Page/CreateBookDetails';
 import NotFoundPage from './Pages/NotFoundPage';
 import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
-import Profile from './Pages/Profile';
+import Profile from './Pages/Account Details page/Profile';
 import BookDescription from './Pages/Library/BookDescription';
-import CartPage from './Pages/Order page/CartPage';
+import CartPage from './Pages/Account Details page/CartPage';
 
 function App() {
 

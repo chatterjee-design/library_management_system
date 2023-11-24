@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import LayoutOther from "../Layout/LayoutOther";
+import LayoutOther from "../../Layout/LayoutOther";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../Redux/Slices/authSlice";
+import { getProfile } from "../../Redux/Slices/authSlice";
 
 const Profile = () => {
   const dispatch = useDispatch()

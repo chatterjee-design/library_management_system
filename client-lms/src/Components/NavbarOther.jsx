@@ -3,8 +3,10 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const NavbarOther = ({userData}) => {
+  const { cartItem } = useSelector((state) => state.library);
   return (
     <>
       <div className="navbar h-[10vh] bg-base-100">
@@ -45,7 +47,7 @@ const NavbarOther = ({userData}) => {
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
                   <AiOutlineShoppingCart className="h-5 w-5" />
-                  <span className="badge badge-sm indicator-item">8</span>
+                  <span className="badge badge-sm indicator-item">{cartItem.length}</span>
                 </div>
               </label>
               <div
@@ -53,12 +55,12 @@ const NavbarOther = ({userData}) => {
                 className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">0 Items</span>
+                  <span className="font-bold text-lg">{cartItem.length} Items</span>
                   <span className="text-info">Subtotal: $0</span>
                   <div className="card-actions">
-                    <button className="btn bg-[#5c269d] text-white hover:text-black btn-block">
+                    <Link to='/cart' className="btn bg-[#5c269d] text-white hover:text-black btn-block">
                       View cart
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

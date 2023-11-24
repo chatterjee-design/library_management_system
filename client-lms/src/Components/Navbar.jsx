@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/Slices/authSlice";
 
 const Navbar = () => {
+  const { cartItem } = useSelector((state) => state.library);
   const dispatch = useDispatch()
   const {data , isLoggedIn} = useSelector((state)=> state.auth)
 
@@ -90,7 +91,7 @@ const Navbar = () => {
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
                   <AiOutlineShoppingCart className="h-6 w-6" />
-                  <span className="badge badge-sm indicator-item">8</span>
+                  <span className="badge badge-sm indicator-item">{cartItem.length}</span>
                 </div>
               </label>
               <div
@@ -98,12 +99,12 @@ const Navbar = () => {
                 className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">0 Items</span>
+                  <span className="font-bold text-lg">{cartItem.length} Items</span>
                   <span className="text-info">Subtotal: $0</span>
                   <div className="card-actions">
-                    <button className="btn bg-[#5c269d] text-white hover:text-black btn-block">
+                    <Link to='/cart' className="btn bg-[#5c269d] text-white hover:text-black btn-block">
                       View cart
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
