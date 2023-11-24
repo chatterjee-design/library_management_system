@@ -9,6 +9,7 @@ import NotFoundPage from './Pages/NotFoundPage';
 import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
 import Profile from './Pages/Profile';
 import BookDescription from './Pages/Library/BookDescription';
+import CartPage from './Pages/Order page/CartPage';
 
 function App() {
 
@@ -33,6 +34,10 @@ function App() {
       <Route
           path="/profile"
           element={<IsLoggedInAuth>{<Profile/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/cart"
+          element={<IsLoggedInAuth>{<CartPage/>}</IsLoggedInAuth>}
       />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>

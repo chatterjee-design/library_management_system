@@ -1,15 +1,15 @@
-import React from 'react'
-import NavbarOther from '../Components/NavbarOther'
-import Footer from '../Components/Footer'
+import React from "react";
+import NavbarOther from "../Components/NavbarOther";
+import Footer from "../Components/Footer";
 
-const LayoutOther = ({children, userData}) => {
+const LayoutOther = ({ children }) => {
   return (
     <>
-       <NavbarOther userData={userData}/>
-       {children}
-       <Footer/>
+      <NavbarOther />
+      {children}
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default LayoutOther
+export default LayoutOther;
