@@ -2,23 +2,23 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
-import { CiUser } from "react-icons/ci";
 import { IoMenu } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/Slices/authSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 const Navbar = () => {
   const { cartItem } = useSelector((state) => state.library);
-  const dispatch = useDispatch()
-  const {data , isLoggedIn} = useSelector((state)=> state.auth)
+  const dispatch = useDispatch();
+  const { data, isLoggedIn } = useSelector((state) => state.auth);
 
-  const getUserData = async() =>{
-    await dispatch(getProfile())
-  }
-  useEffect(()=>{
-    getUserData()
-  },[])
-
+  const getUserData = async () => {
+    await dispatch(getProfile());
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -57,17 +57,18 @@ const Navbar = () => {
             </a>
           </div>
           <div className="navbar-end  flex items-center">
-            <div className="form-control hidden sm:inline-flex">
-              <input
-                type="text"
-                placeholder="Search"
-                className="input h-8 input-bordered w-24 md:w-auto"
-              />
-            </div>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
-                  {isLoggedIn? <img src={data?.avatar?.secure_url} alt="user" className=" rounded-full h-8 w-8"/>: <FaRegUser className="h-5 w-5" />}
+                  {isLoggedIn ? (
+                    <img
+                      src={data?.avatar?.secure_url}
+                      alt="user"
+                      className=" rounded-full h-8 w-8"
+                    />
+                  ) : (
+                    <FaRegUser className="h-5 w-5" />
+                  )}
                 </div>
               </label>
               <ul
@@ -75,7 +76,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link to='/profile' className="justify-between">
+                  <Link to="/profile" className="justify-between">
                     Profile
                   </Link>
                 </li>
@@ -87,11 +88,21 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
+            <label tabIndex={0} className="btn btn-ghost btn-circle ">
+              <Link
+                to="/favourite"
+                className="w-10 rounded-full justify-center flex items-center"
+              >
+                <FontAwesomeIcon className="w-5 h-5" icon={regularHeart} />
+              </Link>
+            </label>
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
                   <AiOutlineShoppingCart className="h-6 w-6" />
-                  <span className="badge badge-sm indicator-item">{cartItem.length}</span>
+                  <span className="badge badge-sm indicator-item">
+                    {cartItem.length}
+                  </span>
                 </div>
               </label>
               <div
@@ -99,10 +110,15 @@ const Navbar = () => {
                 className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">{cartItem.length} Items</span>
+                  <span className="font-bold text-lg">
+                    {cartItem.length} Items
+                  </span>
                   <span className="text-info">Subtotal: $0</span>
                   <div className="card-actions">
-                    <Link to='/cart' className="btn bg-[#5c269d] text-white hover:text-black btn-block">
+                    <Link
+                      to="/cart"
+                      className="btn bg-[#5c269d] text-white hover:text-black btn-block"
+                    >
                       View cart
                     </Link>
                   </div>
