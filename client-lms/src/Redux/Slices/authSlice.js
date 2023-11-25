@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 import axiosInstance from "../../Helpers/AxiosInstance";
+import { data } from "autoprefixer";
 
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn')  || false,
@@ -83,6 +84,21 @@ const getProfile = createAsyncThunk("/auth/getProfile", async () =>{
     }
 })
 
+const changePassword = createAsyncThunk(
+    "auth/changePassword",
+    async ({ data, _id }) => {
+  try {
+    const response = await axiosInstance(`user/change-password/${_id}`, {
+        method: "POST",
+        data: data,
+      });
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+})
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -127,5 +143,6 @@ export {
     createAccount,
     logInAccount,
     logOutAccount,
-    getProfile
+    getProfile,
+    changePassword
 }

@@ -11,6 +11,7 @@ import Profile from './Pages/Account Details page/Profile';
 import BookDescription from './Pages/Library/BookDescription';
 import CartPage from './Pages/Account Details page/CartPage';
 import LikeBooks from './Pages/Account Details page/LikeBooks';
+import ChangePass from './Pages/Account Details page/ChangePass';
 
 function App() {
 
@@ -43,6 +44,10 @@ function App() {
       <Route
           path="/favourite"
           element={<IsLoggedInAuth>{<LikeBooks/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/change-password/:_id"
+          element={<IsLoggedInAuth>{<ChangePass/>}</IsLoggedInAuth>}
       />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>

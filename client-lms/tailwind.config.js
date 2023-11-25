@@ -33,8 +33,8 @@ export default {
         },
       },
       animation: {
-        'fade-in-left': 'fade-in-left 2s ease-out forwards',
-        'slide-in-left': 'slide-in-left 3s ease-out forwards',
+        'fade-in-left': 'fade-in-left 1s ease-out forwards',
+        'slide-in-left': 'slide-in-left 1s ease-out forwards',
       },
     },
   },
