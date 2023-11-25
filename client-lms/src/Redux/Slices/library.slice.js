@@ -5,7 +5,8 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 const initialState ={
     libraryData : [],
     bookDetails : {},
-    cartItem : JSON.parse(localStorage.getItem('cartItem')) || []
+    cartItem : JSON.parse(localStorage.getItem('cartItem')) || [],
+    favouriteItem : JSON.parse(localStorage.getItem('favouriteItem')) || []
 }
 
 const getAllBooks = createAsyncThunk ("/library/books", async() => {
@@ -69,6 +70,10 @@ const librarySlice = createSlice ({
         addCartItem : (state,action) => {
             state.cartItem = [...state.cartItem, action.payload]
             localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
+        },
+        addFavouriteItem : (state, action) => {
+            state.favouriteItem = [...state.favouriteItem, action.payload]
+            localStorage.setItem("favouriteItem", JSON.stringify(state.favouriteItem));
         }
     },
     extraReducers: (builder) => {
@@ -92,4 +97,7 @@ export {
     createBookDetails,
     getBookDetails
 }
-export const {addCartItem} = librarySlice.actions
+export const {
+    addCartItem,
+    addFavouriteItem
+} = librarySlice.actions

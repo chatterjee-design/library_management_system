@@ -23,7 +23,7 @@ const NavbarOther = ({userData}) => {
                 <a>Homepage</a>
               </li>
               <li>
-                <a>Books</a>
+                <Link to='/favourite'>Books</Link>
               </li>
               <li>
                 <a>About</a>

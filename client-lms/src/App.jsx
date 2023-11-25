@@ -10,6 +10,7 @@ import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
 import Profile from './Pages/Account Details page/Profile';
 import BookDescription from './Pages/Library/BookDescription';
 import CartPage from './Pages/Account Details page/CartPage';
+import LikeBooks from './Pages/Account Details page/LikeBooks';
 
 function App() {
 
@@ -38,6 +39,10 @@ function App() {
       <Route
           path="/cart"
           element={<IsLoggedInAuth>{<CartPage/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/favourite"
+          element={<IsLoggedInAuth>{<LikeBooks/>}</IsLoggedInAuth>}
       />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
