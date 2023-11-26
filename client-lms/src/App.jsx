@@ -12,6 +12,7 @@ import BookDescription from './Pages/Library/BookDescription';
 import CartPage from './Pages/Account Details page/CartPage';
 import LikeBooks from './Pages/Account Details page/LikeBooks';
 import ChangePass from './Pages/Account Details page/ChangePass';
+import ForgotPass from './Pages/Account Details page/ForgotPass';
 
 function App() {
 
@@ -49,6 +50,8 @@ function App() {
           path="/change-password/:_id"
           element={<IsLoggedInAuth>{<ChangePass/>}</IsLoggedInAuth>}
       />
+
+      <Route path='/forgot-password' element={<ForgotPass/>} />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
      

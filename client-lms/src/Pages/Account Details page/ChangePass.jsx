@@ -27,7 +27,6 @@ const ChangePass = () => {
         toast.error("Every fields are required")
     }
     
-
     try {
       const actionResult = await dispatch(changePassword({
         data: changePasswordData,  // Sending data as JSON
@@ -104,7 +103,7 @@ const ChangePass = () => {
             <p>
               Forgot password?
               <Link
-                to="/signUp"
+                to='/forgot-password'
                 className=" text-[#5c269d] pt-4 cursor-pointer hover:text-[#796b87] underline font-sans"
               >
                 Click Here

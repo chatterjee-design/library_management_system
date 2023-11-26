@@ -99,6 +99,15 @@ const changePassword = createAsyncThunk(
   }
 })
 
+const forgotPassword = createAsyncThunk('auth/forgot-password', async (data) => {
+    try {
+        const response = await axiosInstance.post('/user/forgot-password', data)
+        return response.data
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+})
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -144,5 +153,6 @@ export {
     logInAccount,
     logOutAccount,
     getProfile,
-    changePassword
+    changePassword,
+    forgotPassword
 }
