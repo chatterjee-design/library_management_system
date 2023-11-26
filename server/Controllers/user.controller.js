@@ -198,7 +198,7 @@ const forgotPassword = async (req, res, next) => {
 
     //generating the rest password url
     const resetPassowordUrl =
-      await `${req.protocol}://${req.hostname}:4000/api/user/reset-password/${resetToken}`; //req.protocol = 'http or https'
+      await `${req.protocol}://${req.hostname}:5173/reset-password/${resetToken}`; //req.protocol = 'http or https'
 
     //defining the subject and message fields for the mail
     const subject = "reset password";
