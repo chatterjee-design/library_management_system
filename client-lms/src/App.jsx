@@ -13,6 +13,7 @@ import CartPage from './Pages/Account Details page/CartPage';
 import LikeBooks from './Pages/Account Details page/LikeBooks';
 import ChangePass from './Pages/Account Details page/ChangePass';
 import ForgotPass from './Pages/Account Details page/ForgotPass';
+import ResetPass from './Pages/Account Details page/ResetPass';
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
       />
 
       <Route path='/forgot-password' element={<ForgotPass/>} />
+      <Route path='/reset-password/:resetToken' element={<ResetPass/>} />
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
      

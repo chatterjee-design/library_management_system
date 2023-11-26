@@ -92,7 +92,6 @@ const changePassword = createAsyncThunk(
         method: "POST",
         data: data,
       });
-    console.log(response.data);
     return response.data
   } catch (error) {
     toast.error(error?.response?.data?.message);
@@ -106,6 +105,21 @@ const forgotPassword = createAsyncThunk('auth/forgot-password', async (data) => 
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }
+})
+
+const resetPassword = createAsyncThunk(
+    "auth/resetPassword",
+    async ({ data, resetToken }) => {
+  try {
+    const response = await axiosInstance(`user/reset-password/${resetToken}`, {
+        method: "POST",
+        data: data,
+      });
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
 })
 
 const authSlice = createSlice({
@@ -154,5 +168,6 @@ export {
     logOutAccount,
     getProfile,
     changePassword,
-    forgotPassword
+    forgotPassword,
+    resetPassword
 }
