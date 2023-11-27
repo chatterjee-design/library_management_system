@@ -95,6 +95,7 @@ const librarySlice = createSlice({
         // Update localStorage after the state has been updated
         localStorage.setItem("favouriteItem", JSON.stringify(state.favouriteItem));
       }
+      
     },
   },
   extraReducers: (builder) => {

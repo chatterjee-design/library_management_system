@@ -14,6 +14,9 @@ import LikeBooks from './Pages/Account Details page/LikeBooks';
 import ChangePass from './Pages/Account Details page/ChangePass';
 import ForgotPass from './Pages/Account Details page/ForgotPass';
 import ResetPass from './Pages/Account Details page/ResetPass';
+import Loader1 from './Pages/Loader/Loader1';
+import ProfileCard from './Components/account/ProfileCard';
+import EditProfile from './Pages/Account Details page/EditProfile';
 
 function App() {
 
@@ -54,6 +57,9 @@ function App() {
 
       <Route path='/forgot-password' element={<ForgotPass/>} />
       <Route path='/reset-password/:resetToken' element={<ResetPass/>} />
+      <Route path='/loader' element={<Loader1/>} />
+      <Route path='/edit-profile/:_id' element={<EditProfile/>} />
+
       <Route path='/*' element={<NotFoundPage/>} />
     </Routes>
      

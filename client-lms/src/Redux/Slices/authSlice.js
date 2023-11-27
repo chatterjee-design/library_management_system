@@ -122,6 +122,21 @@ const resetPassword = createAsyncThunk(
   }
 })
 
+const editProfile = createAsyncThunk(
+    "auth/editProfile",
+    async ({ data, _id }) => {
+  try {
+    const response = await axiosInstance(`user/update/${_id}`, {
+        method: "PUT",
+        data: data,
+      });
+    console.log(response.data);
+    return response.data
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+})
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -169,5 +184,6 @@ export {
     getProfile,
     changePassword,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    editProfile
 }
