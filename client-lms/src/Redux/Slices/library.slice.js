@@ -60,6 +60,19 @@ const createBookDetails = createAsyncThunk(
   }
 );
 
+const updateBookDetails = createAsyncThunk('/library/books/update', async ({_id, data}) => {
+  try {
+    const response = await axiosInstance(`/library/${_id}`, {
+      method : 'PUT',
+      data: data,
+    })
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+})
+
 const librarySlice = createSlice({
   name: "library",
   initialState,
@@ -114,5 +127,5 @@ const librarySlice = createSlice({
 });
 
 export default librarySlice.reducer;
-export { getAllBooks, createBookDetails, getBookDetails };
+export { getAllBooks, createBookDetails, getBookDetails, updateBookDetails };
 export const { addCartItem, addFavouriteItem } = librarySlice.actions;

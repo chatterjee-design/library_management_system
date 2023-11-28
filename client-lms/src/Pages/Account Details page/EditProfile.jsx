@@ -11,6 +11,7 @@ const EditProfile = () => {
   const _id = useParams();
 
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   const [editProfileDetails, setEditProfileDetails] = useState({
     fullname: "",
@@ -54,6 +55,7 @@ const EditProfile = () => {
     formData.append("avatar", editProfileDetails.avatar);
 
     try {
+        setLoading(true);
       const actionResult = await dispatch(
         editProfile({
           _id,
@@ -71,6 +73,8 @@ const EditProfile = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    }finally{
+        setLoading(false);
     }
   };
 
@@ -138,6 +142,7 @@ const EditProfile = () => {
                 <button
                   className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                   type="submit"
+                  disabled={loading}
                 >
                   Submit
                 </button>

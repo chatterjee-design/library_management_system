@@ -17,6 +17,7 @@ import ResetPass from './Pages/Account Details page/ResetPass';
 import Loader1 from './Pages/Loader/Loader1';
 import ProfileCard from './Components/account/ProfileCard';
 import EditProfile from './Pages/Account Details page/EditProfile';
+import UpdateBook from './Pages/Admin Page/UpdateBook';
 
 function App() {
 
@@ -35,8 +36,12 @@ function App() {
           element={<IsLoggedInAuth>{<BookDescription/>}</IsLoggedInAuth>}
       />
       <Route
-          path="/library/"
+          path="/admin/library/"
           element={<IsLoggedInAuth>{<CreateBookDetails/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/admin/library/update/:_id"
+          element={<IsLoggedInAuth>{<UpdateBook/>}</IsLoggedInAuth>}
       />
       <Route
           path="/profile"

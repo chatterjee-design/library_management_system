@@ -8,6 +8,8 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 const NavbarOther = () => {
   const { cartItem } = useSelector((state) => state.library);
+  const { role, isLoggedIn } = useSelector((state) => state.auth);
+
   return (
     <>
       <div className="navbar h-[10vh] bg-base-100">
@@ -27,10 +29,23 @@ const NavbarOther = () => {
                 <a>Homepage</a>
               </li>
               <li>
-                <Link to="/favourite">Books</Link>
+                <Link>Books</Link>
               </li>
               <li>
                 <a>About</a>
+              </li>
+              <li >
+              {isLoggedIn && role === "ADMIN" && (
+                 <details>
+                 <summary>
+                   Admin Dashboard
+                 </summary>
+                 <ul className="p-2 bg-base-100 rounded-t-none">
+                   <li><Link to='/admin/library'>Create Book Details</Link></li>
+                   <li><Link to='/admin/library/update'>Update Books</Link></li>
+                 </ul>
+               </details>
+              )}
               </li>
             </ul>
           </div>

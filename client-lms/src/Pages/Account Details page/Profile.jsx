@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../Redux/Slices/authSlice";
-import { FaRegEdit,  FaCameraRetro } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
