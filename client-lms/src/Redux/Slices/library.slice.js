@@ -60,29 +60,33 @@ const createBookDetails = createAsyncThunk(
   }
 );
 
-const updateBookDetails = createAsyncThunk('/library/books/update', async ({_id, data}) => {
-  try {
-    const response = await axiosInstance(`/library/${_id}`, {
-      method : 'PUT',
-      data: data,
-    })
-    console.log(response.data)
-    return response.data
-  } catch (error) {
-    toast.error(error?.response?.data?.message);
+const updateBookDetails = createAsyncThunk(
+  "/library/books/update",
+  async ({ _id, data }) => {
+    try {
+      const response = await axiosInstance(`/library/${_id}`, {
+        method: "PUT",
+        data: data,
+      });
+      return response.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   }
-})
-const deleteBookDetails = createAsyncThunk('/library/books/delete', async (_id) => {
-  try {
-    const response = await axiosInstance(`/library/${_id}`, {
-    method : 'DELETE',
-    })
-    console.log(response.data)
-    return response.data
-  } catch (error) {
-    toast.error(error?.response?.data?.message);
+);
+const deleteBookDetails = createAsyncThunk(
+  "/library/books/delete",
+  async (_id) => {
+    try {
+      const response = await axiosInstance(`/library/${_id}`, {
+        method: "DELETE",
+      });
+      return response.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   }
-})
+);
 
 const librarySlice = createSlice({
   name: "library",
@@ -90,7 +94,7 @@ const librarySlice = createSlice({
   reducers: {
     addCartItem: (state, action) => {
       const newItem = action.payload;
-      
+
       // Check if the item with the same _id already exists in cartItem
       const existingIndex = state.cartItem.findIndex(
         (item) => item._id === newItem._id
@@ -99,14 +103,14 @@ const librarySlice = createSlice({
       // If the item doesn't exist, add it to the array
       if (existingIndex === -1) {
         state.cartItem = [...state.cartItem, newItem];
-        
+
         // Update localStorage after the state has been updated
         localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
       }
     },
     addFavouriteItem: (state, action) => {
       const newItem = action.payload;
-      
+
       // Check if the item with the same _id already exists in favouriteItem
       const existingIndex = state.favouriteItem.findIndex(
         (item) => item._id === newItem._id
@@ -115,11 +119,13 @@ const librarySlice = createSlice({
       // If the item doesn't exist, add it to the array
       if (existingIndex === -1) {
         state.favouriteItem = [...state.favouriteItem, newItem];
-        
+
         // Update localStorage after the state has been updated
-        localStorage.setItem("favouriteItem", JSON.stringify(state.favouriteItem));
+        localStorage.setItem(
+          "favouriteItem",
+          JSON.stringify(state.favouriteItem)
+        );
       }
-      
     },
   },
   extraReducers: (builder) => {
@@ -134,12 +140,57 @@ const librarySlice = createSlice({
           state.bookDetails = action?.payload?.book;
         }
       })
-      .addCase(deleteBookDetails.fulfilled, (state, action) => {
-        state.bookDetails = {}
+      .addCase(updateBookDetails.fulfilled, (state, action) => {
+        // Find the index of the updated book in cartItem
+
+        const cartItemIndex = state.cartItem.findIndex(
+          (item) => item._id === action?.payload?.data?._id
+        );
+        
+        // If the book is in cartItem, update it
+        if (cartItemIndex !== -1) {
+          state.cartItem[cartItemIndex] = action?.payload?.data;
+
+          // Update localStorage after the state has been updated
+          localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
+        }
+
+        // Find the index of the updated book in favouriteItem
+        const favouriteItemIndex = state.favouriteItem.findIndex(
+          (item) => item._id === action?.payload?.data?._id
+        );
+
+        // If the book is in favouriteItem, update it
+        if (favouriteItemIndex !== -1) {
+          state.favouriteItem[favouriteItemIndex] = action?.payload?.data;
+
+          // Update localStorage after the state has been updated
+          localStorage.setItem(
+            "favouriteItem",
+            JSON.stringify(state.favouriteItem)
+          );
+        }
       })
+      .addCase(deleteBookDetails.fulfilled, (state, action) => {
+        state.bookDetails = {};
+        // Remove the deleted book from cartItem
+        state.cartItem = state.cartItem.filter(
+          (item) => item._id !== action.meta.arg
+        );
+        // Remove the deleted book from favouriteItem
+        state.favouriteItem = state.favouriteItem.filter(
+          (item) => item._id !== action.meta.arg
+        );
+      });
   },
 });
 
 export default librarySlice.reducer;
-export { getAllBooks, createBookDetails, getBookDetails, updateBookDetails, deleteBookDetails };
+export {
+  getAllBooks,
+  createBookDetails,
+  getBookDetails,
+  updateBookDetails,
+  deleteBookDetails,
+};
 export const { addCartItem, addFavouriteItem } = librarySlice.actions;

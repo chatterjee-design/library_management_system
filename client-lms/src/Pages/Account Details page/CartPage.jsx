@@ -6,7 +6,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 
 const CartPage = () => {
   const { cartItem } = useSelector((state) => state.library);
-
+console.log(cartItem)
   return (
     <LayoutOther>
       <div className=" min-h-[78.7vh] w-[100%] flex justify-evenly items-center">
