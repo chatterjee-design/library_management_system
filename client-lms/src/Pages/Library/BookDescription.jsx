@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem, addFavouriteItem, getBookDetails } from "../../Redux/Slices/library.slice";
+import { addCartItem, addFavouriteItem, deleteBookDetails, getBookDetails } from "../../Redux/Slices/library.slice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FaRegEdit } from "react-icons/fa";
+import { MdOutlineDelete } from "react-icons/md";
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import toast from "react-hot-toast";
 
 const BookDescription = () => {
   const [isLiked, setIsLiked] = useState (false)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { _id } = useParams();
   const { bookDetails } = useSelector((state) => state.library);
 
-  const actionResult = async () => {
+  const hndleBookDetails = async () => {
     await dispatch(getBookDetails(_id));
   };
 
   useEffect(() => {
-    actionResult();
+    hndleBookDetails();
   }, []);
 
   const addToCart = () => {
@@ -32,12 +35,24 @@ const BookDescription = () => {
     const bookDesc = bookDetails
     dispatch(addFavouriteItem(bookDesc))
   }
+
+  const hndleDeleteBookDetails = async(e) => { 
+    e.preventDefault();
+    try {
+       await dispatch(deleteBookDetails(_id))
+       navigate('/library/books')
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+
   return (
     <LayoutOther >
       <div className="flex flex-col justify-center items-center">
       <div className="hero  min-h-[78.7vh] flex-1 bg-base-100 ">
         <div className="hero-content md:p-1 flex-col lg:flex-row-reverse items-center justify-between md:w-[80%]">
-          <img src={bookDetails?.thumbnail?.secure_url} alt="bookCover" className="h-96 cursor-pointer" />
+          <img src={bookDetails?.thumbnail?.secure_url} alt="bookCover" className="h-96 w-72 cursor-pointer" />
           <div className="flex flex-col min-w-[70%]">
             <h1 className="text-4xl font-thin font-serif tracking-[0.2em]">{bookDetails?.bookName}</h1>
             <div className="w-full flex items-center">
@@ -71,9 +86,12 @@ const BookDescription = () => {
               <Link to='/cart' className="btn border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary">
               Go to cart
             </Link>
-              <Link to={`/admin/library/update/${_id}`}  className=" hover:text-gray-500 md:text-2xl accent-red-900 md:ml-6">
+              <Link to={`/admin/library/update/${_id}`} data-tip="Edit" className="tooltip hover:text-gray-500 md:text-2xl  ">
               <FaRegEdit/>
             </Link>
+              <button data-tip="Delete" onClick={hndleDeleteBookDetails} className="tooltip hover:text-gray-500 md:text-2xl  ">
+              <MdOutlineDelete/>
+            </button>
               </div>
               <div onClick={isFavourite} className="self-end text-xl md:text-3xl md:mx-10 mr-2 cursor-pointer  relative bottom-10">
               {isLiked?<FontAwesomeIcon icon={solidHeart} className="text-red-800 self-end" />:<FontAwesomeIcon icon={regularHeart} />}

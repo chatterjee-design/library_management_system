@@ -120,18 +120,18 @@ const UpdateBook = () => {
         >
           <div className="hero  min-h-[78.7vh] flex-1 bg-base-100 ">
             <div className="hero-content md:p-1 flex-col lg:flex-row-reverse items-center justify-between md:w-[80%]">
-              <label htmlFor="fileInput" className="cursor-pointer">
+              <label htmlFor="fileInput" className="cursor-pointer w-[100%]" >
                 {selectedFileName ? (
                   <img
                     src={selectedFileName}
                     alt="bookCover"
-                    className="h-96 cursor-pointer"
+                    className="h-96 cursor-pointer "
                   />
                 ) : (
                   <img
                     src={bookDetails?.thumbnail?.secure_url}
                     alt="bookCover"
-                    className="h-96 cursor-pointer"
+                    className="h-96 cursor-pointer "
                   />
                 )}
               </label>
@@ -143,7 +143,7 @@ const UpdateBook = () => {
                 name="fileInput"
                 onChange={handleInputFile}
               />
-              <div className="flex flex-col min-w-[70%]">
+              <div className="flex flex-col min-w-[60%]">
                 <div className="flex">
                   {editDetails.editBookName ? (
                     <input

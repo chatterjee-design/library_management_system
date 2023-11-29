@@ -72,6 +72,17 @@ const updateBookDetails = createAsyncThunk('/library/books/update', async ({_id,
     toast.error(error?.response?.data?.message);
   }
 })
+const deleteBookDetails = createAsyncThunk('/library/books/delete', async (_id) => {
+  try {
+    const response = await axiosInstance(`/library/${_id}`, {
+    method : 'DELETE',
+    })
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+})
 
 const librarySlice = createSlice({
   name: "library",
@@ -122,10 +133,13 @@ const librarySlice = createSlice({
         if (action.payload) {
           state.bookDetails = action?.payload?.book;
         }
-      });
+      })
+      .addCase(deleteBookDetails.fulfilled, (state, action) => {
+        state.bookDetails = {}
+      })
   },
 });
 
 export default librarySlice.reducer;
-export { getAllBooks, createBookDetails, getBookDetails, updateBookDetails };
+export { getAllBooks, createBookDetails, getBookDetails, updateBookDetails, deleteBookDetails };
 export const { addCartItem, addFavouriteItem } = librarySlice.actions;
