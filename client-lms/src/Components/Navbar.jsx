@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
+import debounce from 'lodash/debounce';
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
@@ -21,9 +22,13 @@ const Navbar = () => {
     getUserData();
   }, []);
 
+  const debouncedDispatch = debounce((value) => {
+    dispatch(searchQuery(value));
+  }, 300); 
+
   const hndleSearchInput = async (e) => {
     const value = e.target.value;
-    await dispatch(searchQuery(value));
+    await debouncedDispatch(value);
   };
 
   return (
