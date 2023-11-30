@@ -9,22 +9,17 @@ const CartPage = () => {
 
   return (
     <LayoutOther>
-      <div className=" min-h-[78.7vh] w-[100%] flex justify-evenly items-center">
-        <div className=" shadow-sd2 md:w-[72%] items-center flex justify-center flex-col my-5 py-5">
-          <div className=" self-end mr-8 text-lg font-sans tracking-widest">
-            <p>Price</p>
-          </div>
-
+      <div className=" min-h-[78.7vh] w-[100%] flex md:flex-row flex-col justify-evenly items-center">
+        <div className=" shadow-sd2 md:w-[72%] w-[90%] items-center flex justify-center flex-col my-5 py-5">
           {cartItem &&
             cartItem.map((book) => {
               return <Cart {...book} key={book._id} data={book} />;
             })}
-
           <div className=" self-end mr-8 text-lg font-sans tracking-widest">
             <h3>Subtotal({cartItem.length} items) : $55</h3>
           </div>
         </div>
-        <div className="shadow-sd2 md:w-[22%] py-5 items-center flex justify-center flex-col self-start mt-5">
+        <div className="shadow-sd2 md:w-[22%] w-[85%] mb-10 py-5 items-center flex justify-center flex-col md:self-start mt-5">
           <div className="flex items-start justify-center text-justify text-green-600">
             <FaRegCircleCheck className=" m-2"/>
             <p className="text-md font-sans ">

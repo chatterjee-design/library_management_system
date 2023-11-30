@@ -15,7 +15,6 @@ import ChangePass from './Pages/Account Details page/ChangePass';
 import ForgotPass from './Pages/Account Details page/ForgotPass';
 import ResetPass from './Pages/Account Details page/ResetPass';
 import Loader1 from './Pages/Loader/Loader1';
-import ProfileCard from './Components/account/ProfileCard';
 import EditProfile from './Pages/Account Details page/EditProfile';
 import UpdateBook from './Pages/Admin Page/UpdateBook';
 
