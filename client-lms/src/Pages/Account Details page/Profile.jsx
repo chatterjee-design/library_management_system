@@ -28,7 +28,7 @@ const Profile = () => {
         <div className="p-8 bg-white shadow md:mt-13 mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="relative">
-              <div className="w-48 h-48  mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+              <div className="w-48 bg-white h-48  mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
               <img
                 src={data?.avatar?.secure_url}
                 alt="user"

@@ -1,24 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/Slices/authSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import {  searchQuery } from "../Redux/Slices/library.slice";
 
 const Navbar = () => {
   const { cartItem } = useSelector((state) => state.library);
   const dispatch = useDispatch();
   const { data, isLoggedIn } = useSelector((state) => state.auth);
+  const {  query } = useSelector((state) => state.library);
 
   const getUserData = async () => {
     await dispatch(getProfile());
   };
+
   useEffect(() => {
     getUserData();
   }, []);
+
+  const hndleSearchInput = async (e) => {
+    const value = e.target.value;
+    await dispatch(searchQuery(value));
+  };
 
   return (
     <>
@@ -49,7 +55,10 @@ const Navbar = () => {
             </div>
           </div>
           <div className="navbar-center text-center">
-            <Link to='/' className=" font-normal uppercase tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
+            <Link
+              to="/"
+              className=" font-normal uppercase tracking-[.35em] sm:text-xl font-mono text-[#269d8b]"
+            >
               READSPHERE <br />
               <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-[#5c269d]">
                 Journey Through Endless Books
@@ -57,13 +66,15 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="navbar-end  flex items-center">
-          <div className="form-control hidden sm:inline-flex">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input h-8 input-bordered w-24 md:w-auto"
-            />
-          </div>
+            <div className="form-control hidden sm:inline-flex">
+              <input
+                type="text"
+                placeholder="Search"
+                value={query}
+                onChange={hndleSearchInput}
+                className="input h-8 input-bordered w-24 md:w-auto"
+              />
+            </div>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
@@ -95,7 +106,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-           
+
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
@@ -147,12 +158,12 @@ const Navbar = () => {
           </ul>
         </section>
         <div className="form-control md:hidden w-[80%] my-5 sm:inline-flex">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input h-8 input-bordered w-[70%] md:w-auto"
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Search"
+            className="input h-8 input-bordered w-[70%] md:w-auto"
+          />
+        </div>
       </header>
     </>
   );

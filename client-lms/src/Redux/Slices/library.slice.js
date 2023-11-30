@@ -7,11 +7,13 @@ const initialState = {
   bookDetails: {},
   cartItem: JSON.parse(localStorage.getItem("cartItem")) || [],
   favouriteItem: JSON.parse(localStorage.getItem("favouriteItem")) || [],
+  query: '',
 };
 
-const getAllBooks = createAsyncThunk("/library/books", async () => {
+const getAllBooks = createAsyncThunk("/library/books", async (_, { getState }) => {
   try {
-    const response = await axiosInstance("/library/");
+    const { query } = getState().library;  // Get the query from the Redux state
+    const response = await axiosInstance("/library/", { params: { query } });
     toast.promise(Promise.resolve(response), {
       loading: "Please Wait! fetching all the books",
       success: "All the books are fetched",
@@ -74,6 +76,7 @@ const updateBookDetails = createAsyncThunk(
     }
   }
 );
+
 const deleteBookDetails = createAsyncThunk(
   "/library/books/delete",
   async (_id) => {
@@ -126,6 +129,10 @@ const librarySlice = createSlice({
           JSON.stringify(state.favouriteItem)
         );
       }
+    },
+    searchQuery: (state, action) => {
+      const payload = action.payload;
+      state.query = payload
     },
   },
   extraReducers: (builder) => {
@@ -193,4 +200,4 @@ export {
   updateBookDetails,
   deleteBookDetails,
 };
-export const { addCartItem, addFavouriteItem } = librarySlice.actions;
+export const { addCartItem, addFavouriteItem, searchQuery } = librarySlice.actions;

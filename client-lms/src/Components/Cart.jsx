@@ -1,5 +1,4 @@
 import React from 'react'
-import login from '../assets/romantic.jpg'
 
 const Cart = ({data}) => {
   return (
