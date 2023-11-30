@@ -49,14 +49,21 @@ const Navbar = () => {
             </div>
           </div>
           <div className="navbar-center text-center">
-            <a className=" font-normal uppercase tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
+            <Link to='/' className=" font-normal uppercase tracking-[.35em] sm:text-xl font-mono text-[#269d8b]">
               READSPHERE <br />
               <span className="hidden sm:inline-flex font-light text-xs tracking-[.25em] text-[#5c269d]">
                 Journey Through Endless Books
               </span>
-            </a>
+            </Link>
           </div>
           <div className="navbar-end  flex items-center">
+          <div className="form-control hidden sm:inline-flex">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input h-8 input-bordered w-24 md:w-auto"
+            />
+          </div>
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
@@ -88,14 +95,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-            <label tabIndex={0} className="btn btn-ghost btn-circle ">
-              <Link
-                to="/favourite"
-                className="w-10 rounded-full justify-center flex items-center"
-              >
-                <FontAwesomeIcon className="w-5 h-5" icon={regularHeart} />
-              </Link>
-            </label>
+           
             <div className="dropdown dropdown-end">
               <label tabIndex="0" className="btn btn-ghost btn-circle">
                 <div className="indicator">
@@ -146,6 +146,13 @@ const Navbar = () => {
             </li>
           </ul>
         </section>
+        <div className="form-control md:hidden w-[80%] my-5 sm:inline-flex">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input h-8 input-bordered w-[70%] md:w-auto"
+            />
+          </div>
       </header>
     </>
   );

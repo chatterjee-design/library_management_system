@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { getProfile } from "../Redux/Slices/authSlice";
 
 const NavbarOther = () => {
+  const dispatch = useDispatch();
   const { cartItem } = useSelector((state) => state.library);
-  const { role, isLoggedIn } = useSelector((state) => state.auth);
+  const { role, data, isLoggedIn } = useSelector((state) => state.auth);
+  const getUserData = async () => {
+    await dispatch(getProfile());
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -59,13 +67,38 @@ const NavbarOther = () => {
           </Link>
         </div>
         <div className="navbar-end  flex items-center">
-          <div className="form-control hidden sm:inline-flex">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input h-8 input-bordered w-24 md:w-auto"
-            />
-          </div>
+        <div className="md:dropdown md:dropdown-end hidden">
+              <label tabIndex={0} className="btn btn-ghost btn-circle ">
+                <div className="w-10 rounded-full justify-center flex items-center">
+                  {isLoggedIn ? (
+                    <img
+                      src={data?.avatar?.secure_url}
+                      alt="user"
+                      className=" rounded-full h-8 w-8"
+                    />
+                  ) : (
+                    <FaRegUser className="h-5 w-5" />
+                  )}
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link to="/profile" className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          
           <label tabIndex={0} className="btn btn-ghost btn-circle ">
             <Link
               to="/favourite"
