@@ -14,7 +14,7 @@ const libraryRoute = Router();
 libraryRoute
   .route("/")
   .post(isLoggedIn,isAdmin("ADMIN"), upload.single("thumbnail"), createBookDetails)
-  .get( getAllBookDetails);
+  .get(isLoggedIn, getAllBookDetails);
 
   
 libraryRoute
