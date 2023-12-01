@@ -9,7 +9,7 @@ import { getProfile } from "../Redux/Slices/authSlice";
 import {  searchQuery } from "../Redux/Slices/library.slice";
 
 const Navbar = () => {
-  const { cartItem } = useSelector((state) => state.library);
+  const { cartItem } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { data, isLoggedIn } = useSelector((state) => state.auth);
   const {  query } = useSelector((state) => state.library);
@@ -117,7 +117,7 @@ const Navbar = () => {
                 <div className="indicator">
                   <AiOutlineShoppingCart className="h-6 w-6" />
                   <span className="badge badge-sm indicator-item">
-                    {cartItem.length}
+                  {cartItem.length}
                   </span>
                 </div>
               </label>
@@ -127,7 +127,7 @@ const Navbar = () => {
               >
                 <div className="card-body">
                   <span className="font-bold text-lg">
-                    {cartItem.length} Items
+                   {cartItem.length} Items
                   </span>
                   <span className="text-info">Subtotal: $0</span>
                   <div className="card-actions">

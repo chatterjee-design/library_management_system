@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem, addFavouriteItem, deleteBookDetails, getBookDetails } from "../../Redux/Slices/library.slice";
+import {  addFavouriteItem, deleteBookDetails, getBookDetails } from "../../Redux/Slices/library.slice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import toast from "react-hot-toast";
+import { addCartItem } from "../../Redux/Slices/cartSlice";
 
 const BookDescription = () => {
   const [isLiked, setIsLiked] = useState (false)
@@ -16,6 +17,9 @@ const BookDescription = () => {
   const navigate = useNavigate();
   const { _id } = useParams();
   const { bookDetails } = useSelector((state) => state.library);
+  const [cartDetails, setCartDetails] = useState({
+    bookId : _id
+    });
 
   const hndleBookDetails = async () => {
     await dispatch(getBookDetails(_id));
@@ -25,9 +29,25 @@ const BookDescription = () => {
     hndleBookDetails();
   }, []);
 
-  const addToCart = () => {
-    const bookDesc = bookDetails
-    dispatch(addCartItem(bookDesc))
+  const addToCart = async (e) => {
+    e.preventDefault();
+
+    if (!cartDetails.bookId) {
+        toast.error('evert field is required');
+    }
+    try {
+      const response = await dispatch(addCartItem(cartDetails))
+      
+      if (response?.success) {
+        setCartDetails({
+          bookId : _id
+        })
+        toast.success('Please check your email')
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+
   }
 
   const isFavourite = () => {

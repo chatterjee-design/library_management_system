@@ -5,7 +5,6 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 const initialState = {
   libraryData: [],
   bookDetails: {},
-  cartItem: JSON.parse(localStorage.getItem("cartItem")) || [],
   favouriteItem: JSON.parse(localStorage.getItem("favouriteItem")) || [],
   query: '',
 };
@@ -95,22 +94,7 @@ const librarySlice = createSlice({
   name: "library",
   initialState,
   reducers: {
-    addCartItem: (state, action) => {
-      const newItem = action.payload;
-
-      // Check if the item with the same _id already exists in cartItem
-      const existingIndex = state.cartItem.findIndex(
-        (item) => item._id === newItem._id
-      );
-
-      // If the item doesn't exist, add it to the array
-      if (existingIndex === -1) {
-        state.cartItem = [...state.cartItem, newItem];
-
-        // Update localStorage after the state has been updated
-        localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
-      }
-    },
+    
     addFavouriteItem: (state, action) => {
       const newItem = action.payload;
 
@@ -148,19 +132,7 @@ const librarySlice = createSlice({
         }
       })
       .addCase(updateBookDetails.fulfilled, (state, action) => {
-        // Find the index of the updated book in cartItem
-
-        const cartItemIndex = state.cartItem.findIndex(
-          (item) => item._id === action?.payload?.data?._id
-        );
-        
-        // If the book is in cartItem, update it
-        if (cartItemIndex !== -1) {
-          state.cartItem[cartItemIndex] = action?.payload?.data;
-
-          // Update localStorage after the state has been updated
-          localStorage.setItem("cartItem", JSON.stringify(state.cartItem));
-        }
+      
 
         // Find the index of the updated book in favouriteItem
         const favouriteItemIndex = state.favouriteItem.findIndex(
@@ -180,10 +152,6 @@ const librarySlice = createSlice({
       })
       .addCase(deleteBookDetails.fulfilled, (state, action) => {
         state.bookDetails = {};
-        // Remove the deleted book from cartItem
-        state.cartItem = state.cartItem.filter(
-          (item) => item._id !== action.meta.arg
-        );
         // Remove the deleted book from favouriteItem
         state.favouriteItem = state.favouriteItem.filter(
           (item) => item._id !== action.meta.arg
@@ -200,4 +168,4 @@ export {
   updateBookDetails,
   deleteBookDetails,
 };
-export const { addCartItem, addFavouriteItem, searchQuery } = librarySlice.actions;
+export const {  addFavouriteItem, searchQuery } = librarySlice.actions;

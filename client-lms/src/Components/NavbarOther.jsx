@@ -9,7 +9,7 @@ import { getProfile } from "../Redux/Slices/authSlice";
 
 const NavbarOther = () => {
   const dispatch = useDispatch();
-  const { cartItem } = useSelector((state) => state.library);
+   const { cartItem } = useSelector((state) => state.cart);
   const { role, data, isLoggedIn } = useSelector((state) => state.auth);
   const getUserData = async () => {
     await dispatch(getProfile());
@@ -112,7 +112,7 @@ const NavbarOther = () => {
               <div className="indicator">
                 <AiOutlineShoppingCart className="h-5 w-5" />
                 <span className="badge badge-sm indicator-item">
-                  {cartItem.length}
+                {cartItem.length}
                 </span>
               </div>
             </label>
@@ -122,7 +122,7 @@ const NavbarOther = () => {
             >
               <div className="card-body">
                 <span className="font-bold text-lg">
-                  {cartItem.length} Items
+                {cartItem.length}Items
                 </span>
                 <span className="text-info">Subtotal: $0</span>
                 <div className="card-actions">

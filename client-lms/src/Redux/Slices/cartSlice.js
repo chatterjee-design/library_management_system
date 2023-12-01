@@ -6,12 +6,23 @@ const initialState ={
     cartItem: JSON.parse(localStorage.getItem("cartItem")) || [],
 }
 
-const addCartItem = createAsyncThunk ('/cart/add', async () =>{
+const addCartItem = createAsyncThunk ('/cart/add', async (_id) =>{
     try {
         const response = await axiosInstance('/cart/', {
             method: "POST",
+            data: _id
           });
-          
+        
+    } catch (error) {
+        toast.error(error.message);
+    }
+})
+
+const getCartItem = createAsyncThunk ('/cart/get', async () => {
+    try {
+        const response = await axiosInstance('/cart/', {
+            method: "GET",
+          });
         return response.data
     } catch (error) {
         toast.error(error.message);
@@ -23,9 +34,17 @@ const cartSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-
+        builder
+      .addCase(getCartItem.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.cartItem = [...action.payload?.data?.items];
+        }
+      })
     }
 })
 
 export default cartSlice.reducer;
-export {addCartItem}
+export {
+    addCartItem,
+    getCartItem
+}

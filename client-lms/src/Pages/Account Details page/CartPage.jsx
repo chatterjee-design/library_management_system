@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Cart from "../../Components/Cart";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import { getCartItem } from "../../Redux/Slices/cartSlice";
 
 const CartPage = () => {
-  const { cartItem } = useSelector((state) => state.library);
+  const dispatch = useDispatch()
+  const { cartItem } = useSelector((state) => state.cart);
+  const books = cartItem.map(cartItem => cartItem?.bookId);
 
+  const getCartItemDetails =  async () => {
+    await dispatch(getCartItem())
+  }
+  useEffect(() => {
+    getCartItemDetails()
+  }, []);
+  
   return (
     <LayoutOther>
       <div className=" min-h-[78.7vh] w-[100%] flex md:flex-row flex-col justify-evenly items-center">
         <div className=" shadow-sd2 md:w-[72%] w-[90%] items-center flex justify-center flex-col my-5 py-5">
-          {cartItem &&
-            cartItem.map((book) => {
+          {books &&
+            books.map((book) => {
               return <Cart {...book} key={book._id} data={book} />;
             })}
           <div className=" self-end mr-8 text-lg font-sans tracking-widest">
