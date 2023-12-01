@@ -42,7 +42,7 @@ const BookDescription = () => {
         setCartDetails({
           bookId : _id
         })
-        toast.success('Please check your email')
+        toast.success('Item added successfully')
       }
     } catch (error) {
       toast.error(error.message)

@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { removeCartItem } from '../Redux/Slices/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Cart = ({data}) => {
+  const dispatch = useDispatch()
+  const _id = data?._id
+  const [removeCartDetails, setRemoveCartDetails] = useState({
+    bookId : _id
+    });
+
+  const hndleRemoveCartItem = async(e) => { 
+    e.preventDefault();
+    try {
+      const response= await dispatch(removeCartItem(removeCartDetails))
+      if (response?.success) {
+        setRemoveCartDetails({
+          bookId : _id
+        })
+        toast.success('Item removed successfully')
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
   return (
     <>
       <div className='flex flex-col md:flex-row items-center justify-between border-b py-5 w-[90%] md:w-[94%]'>
@@ -29,8 +51,8 @@ const Cart = ({data}) => {
             </div>
             </div>
         </div>
-        <div className='w-[8%] md:self-start flex justify-end'>
-            $55
+        <div onClick={hndleRemoveCartItem}  className=' cursor-pointer w-[8%] md:self-start flex justify-end'>
+           Remove
         </div>
       </div>
     </>

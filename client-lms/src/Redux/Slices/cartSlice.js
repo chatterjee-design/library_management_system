@@ -12,7 +12,7 @@ const addCartItem = createAsyncThunk ('/cart/add', async (_id) =>{
             method: "POST",
             data: _id
           });
-        
+        return response.data
     } catch (error) {
         toast.error(error.message);
     }
@@ -22,6 +22,17 @@ const getCartItem = createAsyncThunk ('/cart/get', async () => {
     try {
         const response = await axiosInstance('/cart/', {
             method: "GET",
+          });
+        return response.data
+    } catch (error) {
+        toast.error(error.message);
+    }
+})
+const removeCartItem = createAsyncThunk ('/cart/get', async (_id) => {
+    try {
+        const response = await axiosInstance('/cart/', {
+            method: "DELETE",
+            data : _id
           });
         return response.data
     } catch (error) {
@@ -46,5 +57,6 @@ const cartSlice = createSlice({
 export default cartSlice.reducer;
 export {
     addCartItem,
-    getCartItem
+    getCartItem,
+    removeCartItem
 }
