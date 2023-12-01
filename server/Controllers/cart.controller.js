@@ -44,7 +44,6 @@ const addToCart = async (req, res, next) => {
       data: { cart, book: updatedBook },
     });
   } catch (error) {
-    console.error(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
@@ -53,14 +52,17 @@ const addToCart = async (req, res, next) => {
 const getCart = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const cart = await Cart.findOne({ userId });
+
+    const cart = await Cart.findOne({ userId }).populate({
+      path: 'items.bookId',
+      model: 'library',
+    });
 
     res.status(200).json({
       success: true,
       data: cart,
     });
   } catch (error) {
-    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
