@@ -6,6 +6,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import userRouter from "./Routes/user.routes.js";
 import libraryRoute from "./Routes/library.routes.js";
 import cors from "cors";
+import cartRoute from "./Routes/cart.routes.js";
 
 //config doten file
 config()
@@ -39,6 +40,7 @@ res.send('hii')
 //router setup
 app.use('/api/user', userRouter);
 app.use('/api/library', libraryRoute)
+app.use('/api/cart', cartRoute)
 
 //if page not found
 app.all('*', (req, res) => {

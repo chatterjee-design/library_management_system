@@ -4,11 +4,11 @@ const cartItemSchema = new Schema({
   bookId: {
     type: Schema.Types.ObjectId,
     ref: "Library",
-    required: true,
+    required: [true, "BookId is required"],
   },
   quantity: {
     type: Number,
-    required: true,
+    default: 1,
   },
 });
 
@@ -16,9 +16,12 @@ const cartSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: [true, "UserId is required"],
   },
-  items: [cartItemSchema],
+  items: [cartItemSchema], // An array of items using the cartItemSchema 
+},
+{
+    timestamps : true
 });
 
 const Cart = model("Cart", cartSchema);
