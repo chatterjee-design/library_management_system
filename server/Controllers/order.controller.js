@@ -5,56 +5,42 @@ import AppError from "../Utills/appError.js";
 
 // Place an order
 const placeOrder = async (req, res, next) => {
-  try {
-    const { bookId, quantity } = req.body;
-    const userId = req.user.id;
-
-    // Validate input
-    if (!bookId) {
-      return next(new AppError("Every fields are required", 400));
-    }
-
-    // Check if the book exists
-    const book = await Library.findById(bookId);
-    if (!book) {
-      return next(new AppError("Book not found", 404));
-    }
-
-    let order = await Order.findOne({ userId });
-    if (!order) {
-      order = await Order.create({ userId, items: [] });
-    }
-
-    order.items.push({ bookId, quantity });
-
-    await order.save()
-
-    res.status(200).json({
-        success: true,
-        message: "Order placed successfully",
-        data: order,
-      });
-  
-  } catch (error) {
-    return next(new AppError("Internal Server Error", 500));
-  }
-};
-
-const getOrderDetails = async (req, res,next) => {
     try {
-        const userId = req.user.id;
-
-        const order = await Order.findOne({ userId }).populate({
+        const userId = req.user.id; 
+        const cart = await Cart.findOne({ userId }).populate({
           path: 'items.bookId',
           model: 'library',
         });
+
+    
+        // Check if the cart is empty
+        if (!cart || cart.items.length === 0) {
+          return next(new AppError("Cart is empty", 400));
+        }
+    
+        // Create an order
+        const order = await Order.create({
+          userId,
+          items: cart.items.map((item) => ({
+            bookId: item.bookId, // Ensure that this corresponds to the correct field in your Cart model
+            quantity: item.quantity,
+          })),
+        });
+    
+        // Clear the user's cart
+        cart.items = [];
+        await cart.save();
     
         res.status(200).json({
           success: true,
+          message: "Order placed successfully",
           data: order,
         });
-    } catch (error) {
+      } catch (error) {
         return next(new AppError("Internal Server Error", 500));
-    }
-}
-export { placeOrder, getOrderDetails };
+      }
+    
+};
+
+
+export { placeOrder };
