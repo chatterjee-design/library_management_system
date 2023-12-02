@@ -36,9 +36,25 @@ const placeOrder = async (req, res, next) => {
       });
   
   } catch (error) {
-    console.error(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 };
 
-export { placeOrder };
+const getOrderDetails = async (req, res,next) => {
+    try {
+        const userId = req.user.id;
+
+        const order = await Order.findOne({ userId }).populate({
+          path: 'items.bookId',
+          model: 'library',
+        });
+    
+        res.status(200).json({
+          success: true,
+          data: order,
+        });
+    } catch (error) {
+        return next(new AppError("Internal Server Error", 500));
+    }
+}
+export { placeOrder, getOrderDetails };
