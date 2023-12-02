@@ -2,7 +2,7 @@
 import { model, Schema } from "mongoose";
 
 const orderItemSchema = new Schema({
-  book: {
+  bookId: {
     type: Schema.Types.ObjectId,
     ref: "library",
     required:[true, "Book is required"],
@@ -14,7 +14,7 @@ const orderItemSchema = new Schema({
 });
 
 const orderSchema = new Schema({
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User", 
     required: [true, "UserId is required"],

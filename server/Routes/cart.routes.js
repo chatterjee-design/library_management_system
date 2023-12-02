@@ -1,4 +1,3 @@
-// routes/cart.route.js
 import { Router } from "express";
 import { isLoggedIn } from "../Middlewares/auth.middleware.js";
 import { addToCart, getCart, removeFromCart } from "../Controllers/cart.controller.js";
