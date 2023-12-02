@@ -9,7 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import toast from "react-hot-toast";
-import { addCartItem } from "../../Redux/Slices/cartSlice";
+import { addCartItem, getCartItem } from "../../Redux/Slices/cartSlice";
 
 const BookDescription = () => {
   const [isLiked, setIsLiked] = useState (false)
@@ -38,10 +38,11 @@ const BookDescription = () => {
     try {
       const response = await dispatch(addCartItem(cartDetails))
       
-      if (response?.success) {
+      if (response?.payload?.success) {
         setCartDetails({
           bookId : _id
         })
+        await dispatch(getCartItem())
         toast.success('Item added successfully')
       }
     } catch (error) {

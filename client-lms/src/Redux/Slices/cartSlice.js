@@ -28,11 +28,11 @@ const getCartItem = createAsyncThunk ('/cart/get', async () => {
         toast.error(error.message);
     }
 })
-const removeCartItem = createAsyncThunk ('/cart/get', async (_id) => {
+const removeCartItem = createAsyncThunk ('/cart/remove', async ({bookId}) => {
     try {
         const response = await axiosInstance('/cart/', {
             method: "DELETE",
-            data : _id
+            data : {bookId}
           });
         return response.data
     } catch (error) {
@@ -51,6 +51,12 @@ const cartSlice = createSlice({
           state.cartItem = [...action.payload?.data?.items];
         }
       })
+      .addCase(removeCartItem.fulfilled, (state, action) => {
+        if (action.payload) {
+            state.cartItem = [...action.payload?.data?.items]; 
+        }
+      })
+      
     }
 })
 

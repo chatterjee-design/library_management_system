@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
-import { removeCartItem } from '../Redux/Slices/cartSlice';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { getCartItem, removeCartItem } from '../Redux/Slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const Cart = ({data}) => {
+  const [loading, setLoading] = useState(false); 
   const dispatch = useDispatch()
-  const _id = data?._id
-  const [removeCartDetails, setRemoveCartDetails] = useState({
-    bookId : _id
-    });
+ 
+  const cartItem = useSelector((state) => state.cart.cartItem);
+
 
   const hndleRemoveCartItem = async(e) => { 
     e.preventDefault();
     try {
-      const response= await dispatch(removeCartItem(removeCartDetails))
-      if (response?.success) {
-        setRemoveCartDetails({
-          bookId : _id
-        })
+      setLoading(true);
+      const response= await dispatch(removeCartItem({ bookId: data?._id }))
+      if (response?.payload?.success) {
         toast.success('Item removed successfully')
       }
     } catch (error) {
       toast.error(error.message)
-    }
+    } finally {
+      setLoading(false);
   }
+  }
+  useEffect(() => {
+   dispatch(getCartItem())
+    
+  }, [ hndleRemoveCartItem]);
+
   return (
     <>
       <div className='flex flex-col md:flex-row items-center justify-between border-b py-5 w-[90%] md:w-[94%]'>
@@ -51,9 +57,9 @@ const Cart = ({data}) => {
             </div>
             </div>
         </div>
-        <div onClick={hndleRemoveCartItem}  className=' cursor-pointer w-[8%] md:self-start flex justify-end'>
+        <button disabled={loading} onClick={hndleRemoveCartItem}  className=' cursor-pointer btn-ghost btn w-[8%] md:self-start flex justify-center'>
            Remove
-        </div>
+        </button>
       </div>
     </>
   )

@@ -17,6 +17,7 @@ import ResetPass from './Pages/Account Details page/ResetPass';
 import Loader1 from './Pages/Loader/Loader1';
 import EditProfile from './Pages/Account Details page/EditProfile';
 import UpdateBook from './Pages/Admin Page/UpdateBook';
+import CheckOut from './Pages/Order Page/CheckOut';
 
 function App() {
 
@@ -41,6 +42,10 @@ function App() {
       <Route
           path="/admin/library/update/:_id"
           element={<IsLoggedInAuth>{<UpdateBook/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/order/checkout"
+          element={<IsLoggedInAuth>{<CheckOut/>}</IsLoggedInAuth>}
       />
       <Route
           path="/profile"

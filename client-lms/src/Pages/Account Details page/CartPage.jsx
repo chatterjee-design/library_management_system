@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Cart from "../../Components/Cart";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { getCartItem } from "../../Redux/Slices/cartSlice";
+import { placeOrder } from "../../Redux/Slices/orderSlice";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const dispatch = useDispatch()
@@ -38,11 +40,10 @@ const CartPage = () => {
               Late fine.
             </p>
           </div>
-          <div>
+          <div >
             <h2 className="text-xl pt-4 font-serif tracking-wider">Subtotal ({cartItem.length} items): $55</h2>
           </div>
-
-          <button className="mt-5 btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary  ">Borrow</button>
+          <Link to='/order/checkout'  className="mt-5 btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary  ">Borrow</Link>
         </div>
       </div>
     </LayoutOther>
