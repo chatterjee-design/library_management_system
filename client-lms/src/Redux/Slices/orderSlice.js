@@ -12,20 +12,39 @@ const initialState = {
         const response = await axiosInstance('/order/', {
             method: "POST",
           });
-          console.log(response)
+          
         return response.data
     } catch (error) {
         toast.error(error?.data?.message);
     }
 })
 
+const getAllOrders = createAsyncThunk ('/order/getAllorder', async () =>{
+try {
+    const response = await axiosInstance('/order/', {
+        method: "GET"
+    })
+    return response.data
+
+} catch (error) {
+    toast.error(error?.data?.message);
+}
+})
+
 const orderSlice = createSlice({
     name: "order",
     initialState,
     reducers: {},
-    extraReducers: (builder) => {}
+    extraReducers: (builder) => {
+        builder
+        .addCase(getAllOrders.fulfilled, (state, action) => {
+            if (action.payload) {
+              state.orderItem= [...action?.payload?.data];
+            }
+          })
+    }
 })
 
 export default orderSlice.reducer;
 
-export {placeOrder}
+export {placeOrder, getAllOrders}
