@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { getProfile } from "../Redux/Slices/authSlice";
+import { getCartItem } from "../Redux/Slices/cartSlice";
 
 const NavbarOther = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,13 @@ const NavbarOther = () => {
   const getUserData = async () => {
     await dispatch(getProfile());
   };
+  const getCartItemDetails = async () => {
+    await dispatch(getCartItem());
+  };
+  
   useEffect(() => {
     getUserData();
+    getCartItemDetails()
   }, []);
 
   return (

@@ -9,7 +9,7 @@ import NotFoundPage from './Pages/NotFoundPage';
 import IsLoggedInAuth from './Components/Auth/IsLoggedInAuth';
 import Profile from './Pages/Account Details page/Profile';
 import BookDescription from './Pages/Library/BookDescription';
-import CartPage from './Pages/Account Details page/CartPage';
+import CartPage from './Pages/Order Page/CartPage';
 import LikeBooks from './Pages/Account Details page/LikeBooks';
 import ChangePass from './Pages/Account Details page/ChangePass';
 import ForgotPass from './Pages/Account Details page/ForgotPass';
@@ -18,6 +18,8 @@ import Loader1 from './Pages/Loader/Loader1';
 import EditProfile from './Pages/Account Details page/EditProfile';
 import UpdateBook from './Pages/Admin Page/UpdateBook';
 import CheckOut from './Pages/Order Page/CheckOut';
+import MyOrders from './Pages/Order Page/MyOrders';
+import OrderDetails from './Pages/Order Page/OrderDetails';
 
 function App() {
 
@@ -46,6 +48,14 @@ function App() {
       <Route
           path="/order/checkout"
           element={<IsLoggedInAuth>{<CheckOut/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/order/details/:_id"
+          element={<IsLoggedInAuth>{<OrderDetails/>}</IsLoggedInAuth>}
+      />
+      <Route
+          path="/my-orders"
+          element={<IsLoggedInAuth>{<MyOrders/>}</IsLoggedInAuth>}
       />
       <Route
           path="/profile"

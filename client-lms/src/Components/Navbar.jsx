@@ -7,6 +7,7 @@ import { IoMenu } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Redux/Slices/authSlice";
 import {  searchQuery } from "../Redux/Slices/library.slice";
+import { getCartItem } from "../Redux/Slices/cartSlice";
 
 const Navbar = () => {
   const { cartItem } = useSelector((state) => state.cart);
@@ -17,9 +18,13 @@ const Navbar = () => {
   const getUserData = async () => {
     await dispatch(getProfile());
   };
-
+  const getCartItemDetails = async () => {
+    await dispatch(getCartItem());
+  };
+  
   useEffect(() => {
     getUserData();
+    getCartItemDetails()
   }, []);
 
   const debouncedDispatch = debounce((value) => {
@@ -104,7 +109,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link to='/my-orders'>My Orders</Link>
                 </li>
                 <li>
                   <a>Logout</a>

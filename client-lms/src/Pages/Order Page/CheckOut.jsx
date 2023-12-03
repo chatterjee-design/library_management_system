@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
-import { getAllOrders, placeOrder } from "../../Redux/Slices/orderSlice";
+import { placeOrder } from "../../Redux/Slices/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import { getCartItem } from "../../Redux/Slices/cartSlice";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 
 const CheckOut = () => {
+  const navigate = useNavigate()
   const { cartItem } = useSelector((state) => state.cart);
+  const { _id } = useSelector((state) => state.order);
+  
   const dispatch = useDispatch();
 
   const hndlePlaceOrder = async (e) => {
@@ -15,7 +19,9 @@ const CheckOut = () => {
     try {
       const response = await dispatch(placeOrder());
 
-      if (response?.success) {
+      if (response?.payload?.success) {
+        const _id = response?.payload?.data?._id
+        navigate(`/order/details/${_id}`)
         toast.success("Order confirmed!");
       }
     } catch (error) {
@@ -23,30 +29,15 @@ const CheckOut = () => {
     }
   };
 
-  const getCartItemDetails = async () => {
-    await dispatch(getCartItem());
-  };
-  useEffect(() => {
-    getCartItemDetails();
-  }, []);
-
-  // const hndleOrderDetails = async (e) => {
-  //   await dispatch(getAllOrders());
-  // };
-
-
-  // useEffect(()=>{
-  //   hndleOrderDetails()
-  // },[])
 
   return (
     <LayoutOther>
       <div className="flex items-center justify-center">
         <ul className="steps">
           <Link to='/cart'  className="step step-neutral">Books Added</Link>
-          <li className="step step-neutral">Checkout</li>
-          <li className="step">Borrow</li>
-          <li className="step">Order Confirmed</li>
+          <Link to='/order/checkout' className="step step-neutral">Checkout</Link>
+          <li className="step ">Borrow</li>
+          <li className="step">Return</li>
         </ul>
       </div>
       <div className=" min-h-[67.8vh] w-[100%] flex md:flex-row flex-col justify-center items-center">

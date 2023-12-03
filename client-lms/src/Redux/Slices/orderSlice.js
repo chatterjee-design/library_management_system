@@ -5,6 +5,8 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 
 const initialState = {
     orderItem:  [],
+    _id: '',
+    oneItem: []
 }
 
  const placeOrder= createAsyncThunk ('/order/add', async () =>{
@@ -31,6 +33,18 @@ try {
 }
 })
 
+const getOneOrder = createAsyncThunk ('/order/getOneOrder', async (_id) =>{
+    try {
+        const response = await axiosInstance(`/order/${_id}`, {
+            method: "GET"
+        })
+        return response.data
+    
+    } catch (error) {
+        toast.error(error?.data?.message);
+    }
+    })
+
 const orderSlice = createSlice({
     name: "order",
     initialState,
@@ -42,9 +56,20 @@ const orderSlice = createSlice({
               state.orderItem= [...action?.payload?.data];
             }
           })
+        .addCase(placeOrder.fulfilled, (state, action) => {
+            if (action.payload) {
+                state._id = action?.payload?.data?._id;
+            }
+          })
+        .addCase(getOneOrder.fulfilled, (state, action) => {
+            if (action.payload) {
+                console.log(action.payload)
+                state.oneItem= [...action?.payload?.data?.items];
+            }
+          })
     }
 })
 
 export default orderSlice.reducer;
 
-export {placeOrder, getAllOrders}
+export {placeOrder, getAllOrders, getOneOrder}

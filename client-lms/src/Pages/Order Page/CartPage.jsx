@@ -1,23 +1,15 @@
 import React, { useEffect } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../../Components/Cart";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { getCartItem } from "../../Redux/Slices/cartSlice";
 import { placeOrder } from "../../Redux/Slices/orderSlice";
 import { Link } from "react-router-dom";
+import Cart from "../../Components/order/Cart";
 
 const CartPage = () => {
-  const dispatch = useDispatch();
   const { cartItem } = useSelector((state) => state.cart);
   const books = cartItem.map((cartItem) => cartItem?.bookId);
-
-  const getCartItemDetails = async () => {
-    await dispatch(getCartItem());
-  };
-  useEffect(() => {
-    getCartItemDetails();
-  }, []);
 
   return (
     <LayoutOther>
@@ -26,7 +18,7 @@ const CartPage = () => {
           <Link to='/cart' className="step step-neutral">Books Added</Link>
           <Link to='/order/checkout' className="step ">Checkout</Link>
           <li className="step">Borrow</li>
-          <li className="step">Order Confirmed</li>
+          <li className="step">Return</li>
         </ul>
       </div>
       <div className=" min-h-[67.8vh] w-[100%] flex md:flex-row flex-col justify-evenly items-center">

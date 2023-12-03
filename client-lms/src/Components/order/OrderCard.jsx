@@ -1,37 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { getCartItem, removeCartItem } from '../Redux/Slices/cartSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import toast from 'react-hot-toast';
+import React from 'react'
 
-const Cart = ({data}) => {
-  const [loading, setLoading] = useState(false); 
-  const dispatch = useDispatch()
- 
-  const cartItem = useSelector((state) => state.cart.cartItem);
-
-
-  const hndleRemoveCartItem = async(e) => { 
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const response= await dispatch(removeCartItem({ bookId: data?._id }))
-      if (response?.payload?.success) {
-        toast.success('Item removed successfully')
-      }
-    } catch (error) {
-      toast.error(error.message)
-    } finally {
-      setLoading(false);
-  }
-  }
-  useEffect(() => {
-   dispatch(getCartItem())
-    
-  }, [ hndleRemoveCartItem]);
-
+const OrderCard = ({data}) => {
   return (
     <>
-      <div className='flex flex-col md:flex-row items-center justify-between border-b py-5 w-[90%] md:w-[94%]'>
+            <div className='flex flex-col md:flex-row items-center justify-between border-b py-5 w-[90%] md:w-[94%]'>
         <div className='md:w-[33%] w-[80%] justify-center flex '>
             <img className=' w-40' src={data?.thumbnail?.secure_url} alt="bookCover" />
         </div>
@@ -57,12 +29,12 @@ const Cart = ({data}) => {
             </div>
             </div>
         </div>
-        <button disabled={loading} onClick={hndleRemoveCartItem}  className=' cursor-pointer btn-ghost btn w-[8%] md:self-start flex justify-center'>
-           Remove
+        <button   className=' cursor-pointer btn-ghost btn w-[8%] md:self-start flex justify-center'>
+           Return
         </button>
       </div>
     </>
   )
 }
 
-export default Cart
+export default OrderCard
