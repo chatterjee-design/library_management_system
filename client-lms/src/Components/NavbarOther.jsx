@@ -97,7 +97,7 @@ const NavbarOther = () => {
                   </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                <Link to='/my-orders'>My Orders</Link>
                 </li>
                 <li>
                   <a>Logout</a>

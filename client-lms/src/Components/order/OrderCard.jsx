@@ -1,6 +1,7 @@
 import React from 'react'
 
 const OrderCard = ({data}) => {
+  
   return (
     <>
             <div className='flex flex-col md:flex-row items-center justify-between border-b py-5 w-[90%] md:w-[94%]'>

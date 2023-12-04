@@ -4,7 +4,8 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 
 
 const initialState = {
-    orderItem:  [],
+    orderItems:  [],
+    orderItemsPerCart: [],
     _id: '',
     oneItem: []
 }
@@ -52,9 +53,9 @@ const orderSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getAllOrders.fulfilled, (state, action) => {
-            if (action.payload) {
-              state.orderItem= [...action?.payload?.data];
-            }
+            if (action.payload && action.payload.data) {
+                state.orderItems = [...action?.payload?.data];
+              }
           })
         .addCase(placeOrder.fulfilled, (state, action) => {
             if (action.payload) {
