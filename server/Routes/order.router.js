@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isLoggedIn } from "../Middlewares/auth.middleware.js";
-import {  getAllOrders, getOneOrder, placeOrder } from "../Controllers/order.controller.js";
+import {  getAllOrders, getOneOrder, placeOrder, returnBook } from "../Controllers/order.controller.js";
 
 
 const orderRoute = Router();
@@ -13,5 +13,6 @@ orderRoute
 orderRoute
   .route("/:_id")
   .get(isLoggedIn, getOneOrder)
+  .put(isLoggedIn, returnBook)
 
 export default orderRoute;
