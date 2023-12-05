@@ -7,6 +7,7 @@ const initialState = {
     orderItems:  [],
     orderItemsPerCart: [],
     _id: '',
+    isReturned: false,
     oneItem: []
 }
 
@@ -46,6 +47,17 @@ const getOneOrder = createAsyncThunk ('/order/getOneOrder', async (_id) =>{
     }
     })
 
+const returnOrder = createAsyncThunk ('/order/return', async (_id) =>{
+    try {
+        const response = await axiosInstance(`/order/${_id}`, {
+            method: "PUT"
+        })
+        return response.data
+    } catch (error) {
+        toast.error(error?.data?.message);
+    }
+    })
+
 const orderSlice = createSlice({
     name: "order",
     initialState,
@@ -64,8 +76,9 @@ const orderSlice = createSlice({
           })
         .addCase(getOneOrder.fulfilled, (state, action) => {
             if (action.payload) {
-                console.log(action.payload)
-                state.oneItem= [...action?.payload?.data?.items];
+                state.oneItem= [...action?.payload?.data?.items]
+                state.isReturned =action.payload?.data?.returned
+                console.log(state.isReturned)
             }
           })
     }
@@ -73,4 +86,4 @@ const orderSlice = createSlice({
 
 export default orderSlice.reducer;
 
-export {placeOrder, getAllOrders, getOneOrder}
+export {placeOrder, getAllOrders, getOneOrder, returnOrder}

@@ -30,9 +30,6 @@ const OrderCard = ({data}) => {
             </div>
             </div>
         </div>
-        <button   className=' cursor-pointer btn-ghost btn w-[8%] md:self-start flex justify-center'>
-           Return
-        </button>
       </div>
     </>
   )
