@@ -1,15 +1,16 @@
 import React, { useEffect} from "react";
 import debounce from 'lodash/debounce';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../Redux/Slices/authSlice";
+import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
 import {  searchQuery } from "../Redux/Slices/library.slice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { cartItem } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { data, isLoggedIn } = useSelector((state) => state.auth);
@@ -34,6 +35,15 @@ const Navbar = () => {
   const hndleSearchInput = async (e) => {
     const value = e.target.value;
     await debouncedDispatch(value);
+  };
+
+  const logOut = async (e) => {
+    e.preventDefault();
+    const response = await dispatch(logOutAccount());
+    if (response?.payload?.success) {
+      navigate("/signup");
+      toast.success("Successfully logged out");
+    }
   };
 
   return (
@@ -112,7 +122,7 @@ const Navbar = () => {
                   <Link to='/my-orders'>My Orders</Link>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <a onClick={logOut}>Logout</a>
                 </li>
               </ul>
             </div>
