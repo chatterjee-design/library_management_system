@@ -13,11 +13,6 @@ const getAllBooks = createAsyncThunk("/library/books", async (_, { getState }) =
   try {
     const { query } = getState().library;  // Get the query from the Redux state
     const response = await axiosInstance("/library/", { params: { query } });
-    toast.promise(Promise.resolve(response), {
-      loading: "Please Wait! fetching all the books",
-      success: "All the books are fetched",
-      error: "Error while fetching the books",
-    });
     return response.data;
   } catch (error) {
     toast.error(error?.response?.data?.message);
@@ -45,14 +40,6 @@ const createBookDetails = createAsyncThunk(
       const response = await axiosInstance("/library/", {
         method: "POST",
         data: data,
-      });
-
-      toast.promise(Promise.resolve(response), {
-        loading: "Please Wait! Creating a new book details",
-        success: (data) => {
-          return data?.data?.message;
-        },
-        error: "Something went wrong creating the book",
       });
       return response.data;
     } catch (error) {

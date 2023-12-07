@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 import axiosInstance from "../../Helpers/AxiosInstance";
-import { data } from "autoprefixer";
+
 
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn')  || false,
@@ -23,7 +23,6 @@ const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
             },
             error: "Failed to create account"
         });
-        // console.log(response.data)
         return  response.data
     } catch (error) {
         toast.error(error?.response?.data?.message)
@@ -34,15 +33,6 @@ const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
     try {
 
         const response = await axiosInstance.post('/user/login', data)
-        toast.promise(
-            Promise.resolve(response),
-            {
-            loading: "Please Wait!",
-            success: (data) => {
-                return data?.data?.message;
-            },
-            error: "Failed the Login process..."
-        });
         return  response.data
     } catch (error) {
         toast.error(error?.response?.data?.message)
@@ -52,14 +42,6 @@ const logInAccount = createAsyncThunk("/auth/logIn", async (data) => {
 const logOutAccount = createAsyncThunk("/auth/logOut", async () => {
     try {
         const response = await axiosInstance ('/user/logout')
-    toast.promise (
-        Promise.resolve(response),
-        {
-            loading : "Please Wait! logging out...",
-            success : "Logged out successfully",
-            error : "Something Went Wrong"
-        }
-    )
     return response.data
     } catch (error) {
         toast.error(error?.response?.data?.message);
@@ -69,15 +51,6 @@ const logOutAccount = createAsyncThunk("/auth/logOut", async () => {
 const getProfile = createAsyncThunk("/auth/getProfile", async () =>{
     try {
         const response = await axiosInstance ('/user/user')
-        toast.promise(
-            Promise.resolve(response),
-            {
-            loading: "Please Wait! creating your account",
-            success: (data) => {
-                return data?.data?.message;
-            },
-            error: "Failed to create account"
-        });
         return  response.data
     } catch (error) {
         toast.error(error?.response?.data?.message);
@@ -115,7 +88,6 @@ const resetPassword = createAsyncThunk(
         method: "POST",
         data: data,
       });
-    console.log(response.data);
     return response.data
   } catch (error) {
     toast.error(error?.response?.data?.message);
@@ -130,7 +102,6 @@ const editProfile = createAsyncThunk(
         method: "PUT",
         data: data,
       });
-    console.log(response.data);
     return response.data
   } catch (error) {
     toast.error(error?.response?.data?.message);
