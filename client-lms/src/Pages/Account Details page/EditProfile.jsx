@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import LayoutOther from "../../Layout/LayoutOther";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../../Redux/Slices/authSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const _id = useParams();
-
+  const { loading } = useSelector((state)=> state.auth)
+console.log(loading)
   const [selectedFileName, setSelectedFileName] = useState("");
-  const [loading, setLoading] = useState(false); 
 
   const [editProfileDetails, setEditProfileDetails] = useState({
     fullname: "",
@@ -55,7 +55,6 @@ const EditProfile = () => {
     formData.append("avatar", editProfileDetails.avatar);
 
     try {
-        setLoading(true);
       const actionResult = await dispatch(
         editProfile({
           _id,
@@ -73,8 +72,6 @@ const EditProfile = () => {
       }
     } catch (error) {
       toast.error(error.message);
-    }finally{
-        setLoading(false);
     }
   };
 
@@ -144,7 +141,7 @@ const EditProfile = () => {
                   type="submit"
                   disabled={loading}
                 >
-                  Submit
+                  Save
                 </button>
               </form>
             </div>

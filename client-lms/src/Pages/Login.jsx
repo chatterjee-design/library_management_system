@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { logInAccount } from "../Redux/Slices/authSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading } = useSelector((state)=> state.auth)
   
   const [loginData, setLoginData] = useState({
     email: "",
@@ -95,8 +96,9 @@ const Login = () => {
               <button
                 className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                 type="submit"
+                disabled={loading}
               >
-                Submit
+                Save
               </button>
             </form>
             <div className=" text-[#5c269d] active:text-red-700 text-xs cursor-pointer hover:text-[#796b87] underline font-sans flex items-center justify-center" >

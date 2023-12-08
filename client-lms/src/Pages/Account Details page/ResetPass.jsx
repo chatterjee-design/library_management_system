@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { resetPassword } from '../../Redux/Slices/authSlice';
 import toast from 'react-hot-toast';
@@ -8,6 +8,7 @@ const ResetPass = () => {
     const {resetToken} = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { loading } = useSelector((state)=> state.auth)
 
     const [resetPassData, setResetPassData] = useState({
         password : ""
@@ -72,6 +73,7 @@ const ResetPass = () => {
               <button
                 className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                 type="submit"
+                disabled={loading}
               >
                 Submit
               </button>

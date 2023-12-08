@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link} from "react-router-dom";
 import { forgotPassword } from "../../Redux/Slices/authSlice";
 
 const ForgotPass = () => {
   const dispatch = useDispatch()
+  const { loading } = useSelector((state)=> state.auth)
 
   const [forgotPassData, setForgotPassData] = useState({
     email: "",
@@ -68,8 +69,9 @@ const ForgotPass = () => {
               <button
                 className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                 type="submit"
+                disabled={loading}
               >
-                Submit
+                Save
               </button>
             </form>
             <p className="pt-4">

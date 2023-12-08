@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { role, data } = useSelector((state) => state.auth);
+  const { role, data, loading } = useSelector((state) => state.auth);
   const _id = data._id;
 
   const getUserData = async () => {

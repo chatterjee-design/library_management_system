@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 import axiosInstance from "../../Helpers/AxiosInstance";
+import SignUp from "../../Pages/SignUp";
 
 
 const initialState = {
     isLoggedIn: localStorage.getItem('isLoggedIn')  || false,
     role : localStorage.getItem('role') || '',
     data: localStorage.getItem('data') || {},
+    loading : false
 };
 
 const createAccount = createAsyncThunk("/auth/signUp", async (data) => {
@@ -113,6 +115,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers : (builder) =>{
+    //fulfilled promise
         builder
         .addCase(logInAccount.fulfilled, (state, action) => {
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
@@ -121,6 +124,7 @@ const authSlice = createSlice({
             state.isLoggedIn = true
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
+            state.loading = false;
         })
         .addCase(createAccount.fulfilled, (state, action) => {
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
@@ -129,6 +133,7 @@ const authSlice = createSlice({
             state.isLoggedIn = true
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
+            state.loading = false;
         })
         .addCase(logOutAccount.fulfilled, (state) => {
             localStorage.clear();
@@ -144,6 +149,38 @@ const authSlice = createSlice({
                 localStorage.setItem('data', JSON.stringify(state?.data))
             }
           })
+        .addCase(editProfile.fulfilled, (state, action) => {
+           state.loading = false
+          })
+        .addCase(resetPassword.fulfilled, (state, action) => {
+            state.loading = false;
+        })
+        .addCase(forgotPassword.fulfilled, (state, action) => {
+            state.loading = false;
+        })
+        .addCase(changePassword.fulfilled, (state, action) => {
+            state.loading = false;
+        })
+        
+        //if actions are pending
+        .addCase(createAccount.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(logInAccount.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(editProfile.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(resetPassword.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(forgotPassword.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(changePassword.pending, (state, action) => {
+            state.loading = true;
+        })
     }
 })
 

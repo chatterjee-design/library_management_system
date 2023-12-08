@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { changePassword } from "../../Redux/Slices/authSlice";
 
@@ -8,6 +8,7 @@ const ChangePass = () => {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading } = useSelector ((state)=> state.auth)
   const [changePasswordData, setChangePasswordData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -96,8 +97,9 @@ const ChangePass = () => {
               <button
                 className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                 type="submit"
+                disabled={loading}
               >
-                Submit
+                Save
               </button>
             </form>
             <p>
