@@ -349,6 +349,7 @@ const updateUser = async (req, res, next) => {
        fs.rm(`../uploads/${req.file.filename}`)
   
        } catch (error) {
+        console.log(error.message)
         return next(new AppError("something went wrong", 400));
        }
     }
@@ -359,7 +360,6 @@ const updateUser = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log(error.message)
     return next(new AppError("Internal Server Error", 500));
   }
 }

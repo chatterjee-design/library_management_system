@@ -8,6 +8,7 @@ import libraryRoute from "./Routes/library.routes.js";
 import cors from "cors";
 import cartRoute from "./Routes/cart.routes.js";
 import orderRoute from "./Routes/order.router.js";
+import statsRoute from "./Routes/stats.routes.js";
 
 //config doten file
 config()
@@ -43,6 +44,7 @@ app.use('/api/user', userRouter);
 app.use('/api/library', libraryRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/order', orderRoute)
+app.use('/api/stats', statsRoute)
 
 
 //if page not found
