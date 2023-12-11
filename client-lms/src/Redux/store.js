@@ -3,6 +3,7 @@ import authSlice from "./Slices/authSlice";
 import librarySlice from "./Slices/library.slice";
 import cartSlice from "./Slices/cartSlice";
 import orderSlice from "./Slices/orderSlice";
+import statSlice from "./Slices/statSlice";
 
 
 const store = configureStore({
@@ -10,7 +11,8 @@ const store = configureStore({
         auth : authSlice,
         library : librarySlice,
         cart : cartSlice,
-        order : orderSlice
+        order : orderSlice,
+        stat : statSlice
     }
 })
 

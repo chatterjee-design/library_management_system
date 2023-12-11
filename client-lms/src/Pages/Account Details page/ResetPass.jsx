@@ -75,7 +75,7 @@ const ResetPass = () => {
                 type="submit"
                 disabled={loading}
               >
-                Submit
+                Save
               </button>
             </form>
         

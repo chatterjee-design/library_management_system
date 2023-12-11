@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorPage from '../Components/ErrorPage'
+import ErrorPage from '../../Components/ErrorPage'
 
 const DeniedPage = () => {
     const statusCode = 401
