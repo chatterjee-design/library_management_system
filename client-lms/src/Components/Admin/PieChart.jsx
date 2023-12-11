@@ -1,7 +1,7 @@
 import { fill } from "lodash";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Cell, Label, LabelList, Pie, PieChart } from "recharts";
+import { Cell, Label, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 const PieCharts = () => {
   const { totalOrders, totalUsers, adminUsers, totalBooks, totalReturns } = useSelector((state) => state.stat);
@@ -19,8 +19,9 @@ const PieCharts = () => {
     },
   ];
   return (
-    <div className=" flex flex-col items-center justify-center">
-      <PieChart width={500} height={250}>
+    <div className=" flex md:w-[500px] h-[250px] w-screen flex-col items-center justify-center">
+      <ResponsiveContainer>
+      <PieChart >
         <Pie
           data={data}
           dataKey="value"
@@ -35,6 +36,7 @@ const PieCharts = () => {
         </Pie>
         
       </PieChart>
+      </ResponsiveContainer>
       <h1 className='font-mono tracking-widest'>Total Orders & Returns</h1>
     </div>
   );

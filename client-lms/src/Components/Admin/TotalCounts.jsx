@@ -7,7 +7,7 @@ const TotalCounts = () => {
 
   return (
     <>
-      <div className="min-h-[20.8vh] w-[100vw] font-mono tracking-wider flex justify-evenly items-center">
+      <div className="min-h-[20.8vh] flex-wrap gap-5 px-4 w-[100vw] font-mono tracking-wider flex justify-evenly items-center">
         <div className="stats text-[#5c269d] shadow bg-base-200">
           <div className="stat">
             <div className="stat-title">Total User count</div>

@@ -7,8 +7,7 @@ import {
     Tooltip,
     AreaChart,
     Area,
-    Label,
-
+    ResponsiveContainer,
   } from "recharts";
 
 
@@ -27,10 +26,9 @@ const AreaCharts = () => {
     });
 
   return (
-    <div  className='min-h-[58vh] flex flex-col justify-evenly items-center'>
+    <div  className=' flex flex-col w-screen md:w-[650px] h-[250px] justify-evenly items-center '>
+       <ResponsiveContainer>
       <AreaChart
-          width={650}
-          height={250}
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
@@ -44,9 +42,9 @@ const AreaCharts = () => {
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name"/ >
-          <YAxis />
           <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
           <Tooltip />
           <Area
             type="monotone"
@@ -56,6 +54,7 @@ const AreaCharts = () => {
             fill="url(#colorPv)"
           />        
         </AreaChart>
+        </ResponsiveContainer>
         <h1 className='font-mono tracking-widest'>Daily Total Orders</h1>
     </div>
   )
