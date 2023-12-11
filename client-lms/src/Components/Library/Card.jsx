@@ -6,9 +6,9 @@ const Card = ({ data }) => {
 
   return (
     <>
-      <div className="card card-compact cursor-pointer pt-7 w-72 bg-base-100 shadow-sd opacity-0 animate-slide-in-left">
+      <div className="card card-compact cursor-pointer  w-60 bg-base-100 shadow-sd opacity-0 animate-slide-in-left">
         <figure>
-          <img src={data?.thumbnail?.secure_url} className=" w-48 h-72 " alt="Shoes" />
+          <img src={data?.thumbnail?.secure_url} className=" w-full h-64" alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title tracking-[.24em] font-light text-sm font-serif">

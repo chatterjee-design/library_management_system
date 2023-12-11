@@ -11,6 +11,7 @@ const initialState = {
   totalReturns : 0,
   totalCartItems : 0,
   ordersByMonth : [],
+  loading : false,
 };
 
 const getStats = createAsyncThunk("/stats/", async () => {
@@ -35,7 +36,11 @@ const statSlice = createSlice({
             state.totalOrders = action?.payload?.totalOrders
             state.totalReturns = action?.payload?.totalReturns
             state.ordersByMonth = action?.payload?.ordersByMonth
+            state.loading = false
         }
+    })
+    .addCase(getStats.pending, (state, action) => {
+      state.loading = true
     })
   },
 });

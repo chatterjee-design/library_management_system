@@ -10,7 +10,7 @@ const EditProfile = () => {
   const navigate = useNavigate()
   const _id = useParams();
   const { loading } = useSelector((state)=> state.auth)
-console.log(loading)
+
   const [selectedFileName, setSelectedFileName] = useState("");
 
   const [editProfileDetails, setEditProfileDetails] = useState({
