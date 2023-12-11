@@ -7,6 +7,7 @@ import {
     Tooltip,
     AreaChart,
     Area,
+    Label,
 
   } from "recharts";
 
@@ -26,7 +27,7 @@ const AreaCharts = () => {
     });
 
   return (
-    <div  className='min-h-[58vh] flex justify-evenly items-center'>
+    <div  className='min-h-[58vh] flex flex-col justify-evenly items-center'>
       <AreaChart
           width={650}
           height={250}
@@ -43,7 +44,7 @@ const AreaCharts = () => {
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name"/ >
           <YAxis />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -53,8 +54,9 @@ const AreaCharts = () => {
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"
-          />
+          />        
         </AreaChart>
+        <h1 className='font-mono tracking-widest'>Daily Total Orders</h1>
     </div>
   )
 }

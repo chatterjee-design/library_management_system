@@ -75,7 +75,7 @@ const BookDescription = () => {
         <div className="hero-content md:p-1 flex-col lg:flex-row-reverse items-center justify-between md:w-[80%]">
           <img src={bookDetails?.thumbnail?.secure_url} alt="bookCover" className="h-96 w-72 cursor-pointer" />
           <div className="flex flex-col min-w-[70%]">
-            <h1 className="text-4xl font-thin font-serif tracking-[0.2em]">{bookDetails?.bookName}</h1>
+            <h1 className="text-4xl text-[#269d8b]  font-thin font-serif tracking-[0.2em]">{bookDetails?.bookName}</h1>
             <div className="w-full flex items-center">
               <p className="pt-2 text-slate-800 font-mono md:w-[80%]">-{bookDetails?.writer}</p>
             </div>
