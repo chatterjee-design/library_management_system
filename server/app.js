@@ -9,6 +9,7 @@ import cors from "cors";
 import cartRoute from "./Routes/cart.routes.js";
 import orderRoute from "./Routes/order.router.js";
 import statsRoute from "./Routes/stats.routes.js";
+import contactUsRouter from "./Routes/contact.router.js";
 
 //config doten file
 config()
@@ -35,9 +36,6 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 }));
 
-app.get('/', (req, res) => {
-res.send('hii')
-})
 
 //router setup
 app.use('/api/user', userRouter);
@@ -45,6 +43,7 @@ app.use('/api/library', libraryRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/order', orderRoute)
 app.use('/api/stats', statsRoute)
+app.use('/api/contact', contactUsRouter)
 
 
 //if page not found
