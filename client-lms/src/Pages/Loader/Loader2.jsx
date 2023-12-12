@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoaderStatPage = () => {
+const LoaderPage2 = () => {
   return (
     <>
       <div className="w-full h-[78.8vh] flex items-center justify-center">
@@ -13,4 +13,4 @@ const LoaderStatPage = () => {
   );
 };
 
-export default LoaderStatPage;
+export default LoaderPage2;

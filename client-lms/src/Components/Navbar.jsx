@@ -66,7 +66,7 @@ const Navbar = () => {
                   <a>About Us</a>
                 </li>
                 <li>
-                  <a>Contact Us</a>
+                  <Link to='/contact-us'>Contact Us</Link>
                 </li>
                 <li>
                   <a>Get Books</a>
@@ -164,7 +164,7 @@ const Navbar = () => {
               <Link to="/">Homepage</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to="/signUp">Sign Up</Link>
+              <Link to="/contact-us">Contact Us</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to="/logIn">Login</Link>

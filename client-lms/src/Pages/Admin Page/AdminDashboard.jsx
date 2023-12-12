@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStats } from "../../Redux/Slices/statSlice";
 import TotalCounts from "../../Components/Admin/TotalCounts";
 import PieCharts from "../../Components/Admin/PieChart";
-import LoaderStatPage from "../Loader/LoaderStatPage";
+import LoaderPage2 from "../Loader/Loader2";
 
 const AdminDashboard = () => {
   const { loading } = useSelector((state) => state.stat);
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   return (
     <LayoutOther>
       {loading ? (
-        <LoaderStatPage />
+        <LoaderPage2 />
       ) : (
         <div>
           <TotalCounts />
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
             <div className=" w-screen md:w-fit">
               <AreaCharts />
             </div>
-            <div className="w-screen md:w-fit">
+            <div className="w-screen  md:w-fit">
               <PieCharts />
             </div>
           </div>
