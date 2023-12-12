@@ -5,7 +5,7 @@ const contactUs = async (req, res, next) => {
     try {
         const {name, email, message} = req.body;
 
-    if(!email, !name, !message) {
+    if(!email || !name || !message) {
         return next(new AppError("Every fields are required", 400));
     }
 
