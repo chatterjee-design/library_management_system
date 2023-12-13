@@ -22,6 +22,7 @@ import Login from "./Pages/Account Details page/Login";
 import NotFoundPage from "./Pages/Error page/NotFoundPage";
 import AdminDashboard from "./Pages/Admin Page/AdminDashboard";
 import ContactUs from "./Pages/ContactUs";
+import About from "./Pages/About";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/reset-password/:resetToken" element={<ResetPass />} />
         <Route path="/loader" element={<Loader1 />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/about-us" element={<About/>} />
         <Route path="/admin" element={<AdminDashboard />} />
 
         <Route

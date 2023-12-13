@@ -63,10 +63,10 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a>About Us</a>
+                <Link to="/about-us">About</Link>
                 </li>
                 <li>
-                  <Link to='/contact-us'>Contact Us</Link>
+                  <Link to='/contact-us'>Contact</Link>
                 </li>
                 <li>
                   <a>Get Books</a>
@@ -164,10 +164,10 @@ const Navbar = () => {
               <Link to="/">Homepage</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to="/contact-us">Contact Us</Link>
+              <Link to="/contact-us">Contact</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to="/logIn">Login</Link>
+              <Link to="/about-us">About</Link>
             </li>
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to="/library/">Admin</Link>

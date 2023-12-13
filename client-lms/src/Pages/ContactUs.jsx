@@ -60,7 +60,7 @@ const ContactUs = () => {
               encType="multipart/form-data"
               action="/submit-form"
               method="POST"
-              className=" flex flex-col gap-2 items-center justify-evenly w-[80%] h-[100%]"
+              className=" flex flex-col gap-2 items-center justify-evenly w-[95%] lg:w-[80%] h-[100%]"
               onSubmit={contactUs}
             >
               <div className="flex flex-col w-[100%] justify-center gap-1">
