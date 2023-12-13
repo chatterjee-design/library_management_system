@@ -11,7 +11,7 @@ const OurMission = () => {
           </figure>
           <div className="card-body py-4 lg:w-[42%] flex-col flex items-center justify-center">
             <h2 className="card-title tracking-[.24em] text-3xl text-[#269d8b] font-light font-serif">
-              About Us
+              Our mission
             </h2>
             <div>
               <p className="font-serif text-justify tracking-[.05em] leading-loose">

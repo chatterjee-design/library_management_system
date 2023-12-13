@@ -4,6 +4,7 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 
 const initialState ={
     cartItem: JSON.parse(localStorage.getItem("cartItem")) || [],
+    loading: false,
 }
 
 const addCartItem = createAsyncThunk ('/cart/add', async (_id) =>{
@@ -46,15 +47,32 @@ const cartSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+        // if status is fulfilled
       .addCase(getCartItem.fulfilled, (state, action) => {
         if (action.payload) {
           state.cartItem = [...action.payload?.data?.items];
         }
+        state.loading = false;
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         if (action.payload) {
             state.cartItem = [...action.payload?.data?.items]; 
         }
+        state.loading = false;
+      })
+      .addCase(addCartItem.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+
+      //is status is pending
+      .addCase(removeCartItem.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(addCartItem.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getCartItem.pending, (state, action) => {
+        state.loading = true;
       })
       
     }

@@ -143,6 +143,7 @@ const authSlice = createSlice({
         .addCase(getProfile.fulfilled, (state, action) => {
             if(action?.payload){
                 state.isLoggedIn = true
+                state.loading = false;
                 state.data = action?.payload?.data;
                 state.role = action?.payload?.data?.role
                 localStorage.setItem('data', JSON.stringify(state?.data))
@@ -163,6 +164,9 @@ const authSlice = createSlice({
         
         //if actions are pending
         .addCase(createAccount.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(getProfile.pending, (state, action) => {
             state.loading = true;
         })
         .addCase(logInAccount.pending, (state, action) => {

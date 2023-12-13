@@ -6,18 +6,22 @@ const initialState = {
   libraryData: [],
   bookDetails: {},
   favouriteItem: JSON.parse(localStorage.getItem("favouriteItem")) || [],
-  query: '',
+  query: "",
+  loading: false,
 };
 
-const getAllBooks = createAsyncThunk("/library/books", async (_, { getState }) => {
-  try {
-    const { query } = getState().library;  // Get the query from the Redux state
-    const response = await axiosInstance("/library/", { params: { query } });
-    return response.data;
-  } catch (error) {
-    toast.error(error?.response?.data?.message);
+const getAllBooks = createAsyncThunk(
+  "/library/books",
+  async (_, { getState }) => {
+    try {
+      const { query } = getState().library; // Get the query from the Redux state
+      const response = await axiosInstance("/library/", { params: { query } });
+      return response.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   }
-});
+);
 
 const getBookDetails = createAsyncThunk(
   "/library/books/details",
@@ -81,10 +85,10 @@ const librarySlice = createSlice({
   name: "library",
   initialState,
   reducers: {
-    
     addFavouriteItem: (state, action) => {
       const newItem = action.payload;
-
+      state.loading = true;
+      if(newItem) {
       // Check if the item with the same _id already exists in favouriteItem
       const existingIndex = state.favouriteItem.findIndex(
         (item) => item._id === newItem._id
@@ -99,28 +103,31 @@ const librarySlice = createSlice({
           "favouriteItem",
           JSON.stringify(state.favouriteItem)
         );
+        state.loading = false
       }
+    }
     },
     searchQuery: (state, action) => {
       const payload = action.payload;
-      state.query = payload
+      state.query = payload;
     },
   },
   extraReducers: (builder) => {
     builder
+    //if action is fulfilled
       .addCase(getAllBooks.fulfilled, (state, action) => {
         if (action.payload) {
           state.libraryData = [...action.payload.books];
         }
+        state.loading = false;
       })
       .addCase(getBookDetails.fulfilled, (state, action) => {
         if (action.payload) {
           state.bookDetails = action?.payload?.book;
         }
+        state.loading = false;
       })
       .addCase(updateBookDetails.fulfilled, (state, action) => {
-      
-
         // Find the index of the updated book in favouriteItem
         const favouriteItemIndex = state.favouriteItem.findIndex(
           (item) => item._id === action?.payload?.data?._id
@@ -135,6 +142,7 @@ const librarySlice = createSlice({
             "favouriteItem",
             JSON.stringify(state.favouriteItem)
           );
+          state.loading = false;
         }
       })
       .addCase(deleteBookDetails.fulfilled, (state, action) => {
@@ -143,7 +151,28 @@ const librarySlice = createSlice({
         state.favouriteItem = state.favouriteItem.filter(
           (item) => item._id !== action.meta.arg
         );
-      });
+        state.loading = false;
+      })
+      .addCase(createBookDetails.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+
+     //if action is pending 
+     .addCase(getAllBooks.pending, (state, action) => {
+      state.loading = true;
+    })
+     .addCase(getBookDetails.pending, (state, action) => {
+      state.loading = true;
+    })
+     .addCase(updateBookDetails.pending, (state, action) => {
+      state.loading = true;
+    })
+     .addCase(deleteBookDetails.pending, (state, action) => {
+      state.loading = true;
+    })
+     .addCase(createBookDetails.pending, (state, action) => {
+      state.loading = true;
+    })
   },
 });
 
@@ -155,4 +184,4 @@ export {
   updateBookDetails,
   deleteBookDetails,
 };
-export const {  addFavouriteItem, searchQuery } = librarySlice.actions;
+export const { addFavouriteItem, searchQuery } = librarySlice.actions;

@@ -7,7 +7,7 @@ import IsLoggedInAuth from "./Components/Auth/IsLoggedInAuth";
 import Profile from "./Pages/Account Details page/Profile";
 import BookDescription from "./Pages/Library/BookDescription";
 import CartPage from "./Pages/Order Page/CartPage";
-import LikeBooks from "./Pages/Account Details page/LikeBooks";
+import LikeBooks from "./Pages/Library/LikeBooks";
 import ChangePass from "./Pages/Account Details page/ChangePass";
 import ForgotPass from "./Pages/Account Details page/ForgotPass";
 import ResetPass from "./Pages/Account Details page/ResetPass";

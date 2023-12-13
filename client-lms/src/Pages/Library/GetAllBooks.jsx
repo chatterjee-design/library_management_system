@@ -7,15 +7,14 @@ import Loader1 from "../Loader/Loader1";
 import Layout from "../../Layout/Layout";
 
 const GetAllBooks = () => {
-  const [loading, setLoading] = useState(true);
+  
   const dispatch = useDispatch();
 
   //Extract libraryData state from library slice & this state.books is getting from store.js
-  const { libraryData, query } = useSelector((state) => state.library);
+  const { libraryData, query, loading } = useSelector((state) => state.library);
 
   const actionResult = async () => {
     await dispatch(getAllBooks());
-    setLoading(false);
   };
 
   useEffect(() => {

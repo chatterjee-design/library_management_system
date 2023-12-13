@@ -33,7 +33,7 @@ const UpdateBook = () => {
     thumbnail: "",
   });
 
-  const { bookDetails } = useSelector((state) => state.library);
+  const { bookDetails, loading } = useSelector((state) => state.library);
 
   const actionResult = async () => {
     await dispatch(getBookDetails(_id));
@@ -120,7 +120,7 @@ const UpdateBook = () => {
         >
           <div className="hero  min-h-[78.7vh] flex-1 bg-base-100 ">
             <div className="hero-content md:p-1 flex-col lg:flex-row-reverse items-center justify-between md:w-[80%]">
-              <label htmlFor="fileInput" className="cursor-pointer w-[100%]" >
+              <label htmlFor="fileInput" className="cursor-pointer w-[100%]">
                 {selectedFileName ? (
                   <img
                     src={selectedFileName}
@@ -311,6 +311,7 @@ const UpdateBook = () => {
                   <button
                     type="submit"
                     className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
+                    disabled={loading}
                   >
                     Save Details
                   </button>
