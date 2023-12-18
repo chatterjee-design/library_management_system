@@ -22,6 +22,7 @@ const BookDescription = () => {
   const navigate = useNavigate();
   const { _id } = useParams();
   const { bookDetails, loading } = useSelector((state) => state.library);
+  const { isLoading } = useSelector((state) => state.cart);
   const [cartDetails, setCartDetails] = useState({
     bookId: _id,
   });
@@ -114,12 +115,13 @@ const BookDescription = () => {
                   </div>
                 </div>
                 <div className="flex gap-3 items-center">
-                  <Link
+                  <button
                     onClick={addToCart}
+                    disabled={isLoading}
                     className="btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
                   >
                     Add to cart
-                  </Link>
+                  </button>
                   <Link
                     to="/cart"
                     className="btn border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary"

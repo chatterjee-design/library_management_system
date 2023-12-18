@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 const CheckOut = () => {
   const navigate = useNavigate()
   const { cartItem } = useSelector((state) => state.cart);
-  const { _id } = useSelector((state) => state.order);
+  const {  loading } = useSelector((state) => state.order);
   
   const dispatch = useDispatch();
 
@@ -54,13 +54,13 @@ const CheckOut = () => {
               Subtotal {cartItem.length} books
             </h2>
           </div>
-          <Link
-            to="/order/checkout"
+          <button
             onClick={hndlePlaceOrder}
+            disabled={loading}
             className="mt-5 btn bg-[#5c269d] text-white tracking-[0.3em] btn-primary  "
           >
             Borrow
-          </Link>
+          </button>
         </div>
       </div>
     </LayoutOther>

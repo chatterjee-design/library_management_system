@@ -4,7 +4,7 @@ import axiosInstance from "../../Helpers/AxiosInstance";
 
 const initialState ={
     cartItem: JSON.parse(localStorage.getItem("cartItem")) || [],
-    loading: false,
+    isLoading: false,
 }
 
 const addCartItem = createAsyncThunk ('/cart/add', async (_id) =>{
@@ -51,28 +51,31 @@ const cartSlice = createSlice({
       .addCase(getCartItem.fulfilled, (state, action) => {
         if (action.payload) {
           state.cartItem = [...action.payload?.data?.items];
+          state.isLoading = false;
         }
-        state.loading = false;
+        
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         if (action.payload) {
             state.cartItem = [...action.payload?.data?.items]; 
+            state.isLoading = false;
         }
-        state.loading = false;
       })
       .addCase(addCartItem.fulfilled, (state, action) => {
-        state.loading = false;
+        if (action.payload) {
+          state.isLoading = false;
+        }
       })
 
       //is status is pending
       .addCase(removeCartItem.pending, (state, action) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(addCartItem.pending, (state, action) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(getCartItem.pending, (state, action) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       
     }
