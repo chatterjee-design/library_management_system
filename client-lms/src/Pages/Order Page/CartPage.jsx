@@ -3,7 +3,6 @@ import LayoutOther from "../../Layout/LayoutOther";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { getCartItem } from "../../Redux/Slices/cartSlice";
-import { placeOrder } from "../../Redux/Slices/orderSlice";
 import { Link } from "react-router-dom";
 import Cart from "../../Components/order/Cart";
 import LoaderPage2 from "../Loader/Loader2";

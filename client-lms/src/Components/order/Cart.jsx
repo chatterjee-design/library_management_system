@@ -8,20 +8,18 @@ const Cart = ({ data }) => {
 
   const { isLoading } = useSelector((state) => state.cart);
 
-
   const hndleRemoveCartItem = async (e) => {
     e.preventDefault();
     try {
       const response = await dispatch(removeCartItem({ bookId: data?._id }));
       if (response?.payload?.success) {
         toast.success("Item removed successfully");
+        await dispatch(getCartItem())
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
-
-
 
   return (
     <>

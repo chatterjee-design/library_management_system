@@ -9,11 +9,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import OrderCard from "../../Components/order/OrderCard";
 import toast from "react-hot-toast";
+import LoaderPage2 from "../Loader/Loader2";
 
 const OrderDetails = () => {
   const { _id } = useParams();
   const dispatch = useDispatch();
-  const { oneItem, isReturned } = useSelector((state) => state.order);
+  const { oneItem, isReturned, loading } = useSelector((state) => state.order);
 
   const hndleOrderDetails = async () => {
     await dispatch(getOneOrder(_id));
@@ -22,9 +23,10 @@ const OrderDetails = () => {
   const hndleRetunOrder = async (e) => {
     e.preventDefault();
     try {
-     const res =  await dispatch(returnOrder(_id));
-     if (res?.payload?.success) {
-        toast.success('Book is successfully returned')
+      const res = await dispatch(returnOrder(_id));
+      if (res?.payload?.success) {
+        toast.success("Book is successfully returned");
+        await dispatch(getOneOrder(_id))
       }
     } catch (error) {
       toast.error(error.message);
@@ -33,7 +35,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     hndleOrderDetails();
-  }, [ hndleRetunOrder]);
+  }, [_id]);
 
   const books = oneItem.map((item) => item?.bookId);
   return (
@@ -49,29 +51,38 @@ const OrderDetails = () => {
           <Link to="/my-orders" className="step step-neutral ">
             Borrow
           </Link>
-          {isReturned === true ?<li className="step step-neutral ">Return</li>:<li className="step ">Return</li>}
+          {isReturned === true ? (
+            <li className="step step-neutral ">Return</li>
+          ) : (
+            <li className="step ">Return</li>
+          )}
         </ul>
       </div>
-      <div className=" min-h-fit mt-5 mb-3 w-[100%] flex  flex-col justify-center items-center">
-        {books &&
-          books.map((book) => {
-            return <OrderCard {...book} key={book._id} data={book} />;
-          })}
-        <div className=" self-end mr-8 text-lg font-sans tracking-widest">
-          <h3>Total({oneItem.length} items) : $55</h3>
-          {isReturned === true ? (
-           <button className="btn btn-disabled bg-[#5c269d] my-2 text-white tracking-[0.3em] btn-primary"
-           >
-            Returned
-           </button>
-          ) : (
-            <Link onClick={hndleRetunOrder} className="btn my-2 bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
+      {loading ? (
+        <LoaderPage2 />
+      ) : (
+        <div className=" min-h-fit mt-5 mb-3 w-[100%] flex  flex-col justify-center items-center">
+          {books &&
+            books.map((book) => {
+              return <OrderCard {...book} key={book._id} data={book} />;
+            })}
+          <div className=" self-end mr-8 text-lg font-sans tracking-widest">
+            <h3>Total({oneItem.length} items) : $55</h3>
+            {isReturned === true ? (
+              <button className="btn btn-disabled bg-[#5c269d] my-2 text-white tracking-[0.3em] btn-primary">
+                Returned
+              </button>
+            ) : (
+              <Link
+                onClick={hndleRetunOrder}
+                className="btn my-2 bg-[#5c269d] text-white tracking-[0.3em] btn-primary"
               >
-               Return
+                Return
               </Link>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </LayoutOther>
   );
 };
