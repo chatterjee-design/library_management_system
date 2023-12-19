@@ -13,19 +13,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const { data, isLoggedIn } = useSelector((state) => state.auth);
+  const { data, isLoggedIn, loading } = useSelector((state) => state.auth);
+
   const {  query } = useSelector((state) => state.library);
 
-  const getUserData = async () => {
-    await dispatch(getProfile());
-  };
-  const getCartItemDetails = async () => {
-    await dispatch(getCartItem());
+  const fetchData = async () => {
+    if (isLoggedIn) {
+      await dispatch(getProfile());
+      await dispatch(getCartItem());
+    }
   };
   
   useEffect(() => {
-    getUserData();
-    getCartItemDetails()
+    fetchData()
   }, []);
 
   const debouncedDispatch = debounce((value) => {
@@ -98,14 +98,15 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
-                  {isLoggedIn ? (
-                    <img
-                      src={data?.avatar?.secure_url}
-                      alt="user"
-                      className=" rounded-full h-8 w-8"
-                    />
-                  ) : (
+                   {isLoggedIn  ? (
+                     <img
+                     src={data?.avatar?.secure_url}
+                     alt="user"
+                     className=" rounded-full h-8 w-8"
+                   />
+                   ) : (
                     <FaRegUser className="h-5 w-5" />
+                   
                   )}
                 </div>
               </label>
@@ -122,7 +123,7 @@ const Navbar = () => {
                   <Link to='/my-orders'>My Orders</Link>
                 </li>
                 <li>
-                  <a onClick={logOut}>Logout</a>
+                  <button onClick={logOut}>Logout</button>
                 </li>
               </ul>
             </div>

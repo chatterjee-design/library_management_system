@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -46,6 +46,7 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
   return (
     <>
       <div className="flex items-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat">

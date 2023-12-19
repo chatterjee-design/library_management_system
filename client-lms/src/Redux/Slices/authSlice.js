@@ -169,8 +169,16 @@ const authSlice = createSlice({
         })
         .addCase(getProfile.pending, (state, action) => {
             state.loading = true;
+            console.log(state.loading)
+        })
+        .addCase(getProfile.rejected, (state, action) => {
+            state.loading = false;
+            console.log(state.loading)
         })
         .addCase(logInAccount.pending, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(logOutAccount.pending, (state, action) => {
             state.loading = true;
         })
         .addCase(editProfile.pending, (state, action) => {

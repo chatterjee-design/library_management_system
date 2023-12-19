@@ -76,6 +76,7 @@ const cartSlice = createSlice({
       })
       .addCase(getCartItem.pending, (state, action) => {
         state.isLoading = true;
+        console.log(state.isLoading)
       })
       
     }

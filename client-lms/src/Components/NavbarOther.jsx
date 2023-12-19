@@ -14,16 +14,16 @@ const NavbarOther = () => {
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => state.cart);
   const { role, data, isLoggedIn } = useSelector((state) => state.auth);
-  const getUserData = async () => {
-    await dispatch(getProfile());
-  };
-  const getCartItemDetails = async () => {
-    await dispatch(getCartItem());
+
+  const fetchData = async () => {
+    if (isLoggedIn) {
+      await dispatch(getProfile());
+      await dispatch(getCartItem());
+    }
   };
 
   useEffect(() => {
-    getUserData();
-    getCartItemDetails();
+    fetchData()
   }, []);
 
   const logOut = async (e) => {
