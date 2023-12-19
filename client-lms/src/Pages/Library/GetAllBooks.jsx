@@ -7,12 +7,12 @@ import Loader1 from "../Loader/Loader1";
 import Layout from "../../Layout/Layout";
 
 const GetAllBooks = () => {
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   //Extract libraryData state from library slice & this state.books is getting from store.js
   const { libraryData, query, loading } = useSelector((state) => state.library);
 
+  //fetch all books from library slice
   const actionResult = async () => {
     await dispatch(getAllBooks());
   };
@@ -21,6 +21,7 @@ const GetAllBooks = () => {
     actionResult();
   }, [query]);
 
+  //filter books for search query
   const filteredBooks = libraryData.filter((book) =>
     book.bookName.toLowerCase().includes(query.toLowerCase())
   );

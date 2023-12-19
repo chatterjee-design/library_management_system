@@ -104,10 +104,18 @@ const getOneOrder = async (req, res, next) => {
       return next(new AppError("failed to fetch the book details", 404));
     }
 
+    const currentDate = new Date();
+    const orderDates = new Date(order.orderDate);
+    const differenceInDays = Math.floor((currentDate - orderDates) / (1000 * 60 * 60 * 24));
+
+    // Check if the return deadline is exceeded (7 days)
+    const isReturnDeadlineExceeded = differenceInDays >= 7;
+    
     res.status(200).json({
       success: true,
       message: "Order gets successfully",
       data: order,
+      isReturnDeadlineExceeded
     });
   } catch (error) {
     return next(new AppError("Internal Server Error", 500));

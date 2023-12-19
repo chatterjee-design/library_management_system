@@ -15,7 +15,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     hndleOrderDetails();
-  }, []);
+  }, [dispatch]);
 
   return (
     <LayoutOther>

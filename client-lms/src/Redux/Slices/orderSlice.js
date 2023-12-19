@@ -8,6 +8,8 @@ const initialState = {
   _id: "",
   isReturned: false,
   oneItem: [],
+  isRetuneDateExceeded: false,
+  orderDate: '',
   loading: false,
 };
 
@@ -77,6 +79,8 @@ const orderSlice = createSlice({
       .addCase(getOneOrder.fulfilled, (state, action) => {
         if (action.payload) {
           state.oneItem = [...action?.payload?.data?.items];
+          state.orderDate = action?.payload?.data?.orderDate
+          state.isRetuneDateExceeded = action.payload?.isReturnDeadlineExceeded
           state.isReturned = action.payload?.data?.returned;
           state.loading = false;
         }

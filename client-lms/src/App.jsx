@@ -29,6 +29,7 @@ function App() {
   return (
     <>
       <Routes>
+        {/* the routes that are not required login  */}
         <Route path="/" element={<HomePage />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/logIn" element={<Login />} />
@@ -36,9 +37,10 @@ function App() {
         <Route path="/reset-password/:resetToken" element={<ResetPass />} />
         <Route path="/loader" element={<Loader1 />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/about-us" element={<About/>} />
+        <Route path="/about-us" element={<About />} />
         <Route path="/admin" element={<AdminDashboard />} />
 
+        {/* routes that required login */}
         <Route
           path="/library/books"
           element={<IsLoggedInAuth>{<GetAllBooks />}</IsLoggedInAuth>}
@@ -92,6 +94,7 @@ function App() {
           element={<IsLoggedInAuth>{<EditProfile />}</IsLoggedInAuth>}
         />
 
+        {/* routes for error page; */}
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>

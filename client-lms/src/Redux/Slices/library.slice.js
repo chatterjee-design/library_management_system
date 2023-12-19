@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../Helpers/AxiosInstance";
 
+//defining the initial state
 const initialState = {
   libraryData: [],
   bookDetails: {},
@@ -10,6 +11,7 @@ const initialState = {
   loading: false,
 };
 
+// fetching all the books from the server
 const getAllBooks = createAsyncThunk(
   "/library/books",
   async (_, { getState }) => {
@@ -23,6 +25,7 @@ const getAllBooks = createAsyncThunk(
   }
 );
 
+// fetching the book details from the server
 const getBookDetails = createAsyncThunk(
   "/library/books/details",
   async (_id) => {
@@ -37,6 +40,7 @@ const getBookDetails = createAsyncThunk(
   }
 );
 
+// fetching all the books by category from the server
 const getBooksByCategory = createAsyncThunk(
   '/library/books/category',
   async (category) => {
@@ -49,6 +53,7 @@ const getBooksByCategory = createAsyncThunk(
   }
 );
 
+// fetching create book details from the server
 const createBookDetails = createAsyncThunk(
   "/library/books/create",
   async (data) => {
@@ -64,6 +69,7 @@ const createBookDetails = createAsyncThunk(
   }
 );
 
+// fetching create book details from the server
 const updateBookDetails = createAsyncThunk(
   "/library/books/update",
   async ({ _id, data }) => {
@@ -79,6 +85,7 @@ const updateBookDetails = createAsyncThunk(
   }
 );
 
+// fetching delete book  from the server
 const deleteBookDetails = createAsyncThunk(
   "/library/books/delete",
   async (_id) => {
@@ -97,6 +104,8 @@ const librarySlice = createSlice({
   name: "library",
   initialState,
   reducers: {
+
+    //reducer function for favorites
     addFavouriteItem: (state, action) => {
       const newItem = action.payload;
       state.loading = true;
@@ -119,6 +128,8 @@ const librarySlice = createSlice({
       }
     }
     },
+
+    //reducer function for searching
     searchQuery: (state, action) => {
       const payload = action.payload;
       state.query = payload;

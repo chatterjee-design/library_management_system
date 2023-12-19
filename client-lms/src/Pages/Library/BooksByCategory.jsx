@@ -11,6 +11,7 @@ const BooksByCategory = () => {
   const { category } = useParams();
   const { loading, libraryData } = useSelector((state) => state.library);
 
+  //fetch books by category from the library slice
   const getBooks = () => {
     dispatch(getBooksByCategory(category));
   };
