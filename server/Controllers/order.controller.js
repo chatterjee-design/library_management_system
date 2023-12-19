@@ -7,6 +7,10 @@ import AppError from "../Utills/appError.js";
 const placeOrder = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    if (!userId) {
+      return next(new AppError("UserId is required", 500));
+    }
+
     const cart = await Cart.findOne({ userId }).populate({
       path: "items.bookId",
       model: "library",
@@ -26,6 +30,11 @@ const placeOrder = async (req, res, next) => {
       })),
     });
 
+    if (!order) {
+      return next(new AppError("Something went wrong, please try again!", 500));
+    }
+
+
     // Populate bookId in the newly created order
     await Order.populate(order, {
       path: "items.bookId",
@@ -38,7 +47,7 @@ const placeOrder = async (req, res, next) => {
         $inc: { numberOfBooks: -item.quantity },
       });
     }
-
+  
     // Clear the user's cart
     cart.items = [];
     await cart.save();
