@@ -225,10 +225,35 @@ const deleteBookDetails = async (req, res, next) => {
   }
 };
 
+// get books by category
+const getBooksByCategory = async (req, res, next) => {
+  try {
+    const {category} = req.params; 
+
+    // Fetch books based on the category
+    const books = await Library.find({ category });
+
+    // If no books are found for the given category
+    if (!books ) {
+      return next(new AppError(`No books found for category: ${category}`, 404));
+    }
+
+    // If books are found, return the data
+    res.status(200).json({
+      success: true,
+      message: `Books for category '${category}' retrieved successfully`,
+      books,
+    });
+  } catch (error) {
+    return next(new AppError("Internal Server Error", 500));
+  }
+};
+
 export {
   createBookDetails,
   getAllBookDetails,
   getBookDetails,
   updateBookDetails,
   deleteBookDetails,
+  getBooksByCategory
 };

@@ -4,6 +4,7 @@ import {
   deleteBookDetails,
   getAllBookDetails,
   getBookDetails,
+  getBooksByCategory,
   updateBookDetails,
 } from "../Controllers/library.controller.js";
 import upload from "../Middlewares/multer.middleware.js";
@@ -22,5 +23,7 @@ libraryRoute
   .get(isLoggedIn, getBookDetails)
   .put(isLoggedIn, isAdmin("ADMIN"), upload.single("thumbnail"),updateBookDetails)
   .delete(isLoggedIn, isAdmin("ADMIN"), deleteBookDetails)
+
+libraryRoute.get('/category/:category', getBooksByCategory);
 
 export default libraryRoute;
