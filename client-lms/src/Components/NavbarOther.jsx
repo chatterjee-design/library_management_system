@@ -15,6 +15,7 @@ const NavbarOther = () => {
   const { cartItem } = useSelector((state) => state.cart);
   const { role, data, isLoggedIn } = useSelector((state) => state.auth);
 
+  //for cartitem and profile pic on navbar
   const fetchData = async () => {
     if (isLoggedIn) {
       await dispatch(getProfile());
@@ -22,10 +23,12 @@ const NavbarOther = () => {
     }
   };
 
+  //fetch the data on 1st rendering
   useEffect(() => {
     fetchData()
   }, []);
 
+  //logout function
   const logOut = async (e) => {
     e.preventDefault();
     const response = await dispatch(logOutAccount());

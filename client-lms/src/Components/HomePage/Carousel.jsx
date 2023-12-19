@@ -1,8 +1,7 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Carousel = ({img, category}) => {
-
-
   return (
     <>
        <div className="carousel-item cursor-pointer">
@@ -10,13 +9,13 @@ const Carousel = ({img, category}) => {
             <figure>
               <img
                 src={img}
-                alt="Shoes"
+                alt="books"
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title tracking-[.24em] font-light  font-serif">{category}</h2>
+              <h2 className="card-title tracking-[.24em] font-light  font-serif">{category} books</h2>
               <div className="card-actions justify-end">
-                <button className="btn bg-[#5c269d] text-white tracking-[0.4em] btn-primary">View More</button>
+                <Link to={`/category/${category}`} className="btn bg-[#5c269d] text-white tracking-[0.4em] btn-primary">View More</Link>
               </div>
             </div>
           </div>

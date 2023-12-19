@@ -13,7 +13,7 @@ const IsLoggedInAuth = ({ children }) => {
         icon: "😊",
       });
     }
-  }, [isLoggedIn, Navigate]);
+  }, [isLoggedIn]);
 
   if (!isLoggedIn) {
     // Redirect to login page

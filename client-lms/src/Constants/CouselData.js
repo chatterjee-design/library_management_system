@@ -6,27 +6,27 @@ import social from "../assets/social.jpg";
 
 const carouselData = [
     {
-        category : "Love and Romance",
+        category : "Romantic",
         img : romantic,
         id : 1
     },
     {
-        category : "Mystery and Suspense",
+        category : "Thriller",
         img : thriller,
         id : 2
     },
     {
-        category : "Social Books",
+        category : "Social",
         img : social,
         id : 3
     },
     {
-        category : "Historical Books",
+        category : "Historical",
         img : historical,
         id : 4
     },
     {
-        category : "Religious Books",
+        category : "Religious",
         img : religious,
         id : 5
     }

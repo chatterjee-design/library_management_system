@@ -23,6 +23,7 @@ import NotFoundPage from "./Pages/Error page/NotFoundPage";
 import AdminDashboard from "./Pages/Admin Page/AdminDashboard";
 import ContactUs from "./Pages/ContactUs";
 import About from "./Pages/About";
+import BooksByCategory from "./Pages/Library/BooksByCategory";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/library/books"
           element={<IsLoggedInAuth>{<GetAllBooks />}</IsLoggedInAuth>}
+        />
+        <Route
+          path="/category/:category"
+          element={<IsLoggedInAuth>{<BooksByCategory />}</IsLoggedInAuth>}
         />
         <Route
           path="/library/books/:_id"

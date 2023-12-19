@@ -1,42 +1,49 @@
-import React, { useEffect} from "react";
-import debounce from 'lodash/debounce';
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import debounce from "lodash/debounce";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
-import {  searchQuery } from "../Redux/Slices/library.slice";
+import { searchQuery } from "../Redux/Slices/library.slice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { cartItem } = useSelector((state) => state.cart);
+  const location = useLocation();
   const dispatch = useDispatch();
-  const { data, isLoggedIn, loading } = useSelector((state) => state.auth);
+  const { cartItem } = useSelector((state) => state.cart);
+  const { data, isLoggedIn, role } = useSelector((state) => state.auth);
+  const { query } = useSelector((state) => state.library);
 
-  const {  query } = useSelector((state) => state.library);
+  //is this location is bookPage for searchbox to be visible
+  const isBookPage = location.pathname === "/library/books";
 
+  // fetch the cartitem and get profile information
   const fetchData = async () => {
     if (isLoggedIn) {
       await dispatch(getProfile());
       await dispatch(getCartItem());
     }
   };
-  
+
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
+  // for searching queries that will be executed in debounce mode
   const debouncedDispatch = debounce((value) => {
     dispatch(searchQuery(value));
-  }, 300); 
+  }, 300);
 
+  //search queries
   const hndleSearchInput = async (e) => {
     const value = e.target.value;
     await debouncedDispatch(value);
   };
 
+  // logout functions
   const logOut = async (e) => {
     e.preventDefault();
     const response = await dispatch(logOutAccount());
@@ -63,10 +70,10 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                <Link to="/about-us">About</Link>
+                  <Link to="/about-us">About</Link>
                 </li>
                 <li>
-                  <Link to='/contact-us'>Contact</Link>
+                  <Link to="/contact-us">Contact</Link>
                 </li>
                 <li>
                   <a>Get Books</a>
@@ -85,28 +92,29 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          <div className="navbar-end  flex items-center">
-            <div className="form-control hidden sm:inline-flex">
-              <input
-                type="text"
-                placeholder="Search"
-                value={query}
-                onChange={hndleSearchInput}
-                className="input h-8 input-bordered w-24 md:w-auto"
-              />
-            </div>
+          <div className="navbar-end gap-2 flex items-center">
+            {isBookPage ? (
+              <div className="form-control hidden sm:inline-flex">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={query}
+                  onChange={hndleSearchInput}
+                  className="input h-8 input-bordered w-24 md:w-auto"
+                />
+              </div>
+            ) : null}
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle ">
                 <div className="w-10 rounded-full justify-center flex items-center">
-                   {isLoggedIn  ? (
-                     <img
-                     src={data?.avatar?.secure_url}
-                     alt="user"
-                     className=" rounded-full h-8 w-8"
-                   />
-                   ) : (
+                  {isLoggedIn ? (
+                    <img
+                      src={data?.avatar?.secure_url}
+                      alt="user"
+                      className=" rounded-full h-8 w-8"
+                    />
+                  ) : (
                     <FaRegUser className="h-5 w-5" />
-                   
                   )}
                 </div>
               </label>
@@ -120,7 +128,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to='/my-orders'>My Orders</Link>
+                  <Link to="/my-orders">My Orders</Link>
                 </li>
                 <li>
                   <button onClick={logOut}>Logout</button>
@@ -133,7 +141,7 @@ const Navbar = () => {
                 <div className="indicator">
                   <AiOutlineShoppingCart className="h-6 w-6" />
                   <span className="badge badge-sm indicator-item">
-                  {cartItem.length}
+                    {cartItem.length}
                   </span>
                 </div>
               </label>
@@ -143,7 +151,7 @@ const Navbar = () => {
               >
                 <div className="card-body">
                   <span className="font-bold text-lg">
-                   {cartItem.length} Items
+                    {cartItem.length} Items
                   </span>
                   <span className="text-info">Subtotal: $0</span>
                   <div className="card-actions">
@@ -159,8 +167,11 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
-        <section className="hidden sm:flex items-center justify-center mt-7  ">
-          <ul className="flex gap-8 tracking-[.25em] font-serif  ">
+        <section className="hidden sm:flex items-center justify-center mt-3">
+          <ul
+            tabIndex={0}
+            className="flex menu menu-horizontal m-0 gap-1 tracking-[.25em] font-serif  "
+          >
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to="/">Homepage</Link>
             </li>
@@ -170,9 +181,21 @@ const Navbar = () => {
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to="/about-us">About</Link>
             </li>
-            <li className="cursor-pointer hover:text-[#5c269d]">
-              <Link to="/library/">Admin</Link>
-            </li>
+            {isLoggedIn && role === "ADMIN" && (
+              <li>
+                <details className="dropdown cursor-pointer">
+                  <summary className="">Admin</summary>
+                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-64">
+                    <li>
+                      <Link to="/admin/library">Create Book Details</Link>
+                    </li>
+                    <li>
+                      <Link to="/admin">Admin Dashboard</Link>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            )}
             <li className="cursor-pointer hover:text-[#5c269d]">
               <Link to="/library/books"> Books</Link>
             </li>

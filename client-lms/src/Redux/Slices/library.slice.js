@@ -37,6 +37,18 @@ const getBookDetails = createAsyncThunk(
   }
 );
 
+const getBooksByCategory = createAsyncThunk(
+  '/library/books/category',
+  async (category) => {
+    try {
+      const response = await axiosInstance(`/library/category/${category}`);
+      return response.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 const createBookDetails = createAsyncThunk(
   "/library/books/create",
   async (data) => {
@@ -153,6 +165,12 @@ const librarySlice = createSlice({
         );
         state.loading = false;
       })
+      .addCase(getBooksByCategory.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.libraryData = [...action.payload.books];
+        }
+        state.loading = false;
+      })
       .addCase(createBookDetails.fulfilled, (state, action) => {
         state.loading = false;
       })
@@ -173,6 +191,9 @@ const librarySlice = createSlice({
      .addCase(createBookDetails.pending, (state, action) => {
       state.loading = true;
     })
+    .addCase(getBooksByCategory.pending, (state, action) => {
+      state.loading = true;
+    });
   },
 });
 
@@ -183,5 +204,6 @@ export {
   getBookDetails,
   updateBookDetails,
   deleteBookDetails,
+  getBooksByCategory
 };
 export const { addFavouriteItem, searchQuery } = librarySlice.actions;
