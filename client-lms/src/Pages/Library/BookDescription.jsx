@@ -21,6 +21,7 @@ const BookDescription = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useParams();
+  const { role,  isLoggedIn } = useSelector((state) => state.auth);
   const { bookDetails, loading } = useSelector((state) => state.library);
   const { isLoading } = useSelector((state) => state.cart);
   const [cartDetails, setCartDetails] = useState({
@@ -128,20 +129,24 @@ const BookDescription = () => {
                   >
                     Go to cart
                   </Link>
-                  <Link
-                    to={`/admin/library/update/${_id}`}
-                    data-tip="Edit"
-                    className="tooltip hover:text-gray-500 md:text-2xl  "
-                  >
-                    <FaRegEdit />
-                  </Link>
-                  <button
-                    data-tip="Delete"
-                    onClick={hndleDeleteBookDetails}
-                    className="tooltip hover:text-gray-500 md:text-2xl  "
-                  >
-                    <MdOutlineDelete />
-                  </button>
+                  {isLoggedIn && role === "ADMIN" && (
+                    <div>
+                      <Link
+                        to={`/admin/library/update/${_id}`}
+                        data-tip="Edit"
+                        className="tooltip hover:text-gray-500 md:text-2xl  "
+                      >
+                        <FaRegEdit />
+                      </Link>
+                      <button
+                        data-tip="Delete"
+                        onClick={hndleDeleteBookDetails}
+                        className="tooltip hover:text-gray-500 md:text-2xl  "
+                      >
+                        <MdOutlineDelete />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div
                   onClick={isFavourite}

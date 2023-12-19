@@ -70,7 +70,7 @@ const CartPage = () => {
                 </div>
                 <div>
                   <h2 className="text-xl pt-4 font-serif tracking-wider">
-                    Subtotal ({cartItem.length} items): $55
+                    Subtotal : {cartItem.length} item
                   </h2>
                 </div>
                 <Link

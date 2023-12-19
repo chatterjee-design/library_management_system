@@ -8,7 +8,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state)=> state.auth)
-  
+  console.log(loading)
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",

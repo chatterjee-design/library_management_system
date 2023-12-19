@@ -128,6 +128,7 @@ const librarySlice = createSlice({
         state.loading = false;
       })
       .addCase(updateBookDetails.fulfilled, (state, action) => {
+        state.loading = false;
         // Find the index of the updated book in favouriteItem
         const favouriteItemIndex = state.favouriteItem.findIndex(
           (item) => item._id === action?.payload?.data?._id
@@ -142,7 +143,6 @@ const librarySlice = createSlice({
             "favouriteItem",
             JSON.stringify(state.favouriteItem)
           );
-          state.loading = false;
         }
       })
       .addCase(deleteBookDetails.fulfilled, (state, action) => {

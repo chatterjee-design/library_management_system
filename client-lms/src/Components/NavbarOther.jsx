@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { FaRegUser } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -49,24 +50,24 @@ const NavbarOther = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Homepage</a>
+                <Link to='/'>Homepage</Link>
               </li>
               <li>
                 <Link>Books</Link>
               </li>
               <li>
-                <a>About</a>
+                <Link>About</Link>
               </li>
               <li>
                 {isLoggedIn && role === "ADMIN" && (
                   <details>
-                    <summary>Admin Dashboard</summary>
+                    <summary>Admin Pannel</summary>
                     <ul className="p-2 bg-base-100 rounded-t-none">
                       <li>
                         <Link to="/admin/library">Create Book Details</Link>
                       </li>
                       <li>
-                        <Link to="/admin/library/update">Update Books</Link>
+                        <Link to="/admin">Admin Dashboard</Link>
                       </li>
                     </ul>
                   </details>

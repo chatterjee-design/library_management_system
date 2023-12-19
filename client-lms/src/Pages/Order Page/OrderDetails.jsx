@@ -67,7 +67,7 @@ const OrderDetails = () => {
               return <OrderCard {...book} key={book._id} data={book} />;
             })}
           <div className=" self-end mr-8 text-lg font-sans tracking-widest">
-            <h3>Total({oneItem.length} items) : $55</h3>
+            <h3>Total : ({oneItem.length} item) </h3>
             {isReturned === true ? (
               <button className="btn btn-disabled bg-[#5c269d] my-2 text-white tracking-[0.3em] btn-primary">
                 Returned

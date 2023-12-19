@@ -117,24 +117,25 @@ const authSlice = createSlice({
     //fulfilled promise
         builder
         .addCase(logInAccount.fulfilled, (state, action) => {
+            state.loading = false;
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
             state.isLoggedIn = true
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
-            state.loading = false;
         })
         .addCase(createAccount.fulfilled, (state, action) => {
+            state.loading = false;
             localStorage.setItem('data', JSON.stringify(action?.payload?.user))
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
             state.isLoggedIn = true
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
-            state.loading = false;
         })
         .addCase(logOutAccount.fulfilled, (state) => {
+            state.loading = false
             localStorage.clear();
             state.data = {};
             state.isLoggedIn = false;
