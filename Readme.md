@@ -22,11 +22,11 @@ Make sure you have Node.js and npm installed on your machine.
 
 2. Navigate to the server directory:
 
-   cd library_management_system/server
+    cd library_management_system/server
 
 3. Install dependencies:
 
-   npm install
+    npm install
 
 ###    Create a `.env` file in the root of the server directory and set the necessary environment variables. You can use the `.env.example` file as a template.
 
@@ -45,7 +45,7 @@ Make sure you have Node.js and npm installed on your machine.
 
 Run the following command to start the server in development mode:
 
-   npm run dev
+    npm run dev
 
 The server will be running at [http://localhost:3001]
 
