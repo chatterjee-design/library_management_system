@@ -20,7 +20,6 @@ Make sure you have Node.js and npm installed on your machine.
 
    ```
 
-<<<<<<< HEAD
 **Navigate to the server directory**:
 
     cd library_management_system/server
@@ -28,15 +27,7 @@ Make sure you have Node.js and npm installed on your machine.
 **Install dependencies**:
 
     npm install
-=======
-Navigate to the server directory:
 
-     cd library_management_system/server
-
-Install dependencies:
-
-     npm install
->>>>>>> 6413b8269714332f250784379f945bd24aa924f6
 
 ###    Create a `.env` file in the root of the server directory and set the necessary environment variables. You can use the `.env.example` file as a template.
 
@@ -91,17 +82,6 @@ The server will be running at [http://localhost:3001]
 
 This is the frontend codebase for the Library Management System project. The Library Management System is a web application built to manage books, user accounts, and orders in a library setting.
 
-## Project Structure
-
-The project is organized into slices, each handling a specific functionality which connect server side code to the client side code. Key slices include:
-
-- **Auth Slice**: Manages user authentication and related actions.
-- **Cart Slice**: Handles shopping cart operations such as adding, removing, and fetching cart items.
-- **Contact Slice**: Manages contact form submissions.
-- **Library Slice**: Manages book-related actions, including fetching, creating, updating, and deleting books.
-- **Order Slice**: Deals with order-related actions, such as placing orders, retrieving orders, and handling returns.
-- **Stat Slice**: Provides statistics about the application, including the total number of users, books, orders, and more.
-
 ## Getting Started
 
 **Navigate to the client directory**:
@@ -117,6 +97,18 @@ The project is organized into slices, each handling a specific functionality whi
 Run the following command to start the server in development mode:
 
     npm run dev
+
+## Project Structure
+
+The project is organized into slices, each handling a specific functionality which connect server side code to the client side code. Key slices include:
+
+- **Auth Slice**: Manages user authentication and related actions.
+- **Cart Slice**: Handles shopping cart operations such as adding, removing, and fetching cart items.
+- **Contact Slice**: Manages contact form submissions.
+- **Library Slice**: Manages book-related actions, including fetching, creating, updating, and deleting books.
+- **Order Slice**: Deals with order-related actions, such as placing orders, retrieving orders, and handling returns.
+- **Stat Slice**: Provides statistics about the application, including the total number of users, books, orders, and more.
+
 
 ## Dependencies
 
