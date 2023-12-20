@@ -20,11 +20,11 @@ Make sure you have Node.js and npm installed on your machine.
 
    ```
 
-2. Navigate to the server directory:
+Navigate to the server directory:
 
      cd library_management_system/server
 
-3. Install dependencies:
+Install dependencies:
 
      npm install
 
