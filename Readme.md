@@ -20,6 +20,7 @@ Make sure you have Node.js and npm installed on your machine.
 
    ```
 
+<<<<<<< HEAD
 **Navigate to the server directory**:
 
     cd library_management_system/server
@@ -27,6 +28,15 @@ Make sure you have Node.js and npm installed on your machine.
 **Install dependencies**:
 
     npm install
+=======
+Navigate to the server directory:
+
+     cd library_management_system/server
+
+Install dependencies:
+
+     npm install
+>>>>>>> 6413b8269714332f250784379f945bd24aa924f6
 
 ###    Create a `.env` file in the root of the server directory and set the necessary environment variables. You can use the `.env.example` file as a template.
 
