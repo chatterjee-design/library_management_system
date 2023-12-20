@@ -15,6 +15,7 @@ const ContactUs = () => {
     message: "",
   });
 
+  //handle input changes
   const handleUserInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -24,6 +25,7 @@ const ContactUs = () => {
     });
   };
 
+  //fetch contact us data from contactslice
   const contactUs = async (e) => {
     e.preventDefault();
     if (!contactUsData.name || !contactUsData.email || !contactUsData.message) {
@@ -48,7 +50,7 @@ const ContactUs = () => {
 
   return (
     <LayoutOther>
-      <div className="flex min-h-[78.8vh]  items-center justify-center">
+      <div className="flex min-h-[78.8vh] mb-10 md:mb-1 items-center justify-center">
         <div className="card  w-[85vw] lg:card-side bg-base-200 shadow-sd2 hover:shadow-none ">
           <figure className="lg:w-[58%] w-full md:flex">
             <img src={contactImg} alt="Album" />

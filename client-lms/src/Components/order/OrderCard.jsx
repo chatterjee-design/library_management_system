@@ -8,10 +8,10 @@ const OrderCard = ({data}) => {
         <div className='md:w-[33%] w-[80%] justify-center flex '>
             <img className=' w-40' src={data?.thumbnail?.secure_url} alt="bookCover" />
         </div>
-        <div className='flex flex-col gap-1 w-[59%] md:my-0 my-5 md:self-start'>
+        <div className='flex flex-col gap-1 md:w-[59%] md:my-0 my-5 md:self-start'>
             
-            <h1 className='text-2xl font-mono tracking-[0.1em] font-extralight text-[#269d8b]'>{data?.bookName}</h1>
-            <h3 className=' text-lg font-mono tracking-[0.1em] font-extralight text-slate-400'>{data?.writer}</h3>
+            <h1 className='text-2xl text-center md:text-left font-mono tracking-[0.1em] font-extralight text-[#269d8b]'>{data?.bookName}</h1>
+            <h3 className=' text-lg font-mono md:text-left text-center tracking-[0.1em] font-extralight text-slate-400'>{data?.writer}</h3>
             <div className="flex gap-4 mt-3">
             <div className="flex flex-col gap-3 text-sm font-bold font-serif tracking-wider">
               <h3>Publisher</h3>

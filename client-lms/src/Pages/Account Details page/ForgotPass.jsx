@@ -12,6 +12,7 @@ const ForgotPass = () => {
     email: "",
   });
 
+  //hndleing the input fields changes
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
     setForgotPassData({
@@ -46,11 +47,11 @@ const ForgotPass = () => {
     <>
       <div className="flex items-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat">
         <div className=" backdrop-blur-sm h-screen w-screen flex items-center justify-center">
-          <div className="flex flex-col items-center justify-between py-5 min-h-fit h-[60%] bg-white w-[85%] md:w-2/5 animate-slide-in-left">
-            <h1 className="uppercase font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">
+          <div className="flex gap-3 flex-col items-center justify-between py-5 min-h-fit md:h-[60%] bg-white w-[85%] md:w-2/5 animate-slide-in-left">
+            <h1 className="uppercase text-center font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">
               Forgot password
             </h1>
-            <form onSubmit={hndleForgotpass} encType="application/json" className=" flex flex-col items-center justify-evenly w-[80%] h-[60%] ">
+            <form onSubmit={hndleForgotpass} encType="application/json" className=" flex gap-3 flex-col items-center justify-evenly w-[80%] h-[60%] ">
               <div className="flex flex-col w-[100%] justify-center gap-3">
                 <label className="font-mono tracking-[0.15em]" htmlFor="email">
                   Email:

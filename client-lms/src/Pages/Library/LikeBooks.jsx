@@ -17,7 +17,7 @@ const LikeBooks = () => {
             </div>
           ) : (
             <section className="flex min-h-[78.8vh] flex-col my-10 items-center justify-center gap-10">
-            <label className=" text-4xl text-[#269d8b] uppercase font-bold font-serif tracking-[0.2em]">
+            <label className=" text-4xl text-center text-[#269d8b] uppercase font-bold font-serif tracking-[0.2em]">
               Favourite Books
             </label>
             {isLoading ? (

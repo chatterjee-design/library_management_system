@@ -56,10 +56,13 @@ const NavbarOther = () => {
                 <Link to='/'>Homepage</Link>
               </li>
               <li>
-                <Link>Books</Link>
+                <Link to="/library/books">Books</Link>
               </li>
               <li>
-                <Link>About</Link>
+                <Link to="/about-us">About</Link>
+              </li>
+              <li>
+                <Link to="/contact-us">Contact</Link>
               </li>
               <li>
                 {isLoggedIn && role === "ADMIN" && (

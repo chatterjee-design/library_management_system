@@ -19,7 +19,7 @@ const PieCharts = () => {
     },
   ];
   return (
-    <div className=" flex md:w-[500px] h-[250px] w-screen flex-col items-center justify-center">
+    <div className=" flex mb-10 md:mb-0 md:w-[500px] h-[250px] w-screen flex-col items-center justify-center">
       <ResponsiveContainer>
       <PieChart >
         <Pie

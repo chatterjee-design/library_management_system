@@ -28,6 +28,7 @@ const BookDescription = () => {
     bookId: _id,
   });
 
+  //dispatch book details functions
   const hndleBookDetails = async () => {
     await dispatch(getBookDetails(_id));
   };
@@ -36,6 +37,7 @@ const BookDescription = () => {
     hndleBookDetails();
   }, []);
 
+  //fetch the addtocart function from the slice
   const addToCart = async (e) => {
     e.preventDefault();
 
@@ -57,12 +59,14 @@ const BookDescription = () => {
     }
   };
 
+  //if book is favourites add it to favorites
   const isFavourite = () => {
     setIsLiked(!isLiked);
     const bookDesc = bookDetails;
     dispatch(addFavouriteItem(bookDesc));
   };
 
+  //fetch the delete book details from library slice
   const hndleDeleteBookDetails = async (e) => {
     e.preventDefault();
     try {
@@ -80,13 +84,13 @@ const BookDescription = () => {
           <LoaderPage2 />
         ) : (
           <div className="hero  min-h-[78.7vh] flex-1 bg-base-100 ">
-            <div className="hero-content md:p-1 flex-col lg:flex-row-reverse items-center justify-between md:w-[80%]">
+            <div className="hero-content gap-12 md:gap-0 md:p-1 flex-col lg:flex-row-reverse items-center justify-between w-[90%] md:w-[80%]">
               <img
                 src={bookDetails?.thumbnail?.secure_url}
                 alt="bookCover"
                 className="h-96 w-72 cursor-pointer"
               />
-              <div className="flex flex-col min-w-[70%]">
+              <div className="flex w-full flex-col md:min-w-[70%]">
                 <h1 className="text-4xl text-[#269d8b]  font-thin font-serif tracking-[0.2em]">
                   {bookDetails?.bookName}
                 </h1>
@@ -115,7 +119,7 @@ const BookDescription = () => {
                     <h3>{bookDetails?.category}</h3>
                   </div>
                 </div>
-                <div className="flex gap-3 items-center">
+                <div className="flex flex-wrap gap-3 items-center">
                   <button
                     onClick={addToCart}
                     disabled={isLoading}
@@ -125,7 +129,7 @@ const BookDescription = () => {
                   </button>
                   <Link
                     to="/cart"
-                    className="btn border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary"
+                    className="btn hidden md:flex border-1 bg-transparent text-black border-[#5c269d] hover:bg-[#5c269d] hover:text-white tracking-[0.3em] btn-primary"
                   >
                     Go to cart
                   </Link>
@@ -150,7 +154,7 @@ const BookDescription = () => {
                 </div>
                 <div
                   onClick={isFavourite}
-                  className="self-end text-xl md:text-3xl md:mx-10 mr-2 cursor-pointer  relative bottom-10"
+                  className="self-end  md:flex text-xl md:text-3xl md:mx-10 mr-2 cursor-pointer  relative bottom-10"
                 >
                   {isLiked ? (
                     <FontAwesomeIcon

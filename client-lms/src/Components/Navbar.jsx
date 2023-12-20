@@ -55,7 +55,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="navbar top-0 min-h-fit left-0 bg-base-100 sm:h-[22vh] py-1 flex flex-col ">
+      <header className="navbar min-h-full bg-base-100  py-1 flex flex-col ">
         <nav className="w-[100%]">
           <div className="navbar-start">
             <div className="dropdown sm:hidden">
@@ -76,8 +76,23 @@ const Navbar = () => {
                   <Link to="/contact-us">Contact</Link>
                 </li>
                 <li>
-                  <a>Get Books</a>
+                <Link to="/library/books"> Books</Link>
                 </li>
+                <li>
+                {isLoggedIn && role === "ADMIN" && (
+                  <details>
+                    <summary>Admin Pannel</summary>
+                    <ul className="p-2 bg-base-100 rounded-t-none">
+                      <li>
+                        <Link to="/admin/library">Create Book Details</Link>
+                      </li>
+                      <li>
+                        <Link to="/admin">Admin Dashboard</Link>
+                      </li>
+                    </ul>
+                  </details>
+                )}
+              </li>
               </ul>
             </div>
           </div>
@@ -92,7 +107,7 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          <div className="navbar-end gap-2 flex items-center">
+          <div className="navbar-end md:gap-2 flex items-center">
             {isBookPage ? (
               <div className="form-control hidden sm:inline-flex">
                 <input
@@ -129,6 +144,9 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/my-orders">My Orders</Link>
+                </li>
+                <li>
+                  <Link to="/login">Log In</Link>
                 </li>
                 <li>
                   <button onClick={logOut}>Logout</button>
@@ -201,13 +219,17 @@ const Navbar = () => {
             </li>
           </ul>
         </section>
-        <div className="form-control md:hidden w-[80%] my-5 sm:inline-flex">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input h-8 input-bordered w-[70%] md:w-auto"
-          />
-        </div>
+        {isBookPage ? (
+              <div className="form-control md:hidden  w-[80%] my-5 sm:inline-flex">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={query}
+                  onChange={hndleSearchInput}
+                  className="input h-8 input-bordered w-[70%] md:w-auto"
+                />
+              </div>
+            ) : null}
       </header>
     </>
   );

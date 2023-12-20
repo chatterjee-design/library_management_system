@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import {
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    AreaChart,
-    Area,
-    ResponsiveContainer,
-  } from "recharts";
-
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+} from "recharts";
 
 const AreaCharts = () => {
-    const { ordersByMonth } = useSelector((state) => state.stat);
+  const { ordersByMonth } = useSelector((state) => state.stat);
 
-    const data = ordersByMonth.map(({ day, month, year, count }) => {
-      const date = new Date(year, month - 1, day);
-      const formattedDate = `${day} ${date.toLocaleString("en-us", {
-        month: "short",
-      })}`;
-      return {
-        name: formattedDate,
-        value: count,
-      };
-    });
+  //data for the chart from the statslice 
+  const data = ordersByMonth.map(({ day, month, year, count }) => {
+    const date = new Date(year, month - 1, day);
+    const formattedDate = `${day} ${date.toLocaleString("en-us", {
+      month: "short",
+    })}`;
+    return {
+      name: formattedDate,
+      orders: count,
+    };
+  });
 
   return (
-    <div  className=' flex flex-col w-screen md:w-[650px] h-[250px] justify-evenly items-center '>
-       <ResponsiveContainer>
-      <AreaChart
+    <div className="my-10 md:my-0 flex flex-col w-screen md:w-[650px] h-[250px] justify-evenly items-center ">
+      <ResponsiveContainer>
+        <AreaChart
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
@@ -48,16 +48,16 @@ const AreaCharts = () => {
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="value"
+            dataKey="orders"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"
-          />        
+          />
         </AreaChart>
-        </ResponsiveContainer>
-        <h1 className='font-mono tracking-widest'>Daily Total Orders</h1>
+      </ResponsiveContainer>
+      <h1 className="font-mono tracking-widest">Daily Total Orders</h1>
     </div>
-  )
-}
+  );
+};
 
-export default AreaCharts
+export default AreaCharts;

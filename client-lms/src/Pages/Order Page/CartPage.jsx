@@ -12,6 +12,7 @@ const CartPage = () => {
   const { cartItem, isLoading } = useSelector((state) => state.cart);
   const books = cartItem.map((cartItem) => cartItem?.bookId);
 
+  //fetch the cart items
   const getItem = () => {
     dispatch(getCartItem());
   };

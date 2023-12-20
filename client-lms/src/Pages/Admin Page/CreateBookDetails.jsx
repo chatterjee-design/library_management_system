@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createBookDetails } from "../../Redux/Slices/library.slice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,6 +21,7 @@ const CreateBookDetails = () => {
     thumbnail: "",
   });
 
+  //hndles the inputs change event
   const handleInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -29,6 +30,8 @@ const CreateBookDetails = () => {
       [name]: value,
     });
   };
+
+  //if input is file 
   const handleInputFile = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -41,6 +44,7 @@ const CreateBookDetails = () => {
     toast.success(file ? file.name : "");
   };
 
+  //fetch add book fundtion
   const addBook = async (e) => {
     e.preventDefault();
 
@@ -90,8 +94,8 @@ const CreateBookDetails = () => {
     <>
       <div className="flex sitems-center h-screen w-screen justify-center bg-login bg-cover bg-no-repeat  ">
         <div className=" backdrop-blur-sm h-screen w-screen flex items-center justify-center">
-          <div className="flex flex-col items-center justify-between py-5 min-h-fit h-[75%] bg-white w-[80%] md:w-[75%] animate-slide-in-left">
-            <h1 className="uppercase font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">
+          <div className="flex flex-col items-center justify-between py-5 min-h-fit h-[90%] md:h-[75%]  bg-white w-[80%] md:w-[75%] animate-slide-in-left">
+            <h1 className="uppercase text-center font-light tracking-[.35em] sm:text-3xl font-serif text-[#269d8b]">
               Create Book Details
             </h1>
             <form
@@ -100,9 +104,9 @@ const CreateBookDetails = () => {
               action="/submit-form"
               method="POST"
               onSubmit={addBook}
-              className=" flex flex-col items-center justify-evenly w-[85%] h-[100%] mt-5 "
+              className=" flex gap-5 md:gap-0 flex-col items-center justify-evenly w-[85%] h-[100%] mt-5 "
             >
-              <div className="flex w-full justify-betwwen items-center gap-5">
+              <div className="flex flex-wrap md:flex-nowrap w-full justify-betwwen items-center gap-5">
                 <div className="flex flex-col  w-[100%] justify-center items-start gap-1">
                   <label
                     className="font-mono tracking-[0.15em] text-xs font-bold"
@@ -141,7 +145,7 @@ const CreateBookDetails = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col  w-[100%] justify-center items-start gap-1">
+              <div className="flex flex-wrap md:flex-nowrap flex-col  w-[100%] justify-center items-start gap-1">
                 <label
                   className="font-mono tracking-[0.15em] text-xs font-bold"
                   htmlFor="description"
@@ -159,7 +163,7 @@ const CreateBookDetails = () => {
                   value={bookDetails.description}
                 />
               </div>
-              <div className="flex w-full justify-center items-center gap-5">
+              <div className="flex flex-wrap md:flex-nowrap w-full justify-center items-center gap-5">
                 <div className="flex flex-col w-[100%] justify-center items-start gap-1">
                   <label
                     className="font-mono tracking-[0.15em] text-xs font-bold"
@@ -216,7 +220,7 @@ const CreateBookDetails = () => {
                   />
                 </div>
               </div>
-              <div className="flex  w-[100%] justify-start items-center gap-3">
+              <div className="flex flex-wrap md:flex-nowrap w-[100%] justify-start items-center gap-3">
                 <label
                   className="font-mono tracking-[0.15em] w-fit cursor-pointer border-2 border-[#269d8b] px-2 hover:bg-[#269d8b] hover:text-white text-s rounded-sm"
                   htmlFor="fileInput"

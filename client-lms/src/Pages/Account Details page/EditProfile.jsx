@@ -18,6 +18,7 @@ const EditProfile = () => {
     avatar: "",
   });
 
+  //if input is a file
   function handleInputFile(event) {
     event.preventDefault();
     const file = event.target.files[0];
@@ -38,6 +39,7 @@ const EditProfile = () => {
     toast.success(file ? file.name : "");
   }
 
+  //hndle changes in the input field
   const handleInputChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -47,6 +49,7 @@ const EditProfile = () => {
     });
   };
 
+  //fetch the edite profile details from auth slice
   const hndleEditProfile = async (e) => {
     e.preventDefault();
 
@@ -77,22 +80,22 @@ const EditProfile = () => {
 
   return (
     <LayoutOther>
-      <div className=" w-[100%] flex bg-login bg-cover bg-no-repeat flex-col md:h-[78.8vh] justify-center items-center opacity-0 animate-fade-in-left ">
-        <div className="flex w-[100%] backdrop-blur-sm backdrop-brightness-50 flex-col md:h-[78.8vh] justify-center items-center">
-          <div className="px-16 pb-10 flex items-center justify-center w-[45%]">
+      <div className=" w-[100%]  flex bg-login bg-cover bg-no-repeat flex-col h-[78.8vh] justify-center items-center opacity-0 animate-fade-in-left ">
+        <div className="flex w-[100%] backdrop-blur-sm backdrop-brightness-50 flex-col h-[78.8vh] justify-center items-center">
+          <div className="px-16 pb-10 flex items-center justify-center w-[95%] lg:w-[45%]">
             <div className="p-8 bg-white shadow md:mt-15 mt-20 w-[100%]">
               <div className="grid grid-cols-1">
                 <div className="relative">
                   <label htmlFor="fileInput" className="cursor-pointer">
                     {selectedFileName ? (
-                      <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+                      <div className="md:w-48 md:h-48 w-40 h-40 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
                         <img
-                          className="w-48 h-48 rounded-full m-auto"
+                          className="md:w-48 md:h-48 w-40 h-40 rounded-full m-auto"
                           src={selectedFileName}
                         />
                       </div>
                     ) : (
-                      <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+                      <div className="md:w-48 md:h-48 w-40 h-40 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-24 w-24"

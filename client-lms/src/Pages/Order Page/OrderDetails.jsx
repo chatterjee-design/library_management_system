@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import OrderCard from "../../Components/order/OrderCard";
 import toast from "react-hot-toast";
 import LoaderPage2 from "../Loader/Loader2";
-import { FaRegCircleCheck } from "react-icons/fa6";
 
 const OrderDetails = () => {
   const { _id } = useParams();
@@ -14,10 +13,12 @@ const OrderDetails = () => {
   const { oneItem, isReturned, loading, orderDate, isRetuneDateExceeded } =
     useSelector((state) => state.order);
 
+  //dispatch get Order function here
   const hndleOrderDetails = async () => {
     await dispatch(getOneOrder(_id));
   };
 
+  //fetch return order details
   const hndleRetunOrder = async (e) => {
     e.preventDefault();
     try {
@@ -31,6 +32,7 @@ const OrderDetails = () => {
     }
   };
 
+  //rerender the page when id is updated
   useEffect(() => {
     hndleOrderDetails();
   }, [_id]);
@@ -72,7 +74,7 @@ const OrderDetails = () => {
       {loading ? (
         <LoaderPage2 />
       ) : (
-        <div className=" min-h-fit mt-5 mb-3 w-[100%] flex  flex-col justify-center items-center">
+        <div className=" min-h-[68.8vh] mt-5 md:mb-3 mb-5 w-[100%] flex  flex-col justify-center items-center">
           {books &&
             books.map((book) => {
               return <OrderCard {...book} key={book._id} data={book} />;
