@@ -48,7 +48,7 @@ Run the following command to start the server in development mode:
 
     npm run dev
 
-The server will be running at [http://localhost:3001]
+The server will be running at http://localhost:3001
 
 
 ###    Project Structure
