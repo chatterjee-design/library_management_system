@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: library-management-system
+    buildCommand: npm install
+    startCommand: node server/server.js
