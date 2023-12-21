@@ -122,6 +122,7 @@ const authSlice = createSlice({
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
             state.isLoggedIn = true
+            console.log(state.isLoggedIn)
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
         })
@@ -131,6 +132,7 @@ const authSlice = createSlice({
             localStorage.setItem('isLoggedIn', true)
             localStorage.setItem('role', (action?.payload?.user?.role))
             state.isLoggedIn = true
+            console.log(state.isLoggedIn)
             state.data = action?.payload?.user
             state.role = action?.payload?.user?.role
         })

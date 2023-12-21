@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:4000/api/'
+const BASE_URL = 'https://readsphere-43ul.onrender.com/api/'
 
 const axiosInstance = axios.create()
 
