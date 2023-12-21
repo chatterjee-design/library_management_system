@@ -1,6 +1,6 @@
 services:
   - type: web
     name: library-management-system
-    buildCommand: npm 
-    startCommand: node server/server.js
+    buildCommand: yarn
+    startCommand: yarn start
     sourcePath: /library_management_system/server
