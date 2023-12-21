@@ -12,6 +12,7 @@ const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
   httpOnly: true,
 };
+const FRONTEND_URL = process.env.FRONTEND_URL
 
 const register = async (req, res, next) => {
   try {
@@ -197,8 +198,7 @@ const forgotPassword = async (req, res, next) => {
     await user.save();
 
     //generating the rest password url
-    const resetPassowordUrl =
-      await `${req.protocol}://${req.hostname}:5173/reset-password/${resetToken}`; //req.protocol = 'http or https'
+    const resetPassowordUrl = await `${FRONTEND_URL}/reset-password/${resetToken}`; 
 
     //defining the subject and message fields for the mail
     const subject = "reset password";
