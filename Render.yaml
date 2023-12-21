@@ -2,5 +2,5 @@ services:
   - type: web
     name: library-management-system
     buildCommand: npm 
-    startCommand: npm start
+    startCommand: node server/server.js
     sourcePath: /library_management_system/server
