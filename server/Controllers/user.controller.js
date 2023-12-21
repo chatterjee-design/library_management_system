@@ -11,9 +11,8 @@ import fs from "fs/promises"
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
   httpOnly: true,
-  secure: false, 
-  domain: 'localhost',
   sameSite: 'None', // Required for cross-origin cookies
+  secure: true, 
 };
 const FRONTEND_URL = process.env.FRONTEND_URL
 
