@@ -3,3 +3,4 @@ services:
     name: library-management-system
     buildCommand: npm install
     startCommand: node server/server.js
+    sourcePath: /library_management_system/server
