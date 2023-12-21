@@ -32,8 +32,11 @@ cloudinary.config({
 //define cors 
 app.use(cors({ 
   origin:  process.env.FRONTEND_URL, 
-  credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204, // Added to handle preflight OPTIONS requests
+  preflightContinue: false, // Added to handle preflight OPTIONS requests
+  allowedHeaders: ["Content-Type", "Authorization"], // Adjust allowed headers based on your needs
 }));
 
 
