@@ -70,10 +70,6 @@ const getAllOrders = async (req, res, next) => {
     // Retrieve all orders from the database
     const orders = await Order.find({ userId });
 
-    if (!orders || orders.length === 0) {
-      return next(new AppError("order length is 0", 400));
-    }
-
     await Order.populate(orders, {
       path: "items.bookId",
       model: "library",
