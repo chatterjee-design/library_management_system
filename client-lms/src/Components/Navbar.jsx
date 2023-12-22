@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
 import { searchQuery } from "../Redux/Slices/library.slice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
+import { getAllOrders } from "../Redux/Slices/orderSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Navbar = () => {
   const { cartItem } = useSelector((state) => state.cart);
   const { data, isLoggedIn, role } = useSelector((state) => state.auth);
   const { query } = useSelector((state) => state.library);
+  const { orderItems } = useSelector((state) => state.order);
 
   //is this location is bookPage for searchbox to be visible
   const isBookPage = location.pathname === "/library/books";
@@ -24,7 +26,12 @@ const Navbar = () => {
   const fetchData = async () => {
     if (isLoggedIn) {
       await dispatch(getProfile());
-      await dispatch(getCartItem());
+      if (orderItems) {
+        await dispatch(getAllOrders())
+      }
+      if (cartItem.length > 0) {
+        await dispatch(getCartItem());
+      }
     }
   };
 
@@ -76,23 +83,23 @@ const Navbar = () => {
                   <Link to="/contact-us">Contact</Link>
                 </li>
                 <li>
-                <Link to="/library/books"> Books</Link>
+                  <Link to="/library/books"> Books</Link>
                 </li>
                 <li>
-                {isLoggedIn && role === "ADMIN" && (
-                  <details>
-                    <summary>Admin Pannel</summary>
-                    <ul className="p-2 bg-base-100 rounded-t-none">
-                      <li>
-                        <Link to="/admin/library">Create Book Details</Link>
-                      </li>
-                      <li>
-                        <Link to="/admin">Admin Dashboard</Link>
-                      </li>
-                    </ul>
-                  </details>
-                )}
-              </li>
+                  {isLoggedIn && role === "ADMIN" && (
+                    <details>
+                      <summary>Admin Pannel</summary>
+                      <ul className="p-2 bg-base-100 rounded-t-none">
+                        <li>
+                          <Link to="/admin/library">Create Book Details</Link>
+                        </li>
+                        <li>
+                          <Link to="/admin">Admin Dashboard</Link>
+                        </li>
+                      </ul>
+                    </details>
+                  )}
+                </li>
               </ul>
             </div>
           </div>
@@ -143,7 +150,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/my-orders">My Orders</Link>
+                  {orderItems.length === 0 ? <a className="hidden">My Orders</a>: <Link to="/my-orders">My Orders</Link>}
                 </li>
                 <li>
                   <Link to="/login">Log In</Link>
@@ -220,16 +227,16 @@ const Navbar = () => {
           </ul>
         </section>
         {isBookPage ? (
-              <div className="form-control md:hidden  w-[80%] my-5 sm:inline-flex">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={query}
-                  onChange={hndleSearchInput}
-                  className="input h-8 input-bordered w-[70%] md:w-auto"
-                />
-              </div>
-            ) : null}
+          <div className="form-control md:hidden  w-[80%] my-5 sm:inline-flex">
+            <input
+              type="text"
+              placeholder="Search"
+              value={query}
+              onChange={hndleSearchInput}
+              className="input h-8 input-bordered w-[70%] md:w-auto"
+            />
+          </div>
+        ) : null}
       </header>
     </>
   );

@@ -8,24 +8,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
+import { getAllOrders } from "../Redux/Slices/orderSlice";
 
 const NavbarOther = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItem } = useSelector((state) => state.cart);
   const { role, data, isLoggedIn } = useSelector((state) => state.auth);
+  const { orderItems } = useSelector((state) => state.order);
 
   //for cartitem and profile pic on navbar
   const fetchData = async () => {
     if (isLoggedIn) {
       await dispatch(getProfile());
-      await dispatch(getCartItem());
+      if (orderItems) {
+         dispatch(getAllOrders())
+      }
+      if (cartItem.length > 0) {
+        await dispatch(getCartItem());
+      }
     }
   };
-
+  console.log(orderItems)
   //fetch the data on 1st rendering
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
   //logout function
@@ -53,7 +60,7 @@ const NavbarOther = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link to='/'>Homepage</Link>
+                <Link to="/">Homepage</Link>
               </li>
               <li>
                 <Link to="/library/books">Books</Link>
@@ -115,11 +122,14 @@ const NavbarOther = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/my-orders">My Orders</Link>
-              </li>
-              <li>
-                <a onClick={logOut}>Logout</a>
-              </li>
+                    {orderItems.length === 0 ? <a className="hidden">My Orders</a>: <Link to="/my-orders">My Orders</Link>}
+                </li>
+                <li>
+                  <Link to="/login">Log In</Link>
+                </li>
+                <li>
+                  <button onClick={logOut}>Logout</button>
+                </li>
             </ul>
           </div>
 

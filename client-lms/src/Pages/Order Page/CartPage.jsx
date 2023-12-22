@@ -13,8 +13,10 @@ const CartPage = () => {
   const books = cartItem.map((cartItem) => cartItem?.bookId);
 
   //fetch the cart items
-  const getItem = () => {
-    dispatch(getCartItem());
+  const getItem =async () => {
+    if (cartItem.length > 0) {
+      await dispatch(getCartItem());
+    }
   };
 
   useEffect(() => {
