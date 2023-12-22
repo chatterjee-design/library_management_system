@@ -204,7 +204,7 @@ const forgotPassword = async (req, res, next) => {
 
     //defining the subject and message fields for the mail
     const subject = "reset password";
-    const message = `You can reset your password by clicking here: <a href="${resetPassowordUrl}" target="_blank">Reset your password</a>`;
+    const message = `You can reset your password by clicking here: <a href="${resetPassowordUrl}" target="_self">Reset your password</a>`;
     
     //send the url to the mail
     await sendEmail(subject, message, email);
