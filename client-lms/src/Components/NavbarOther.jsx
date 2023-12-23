@@ -9,6 +9,7 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
 import { getAllOrders } from "../Redux/Slices/orderSlice";
+import toast from "react-hot-toast";
 
 const NavbarOther = () => {
   const dispatch = useDispatch();
@@ -24,16 +25,16 @@ const NavbarOther = () => {
       if (orderItems) {
          dispatch(getAllOrders())
       }
-      if (cartItem.length > 0) {
+      if ( cartItem) {
         await dispatch(getCartItem());
       }
     }
   };
-  console.log(orderItems)
+
   //fetch the data on 1st rendering
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   //logout function
   const logOut = async (e) => {

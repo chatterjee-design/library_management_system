@@ -31,7 +31,7 @@ const Cart = ({ data }) => {
             alt="bookCover"
           />
         </div>
-        <div className="flex flex-col gap-1 w-[59%] md:my-0 my-5 md:self-start">
+        <div className="flex flex-col gap-1 md:w-[59%] w-[80%] md:my-0 my-5 md:self-start">
           <h1 className="text-2xl font-mono tracking-[0.1em] font-extralight text-[#269d8b]">
             {data?.bookName}
           </h1>

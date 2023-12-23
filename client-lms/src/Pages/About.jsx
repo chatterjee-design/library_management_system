@@ -32,8 +32,8 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="card card-compact w-[80%] bg-base-100 p-10 shadow-sd2 min-h-[24rem] my-16 flex items-center justify-center mx-auto  opacity-0 animate-fade-in-left">
-          <div className="card-body flex flex-col gap-10 items-center justify-center ">
+        <div className="card card-compact w-[80%] bg-base-100 md:p-10 p-0 py-10 shadow-sd2 min-h-[24rem] my-16 flex items-center justify-center mx-auto  opacity-0 animate-fade-in-left">
+          <div className="card-body  flex flex-col gap-10 items-center justify-center ">
             <h2 className="card-title text-center tracking-[.24em] text-3xl text-[#269d8b] font-light font-serif">
               What Sets Us Apart?
             </h2>
@@ -81,7 +81,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="card card-compact w-[80%] bg-base-100 p-10 shadow-sd2 min-h-[24rem] my-16 flex items-center justify-center mx-auto  opacity-0 animate-fade-in-left">
+        <div className="card card-compact w-[80%] bg-base-100 md:p-10 p-0  py-10 shadow-sd2 min-h-[24rem] my-16 flex items-center justify-center mx-auto  opacity-0 animate-fade-in-left">
           <div className="card-body flex flex-col gap-10 items-center justify-center ">
             <h2 className="card-title text-center tracking-[.24em] text-3xl text-[#269d8b] font-light font-serif">
               Our Commitment to You

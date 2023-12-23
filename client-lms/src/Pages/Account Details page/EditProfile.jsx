@@ -82,7 +82,7 @@ const EditProfile = () => {
     <LayoutOther>
       <div className=" w-[100%]  flex bg-login bg-cover bg-no-repeat flex-col h-[78.8vh] justify-center items-center opacity-0 animate-fade-in-left ">
         <div className="flex w-[100%] backdrop-blur-sm backdrop-brightness-50 flex-col h-[78.8vh] justify-center items-center">
-          <div className="px-16 pb-10 flex items-center justify-center w-[95%] lg:w-[45%]">
+          <div className="md:px-16 px-5 pb-10 flex items-center justify-center w-[95%] lg:w-[45%]">
             <div className="p-8 bg-white shadow md:mt-15 mt-20 w-[100%]">
               <div className="grid grid-cols-1">
                 <div className="relative">

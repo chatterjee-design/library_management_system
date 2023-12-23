@@ -14,7 +14,7 @@ const CartPage = () => {
 
   //fetch the cart items
   const getItem =async () => {
-    if (cartItem.length > 0) {
+    if (cartItem && cartItem.length > 0) {
       await dispatch(getCartItem());
     }
   };
@@ -25,7 +25,7 @@ const CartPage = () => {
 
   return (
     <LayoutOther>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center sticky z-0 justify-center">
         <ul className="steps">
           <Link to="/cart" className="step step-neutral">
             Books Added

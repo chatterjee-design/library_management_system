@@ -9,6 +9,7 @@ import { getProfile, logOutAccount } from "../Redux/Slices/authSlice";
 import { searchQuery } from "../Redux/Slices/library.slice";
 import { getCartItem } from "../Redux/Slices/cartSlice";
 import { getAllOrders } from "../Redux/Slices/orderSlice";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Navbar = () => {
       if (orderItems) {
         await dispatch(getAllOrders())
       }
-      if (cartItem.length > 0) {
+      if (cartItem ) {
         await dispatch(getCartItem());
       }
     }
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   // for searching queries that will be executed in debounce mode
   const debouncedDispatch = debounce((value) => {
@@ -62,7 +63,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="navbar min-h-full bg-base-100  py-1 flex flex-col ">
+      <header className="navbar min-h-full m-1 md:m-0 z-50 bg-base-100  py-1 flex flex-col ">
         <nav className="w-[100%]">
           <div className="navbar-start">
             <div className="dropdown sm:hidden">

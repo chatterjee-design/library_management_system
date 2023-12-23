@@ -32,7 +32,7 @@ const CheckOut = () => {
 
   return (
     <LayoutOther>
-      <div className="flex items-center justify-center">
+      <div className="flex sticky z-0 items-center justify-center">
         <ul className="steps">
           <Link to='/cart'  className="step step-neutral">Books Added</Link>
           <Link to='/order/checkout' className="step step-neutral">Checkout</Link>

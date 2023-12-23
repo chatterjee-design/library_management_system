@@ -10,7 +10,7 @@ const OurMission = () => {
             <img src={ourMissionImg} alt="Album" />
           </figure>
           <div className="card-body py-4 lg:w-[42%] flex-col flex items-center justify-center">
-            <h2 className="card-title tracking-[.24em] text-3xl text-[#269d8b] font-light font-serif">
+            <h2 className="card-title tracking-[.24em] text-3xl text-center text-[#269d8b] font-light font-serif">
               Our mission
             </h2>
             <div>

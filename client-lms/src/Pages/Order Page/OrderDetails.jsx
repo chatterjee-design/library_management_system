@@ -50,7 +50,7 @@ const OrderDetails = () => {
 
   return (
     <LayoutOther>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center sticky z-0 justify-center">
         <ul className="steps">
           <Link to="/cart" className="step step-neutral">
             Books Added

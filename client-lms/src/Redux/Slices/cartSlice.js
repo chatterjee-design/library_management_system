@@ -74,10 +74,6 @@ const cartSlice = createSlice({
       .addCase(addCartItem.pending, (state, action) => {
         state.isLoading = true;
       })
-      .addCase(getCartItem.pending, (state, action) => {
-        state.isLoading = true;
-      })
-      
     }
 })
 
